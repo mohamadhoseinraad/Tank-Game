@@ -53,9 +53,9 @@
     <!--   <property name="headerFile" value="${checkstyle.header.file}"/> -->
     <!--   <property name="fileExtensions" value="java"/> -->
     <!-- </module> -->
-    <module name="LineLength">
+    <!-- <module name="LineLength">
         <property name="max" value="120"/>
-    </module>
+    </module> -->
 
     <module name="TreeWalker">
         <property name="tabWidth" value="4"/>
@@ -65,22 +65,22 @@
         <module name="NeedBraces"/>
         <module name="RightCurly"/>
 
-        <module name="MethodLength">
+        <!-- <module name="MethodLength">
             <property name="tokens" value="METHOD_DEF"/>
             <property name="max" value="60"/>
-        </module>
+        </module> -->
 
-        <module name="MethodLength"/>
-        <module name="ParameterNumber">
+        <!-- <module name="MethodLength"/> -->
+        <!-- <module name="ParameterNumber">
             <property name="max" value="7"/>
             <property name="tokens" value="METHOD_DEF"/>
-        </module>
+        </module> -->
 
-        <module name="AvoidNestedBlocks"/>
+        <!-- <module name="AvoidNestedBlocks"/> -->
         <module name="ArrayTypeStyle"/>
-        <module name="VisibilityModifier"/>
+        <!-- <module name="VisibilityModifier"/> -->
 
-        <module name="OneStatementPerLine"/>
+        <!-- <module name="OneStatementPerLine"/> -->
         <module name="MissingSwitchDefault"/>
     </module>
 
