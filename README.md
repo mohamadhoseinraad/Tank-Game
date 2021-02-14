@@ -1,33 +1,30 @@
 
-# hw3-Fariborz-in-Quarantine
-[hw3 Fariborz in Quarantine Documentaiton](https://docs.google.com/document/d/1ZPubRSGbcgG5qcjh7BWdggY4jjAvauMACQnnyNc7xIw)
-
+# hw-Title
+[Documentation](TODO_LINK_TO_DOC)
 
 <ul>
 <li>
 clone in your computer: 
 
-<code> 
+```
 mvn clean test 
 git clone your_repo_url
 cd your_repo_dir
-</code>
-
-
-
-
+```
 </li>
+run tests from terminal:
+
+```
+mvn clean test
+```
 
 <li>
-run tests from terminal:  
-   <code> mvn clean test </code>
-</li>
+push changes to the repository:
 
-<li>
-push your change to the repository: 
-<code>
-    git add . 
-    git commit -m "commit message"
-    git push
-</code>
+```
+git add . 
+git commit -m "commit message"
+git push
+```
 </li>
+</ul>
