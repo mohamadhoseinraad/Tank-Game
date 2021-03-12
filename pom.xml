@@ -36,7 +36,7 @@
         <dependency>
             <groupId>net.sourceforge.pmd</groupId>
             <artifactId>pmd-core</artifactId>
-            <version>6.31.0</version>
+            <version>6.32.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>

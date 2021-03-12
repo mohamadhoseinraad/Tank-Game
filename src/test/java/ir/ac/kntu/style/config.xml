@@ -34,7 +34,7 @@
     <!--
         If you set the basedir property below, then all reported file
         names will be relative to the specified directory. See
-        http://checkstyle.sourceforge.net/5.x/config.html#Checker
+        http://checkstyle.sourceforge.net/config.html#Checker
 
         <property name="basedir" value="${basedir}"/>
     -->
@@ -65,16 +65,22 @@
         <module name="NeedBraces"/>
         <module name="RightCurly"/>
 
-        <!-- <module name="MethodLength">
+        <module name="MethodLength">
             <property name="tokens" value="METHOD_DEF"/>
-            <property name="max" value="60"/>
-        </module> -->
+            <property name="max" value="30"/>
+        </module>
+
+        <module name="StringLiteralEquality"/>
+
+        <module name="EmptyLineSeparator"/>
+        <module name="MethodParamPad"/>
+        <module name="NoWhitespaceBefore"/>
 
         <!-- <module name="MethodLength"/> -->
-        <!-- <module name="ParameterNumber">
-            <property name="max" value="7"/>
-            <property name="tokens" value="METHOD_DEF"/>
-        </module> -->
+        <!-- <module name="ParameterNumber"> -->
+            <!-- <property name="max" value="7"/> -->
+            <!-- <property name="tokens" value="METHOD_DEF"/> -->
+        <!-- </module> -->
 
         <!-- <module name="AvoidNestedBlocks"/> -->
         <module name="ArrayTypeStyle"/>
