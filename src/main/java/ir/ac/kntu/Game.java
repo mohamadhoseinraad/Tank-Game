@@ -29,6 +29,8 @@ public class Game extends Application {
 
     public static GameStatus gameStatus = GameStatus.Stop;
 
+    private static Tank player = new Tank(TankType.Player, TankSide.Player, 250, 475);
+
     private int score = 0;
 
     public Pane pane = new Pane();
@@ -38,9 +40,8 @@ public class Game extends Application {
     public void start(Stage stage) {
         pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
         //StartMenu.start(pane);
-        makeGameScene();
-        makeEndGame();
         conformStage(stage);
+        EventHandler.getInstance().attachEventHandlers(scene);
         stage.show();
         new AnimationTimer() {
             private long lastUpdate = 0;
@@ -51,9 +52,13 @@ public class Game extends Application {
                 }
                 if (currentNanoTime - lastUpdate >= 1_000_000_000) {
                     pane.getChildren().clear();
-                    makeGameScene();
-                    for (SceneObject sceneObject : sceneObjects) {
-                        pane.getChildren().add(sceneObject.getNode());
+                    if (!player.isDead()) {
+                        makeGameScene();
+                        for (SceneObject sceneObject : sceneObjects) {
+                            pane.getChildren().add(sceneObject.getNode());
+                        }
+                    } else {
+                        makeEndGame();
                     }
 
                     lastUpdate = currentNanoTime;
@@ -95,7 +100,6 @@ public class Game extends Application {
         currentScore.setY(WINDOWS_HEIGHT - 100);
         pane.getChildren().add(currentScore);
         pane.getChildren().add(scoreTitle);
-        Tank player = new Tank(TankType.Player, TankSide.Player, 250, 475);
     }
 
     private void makeEndGame() {
@@ -107,4 +111,13 @@ public class Game extends Application {
         pane.getChildren().add(gameOver);
         gameStatus = GameStatus.Stop;
     }
+
+    public static Tank getPlayer() {
+        return player;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
 }

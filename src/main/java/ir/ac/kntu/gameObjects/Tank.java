@@ -66,7 +66,19 @@ public class Tank implements SceneObject {
         Game.sceneObjects.add(this);
     }
 
-    public void move() {
+    public void move(int speed, Direction direction) {
+        if (direction == Direction.Up) {
+            y -= speed;
+        }
+        if (direction == Direction.Down) {
+            y += speed;
+        }
+        if (direction == Direction.Right) {
+            x += speed;
+        }
+        if (direction == Direction.Left) {
+            x -= speed;
+        }
 
     }
 
