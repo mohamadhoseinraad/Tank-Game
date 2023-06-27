@@ -1,5 +1,8 @@
 package ir.ac.kntu;
 
+import ir.ac.kntu.gameObjects.Tank;
+import ir.ac.kntu.gameObjects.TankSide;
+import ir.ac.kntu.gameObjects.TankType;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.*;
@@ -43,7 +46,15 @@ public class Game extends Application {
             private long lastUpdate = 0;
 
             public void handle(long currentNanoTime) {
+                for (SceneObject sceneObject : sceneObjects) {
+                    sceneObject.update();
+                }
                 if (currentNanoTime - lastUpdate >= 1_000_000_000) {
+                    pane.getChildren().clear();
+                    makeGameScene();
+                    for (SceneObject sceneObject : sceneObjects) {
+                        pane.getChildren().add(sceneObject.getNode());
+                    }
 
                     lastUpdate = currentNanoTime;
                 }
@@ -84,6 +95,7 @@ public class Game extends Application {
         currentScore.setY(WINDOWS_HEIGHT - 100);
         pane.getChildren().add(currentScore);
         pane.getChildren().add(scoreTitle);
+        Tank player = new Tank(TankType.Player, TankSide.Player, 250, 475);
     }
 
     private void makeEndGame() {
