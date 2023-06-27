@@ -52,7 +52,7 @@ public class StartMenu {
     private static void makeScene() {
         start.setLayoutX(WINDOWS_WIDTH / 2 - 50);
         start.setLayoutY(WINDOWS_HEIGHT / 3 - 25);
-        start.setTextFill(Color.WHITE);
+        start.setTextFill(Color.BLACK);
         start.setPrefSize(100, 50);
     }
 }

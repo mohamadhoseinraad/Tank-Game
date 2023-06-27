@@ -8,6 +8,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -23,12 +24,14 @@ public class Game extends Application {
 
     public static GameStatus gameStatus = GameStatus.Stop;
 
+    public Pane pane = new Pane();
+
+    public Scene scene = new Scene(pane);
+
     public void start(Stage stage) {
-        Pane pane = new Pane();
-        Scene scene = new Scene(pane);
-        pane.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
-        StartMenu.start(pane);
-        stage.setScene(scene);
+        pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+        //StartMenu.start(pane);
+        makeScene();
         conformStage(stage);
         stage.show();
         new AnimationTimer() {
@@ -36,16 +39,7 @@ public class Game extends Application {
 
             public void handle(long currentNanoTime) {
                 if (currentNanoTime - lastUpdate >= 1_000_000_000) {
-                    if (gameStatus == GameStatus.Start) {
-                        gameStatus = GameStatus.Stop;
-                        pane.getChildren().clear();
-                        Button start = new Button("Stop");
-                        start.setLayoutX(WINDOWS_WIDTH / 2 - 50);
-                        start.setLayoutY(WINDOWS_HEIGHT / 3 - 25);
-                        start.setTextFill(Color.WHITE);
-                        start.setPrefSize(100, 50);
-                        pane.getChildren().add(start);
-                    }
+
                     lastUpdate = currentNanoTime;
                 }
             }
@@ -58,6 +52,7 @@ public class Game extends Application {
     }
 
     private void conformStage(Stage stage) {
+        stage.setScene(scene);
         stage.setTitle("Tank Game");
         stage.setHeight(WINDOWS_HEIGHT);
         stage.setWidth(WINDOWS_WIDTH);
@@ -65,5 +60,14 @@ public class Game extends Application {
         stage.setMaxWidth(WINDOWS_WIDTH);
         stage.setMinHeight(WINDOWS_HEIGHT);
         stage.setMinWidth(WINDOWS_WIDTH);
+    }
+
+    private void makeScene() {
+        Rectangle square = new Rectangle(500, 500);
+        square.setFill(Color.BLACK);
+        square.setStroke(Color.WHITE);
+        pane.getChildren().add(square);
+        square.setX(50);
+        square.setY(25);
     }
 }
