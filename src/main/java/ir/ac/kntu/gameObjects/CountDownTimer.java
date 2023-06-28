@@ -1,7 +1,9 @@
-package ir.ac.kntu;
+package ir.ac.kntu.gameObjects;
 
+import ir.ac.kntu.Game;
+import ir.ac.kntu.GameStatus;
+import ir.ac.kntu.gameObjects.SceneObject;
 import javafx.scene.Node;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;

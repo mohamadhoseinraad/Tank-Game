@@ -1,4 +1,4 @@
-package ir.ac.kntu;
+package ir.ac.kntu.eventHandler;
 
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;

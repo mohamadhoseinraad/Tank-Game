@@ -1,14 +1,10 @@
-package ir.ac.kntu.gameObjects;
+package ir.ac.kntu.gameObjects.tank;
 
 import ir.ac.kntu.Game;
-import ir.ac.kntu.GlobalConstance;
-import ir.ac.kntu.SceneObject;
+import ir.ac.kntu.gameObjects.*;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Random;
 
 import static ir.ac.kntu.GlobalConstance.scale;
@@ -31,7 +27,7 @@ public class Tank implements SceneObject {
 
 
     public Tank(TankType tankType, TankSide tankSide, int x, int y) {
-        imageView = new ImageView(TankHelper.attachImage(tankType));
+        imageView = new ImageView(GameObjectHelper.attachTankImage(tankType));
         imageView.setFitWidth(scale);
         imageView.setFitHeight(scale);
         this.tankType = tankType;
@@ -89,15 +85,15 @@ public class Tank implements SceneObject {
 
     public boolean collidesWith(SceneObject object) {
         if (object instanceof Tank) {
-            Tank shot = (Tank) object;
+            Tank tank = (Tank) object;
             double tankLeft = x - scale / 2;
             double tankRight = x + scale / 2;
             double tankTop = y - scale / 2;
             double tankBottom = y + scale / 2;
-            double shotLeft = shot.getX() - scale / 2;
-            double shotRight = shot.getX() + scale / 2;
-            double shotTop = shot.getY() - scale / 2;
-            double shotBottom = shot.getY() + scale / 2;
+            double shotLeft = tank.getX() - scale / 2;
+            double shotRight = tank.getX() + scale / 2;
+            double shotTop = tank.getY() - scale / 2;
+            double shotBottom = tank.getY() + scale / 2;
             return tankLeft < shotRight && tankRight > shotLeft && tankTop < shotBottom && tankBottom > shotTop;
         }
         return false;
@@ -132,13 +128,17 @@ public class Tank implements SceneObject {
 
     @Override
     public void update() {
-        imageView.setX(x);
-        imageView.setY(y);
-        switch (direction) {
-            case Down -> imageView.setRotate(180);
-            case Right -> imageView.setRotate(90);
-            case Left -> imageView.setRotate(270);
-            default -> imageView.setRotate(0);
+        if (!isDead()) {
+            imageView.setX(x);
+            imageView.setY(y);
+            switch (direction) {
+                case Down -> imageView.setRotate(180);
+                case Right -> imageView.setRotate(90);
+                case Left -> imageView.setRotate(270);
+                default -> imageView.setRotate(0);
+            }
+        } else {
+            Game.sceneObjects.remove(this);
         }
     }
 

@@ -1,9 +1,9 @@
-package ir.ac.kntu;
+package ir.ac.kntu.eventHandler;
 
 import ir.ac.kntu.Game;
 
 import ir.ac.kntu.gameObjects.Direction;
-import ir.ac.kntu.gameObjects.Tank;
+import ir.ac.kntu.gameObjects.tank.Tank;
 import javafx.scene.input.KeyCode;
 
 import static ir.ac.kntu.GlobalConstance.scale;

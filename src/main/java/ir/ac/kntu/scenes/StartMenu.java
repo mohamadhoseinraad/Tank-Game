@@ -1,17 +1,13 @@
-package ir.ac.kntu;
+package ir.ac.kntu.scenes;
 
+import ir.ac.kntu.Game;
+import ir.ac.kntu.GameStatus;
+import ir.ac.kntu.gameObjects.CountDownTimer;
+import ir.ac.kntu.gameObjects.SceneObject;
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.scene.*;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static ir.ac.kntu.GlobalConstance.WINDOWS_HEIGHT;
 import static ir.ac.kntu.GlobalConstance.WINDOWS_WIDTH;
