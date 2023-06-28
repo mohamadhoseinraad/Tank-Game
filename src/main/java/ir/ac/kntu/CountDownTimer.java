@@ -53,4 +53,9 @@ public class CountDownTimer implements SceneObject {
     public Node getNode() {
         return textField;
     }
+
+    @Override
+    public boolean collidesWith(SceneObject object) {
+        return false;
+    }
 }

@@ -67,6 +67,9 @@ public class Tank implements SceneObject {
     }
 
     public void move(int speed, Direction direction) {
+        this.direction = direction;
+        int oldY = y;
+        int oldX = x;
         if (direction == Direction.Up) {
             y -= speed;
         }
@@ -79,7 +82,12 @@ public class Tank implements SceneObject {
         if (direction == Direction.Left) {
             x -= speed;
         }
-
+        for (SceneObject sceneObject : Game.sceneObjects) {
+            if (sceneObject.collidesWith(this) && this != sceneObject) {
+                y = oldY;
+                x = oldX;
+            }
+        }
     }
 
     public void handleInput() {
@@ -91,18 +99,18 @@ public class Tank implements SceneObject {
     }
 
     public boolean collidesWith(SceneObject object) {
-//            if (object instanceof Shot) {
-//                Shot shot = (Shot) object;
-//                double tankLeft = x - TANK_WIDTH / 2;
-//                double tankRight = x + TANK_WIDTH / 2;
-//                double tankTop = y - TANK_HEIGHT / 2;
-//                double tankBottom = y + TANK_HEIGHT / 2;
-//                double shotLeft = shot.getX() - SHOT_WIDTH / 2;
-//                double shotRight = shot.getX() + SHOT_WIDTH / 2;
-//                double shotTop = shot.getY() - SHOT_HEIGHT / 2;
-//                double shotBottom = shot.getY() + SHOT_HEIGHT / 2;
-//                return tankLeft < shotRight && tankRight > shotLeft && tankTop < shotBottom && tankBottom > shotTop;
-//            }
+        if (object instanceof Tank) {
+            Tank shot = (Tank) object;
+            double tankLeft = x - scale / 2;
+            double tankRight = x + scale / 2;
+            double tankTop = y - scale / 2;
+            double tankBottom = y + scale / 2;
+            double shotLeft = shot.getX() - scale / 2;
+            double shotRight = shot.getX() + scale / 2;
+            double shotTop = shot.getY() - scale / 2;
+            double shotBottom = shot.getY() + scale / 2;
+            return tankLeft < shotRight && tankRight > shotLeft && tankTop < shotBottom && tankBottom > shotTop;
+        }
         return false;
     }
 
@@ -117,10 +125,32 @@ public class Tank implements SceneObject {
         return false;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     @Override
     public void update() {
         imageView.setX(x);
         imageView.setY(y);
+        switch (direction) {
+            case Down -> imageView.setRotate(180);
+            case Right -> imageView.setRotate(90);
+            case Left -> imageView.setRotate(270);
+            default -> imageView.setRotate(0);
+        }
     }
 
     @Override
