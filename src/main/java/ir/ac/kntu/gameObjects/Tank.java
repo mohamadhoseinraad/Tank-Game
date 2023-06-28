@@ -1,6 +1,7 @@
 package ir.ac.kntu.gameObjects;
 
 import ir.ac.kntu.Game;
+import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.SceneObject;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -8,13 +9,12 @@ import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Random;
+
+import static ir.ac.kntu.GlobalConstance.scale;
 
 public class Tank implements SceneObject {
 
-    public final static int TANK_SIZE = 50;
 
     private Image image;
 
@@ -43,8 +43,8 @@ public class Tank implements SceneObject {
 
 
     public Tank(TankType tankType, TankSide tankSide, int x, int y) {
-        imageView.setFitWidth(TANK_SIZE);
-        imageView.setFitHeight(TANK_SIZE);
+        imageView.setFitWidth(scale);
+        imageView.setFitHeight(scale);
         this.tankType = tankType;
         this.tankSide = tankSide;
         switch (tankType) {

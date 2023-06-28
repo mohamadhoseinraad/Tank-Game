@@ -19,17 +19,17 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ir.ac.kntu.GlobalConstance.WINDOWS_HEIGHT;
-import static ir.ac.kntu.GlobalConstance.WINDOWS_WIDTH;
+import static ir.ac.kntu.GlobalConstance.*;
 
 
 public class Game extends Application {
+
 
     public static List<SceneObject> sceneObjects = new ArrayList<>();
 
     public static GameStatus gameStatus = GameStatus.Stop;
 
-    private static Tank player = new Tank(TankType.Player, TankSide.Player, 250, 475);
+    private static Tank player = new Tank(TankType.Player, TankSide.Player, mapSize / 2 * scale, (mapSize - 1) * scale + 25);
 
     private int score = 0;
 

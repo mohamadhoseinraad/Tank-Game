@@ -6,6 +6,8 @@ import ir.ac.kntu.gameObjects.Direction;
 import ir.ac.kntu.gameObjects.Tank;
 import javafx.scene.input.KeyCode;
 
+import static ir.ac.kntu.GlobalConstance.scale;
+
 
 public class PlayerController {
 
@@ -22,16 +24,16 @@ public class PlayerController {
         //TODO set controller
         Tank player = Game.getPlayer();
         if (keyCode == KeyCode.DOWN) {
-            player.move(50, Direction.Down);
+            player.move(scale / 2, Direction.Down);
         }
         if (keyCode == KeyCode.UP) {
-            player.move(50, Direction.Up);
+            player.move(scale / 2, Direction.Up);
         }
         if (keyCode == KeyCode.RIGHT) {
-            player.move(50, Direction.Right);
+            player.move(scale / 2, Direction.Right);
         }
         if (keyCode == KeyCode.LEFT) {
-            player.move(50, Direction.Left);
+            player.move(scale / 2, Direction.Left);
         }
     }
 }
