@@ -1,6 +1,8 @@
-package ir.ac.kntu.gameObjects;
+package ir.ac.kntu.gameObjects.wall;
 
 import ir.ac.kntu.Game;
+import ir.ac.kntu.gameObjects.GameObjectHelper;
+import ir.ac.kntu.gameObjects.SceneObject;
 import ir.ac.kntu.gameObjects.tank.Tank;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -43,6 +45,22 @@ public class Wall implements SceneObject {
         if (wallType != WallType.Iron) {
             health -= damage;
         }
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     @Override

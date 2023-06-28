@@ -2,8 +2,8 @@ package ir.ac.kntu;
 
 import ir.ac.kntu.eventHandler.EventHandler;
 import ir.ac.kntu.gameObjects.SceneObject;
-import ir.ac.kntu.gameObjects.Wall;
-import ir.ac.kntu.gameObjects.WallType;
+import ir.ac.kntu.gameObjects.wall.Wall;
+import ir.ac.kntu.gameObjects.wall.WallType;
 import ir.ac.kntu.gameObjects.tank.Tank;
 import ir.ac.kntu.gameObjects.tank.TankSide;
 import ir.ac.kntu.gameObjects.tank.TankType;
@@ -34,11 +34,9 @@ public class Game extends Application {
 
     private static Tank player = new Tank(TankType.Player, TankSide.Player, mapSize / 2 * scale, (mapSize - 1) * scale + 25);
 
-    private static Tank test = new Tank(TankType.RandomEnemy, TankSide.Player, 50, 50);
+    private static Tank test = new Tank(TankType.RandomEnemy, TankSide.Player, 50, 25);
 
-    private static Wall testWall = new Wall(WallType.Normal, 50, 100);
-
-    private static Wall testWall2 = new Wall(50, 100);
+    private static Wall testWall = new Wall(WallType.Normal, 50, 75);
 
     private int score = 0;
 
@@ -52,13 +50,12 @@ public class Game extends Application {
         conformStage(stage);
         EventHandler.getInstance().attachEventHandlers(scene);
         stage.show();
+
         new AnimationTimer() {
             private long lastUpdate = 0;
 
             public void handle(long currentNanoTime) {
-                for (SceneObject sceneObject : sceneObjects) {
-                    sceneObject.update();
-                }
+                update();
                 if (currentNanoTime - lastUpdate >= 1_000_000_000) {
                     pane.getChildren().clear();
                     if (!player.isDead()) {
@@ -81,7 +78,22 @@ public class Game extends Application {
         launch(args);
     }
 
+    private void update() {
+        for (SceneObject sceneObject : sceneObjects) {
+            sceneObject.update();
+            for (SceneObject sceneObject2 : sceneObjects) {
+                sceneObject.collidesWith(sceneObject2);
+            }
+        }
+    }
+
     private void conformStage(Stage stage) {
+        for (int i = 0; i < 26; i++) {
+            new Wall(30, i * 20);
+            new Wall(550, i * 20);
+            new Wall(30 + i * 20, 0);
+            new Wall(30 + i * 20, 525);
+        }
         stage.setScene(scene);
         stage.setTitle("Tank Game");
         stage.setHeight(WINDOWS_HEIGHT);
@@ -109,12 +121,6 @@ public class Game extends Application {
         currentScore.setY(WINDOWS_HEIGHT - 100);
         pane.getChildren().add(currentScore);
         pane.getChildren().add(scoreTitle);
-        for (int i = 0; i < 26; i++) {
-            new Wall(30, i * 20);
-            new Wall(550, i * 20);
-            new Wall(30 + i * 20, 0);
-            new Wall(30 + i * 20, 525);
-        }
     }
 
     private void makeEndGame() {

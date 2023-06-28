@@ -1,6 +1,7 @@
 package ir.ac.kntu.gameObjects;
 
 import ir.ac.kntu.gameObjects.tank.TankType;
+import ir.ac.kntu.gameObjects.wall.WallType;
 import javafx.scene.image.Image;
 
 import java.io.FileInputStream;
@@ -8,49 +9,64 @@ import java.io.FileNotFoundException;
 
 public class GameObjectHelper {
 
-    private final static String PLAYER_TANK = "src/main/resources/images/tank-yellow/yellow-tank-up.gif";
+    private static Image playerTank;
 
-    private final static String NORMAL_ENEMY = "src/main/resources/images/tank-white/white-tank-up.gif";
+    private static Image normalTank = null;
 
-    private final static String STRONG_ENEMY = "src/main/resources/images/tank-green/green-tank-up.gif";
+    private static Image randomTank = null;
 
-    private final static String RANDOM_ENEMY = "src/main/resources/images/tank-red/red-tank-up.gif";
+    private static Image strongTank = null;
 
-    private final static String NORMAL_WALL = "src/main/resources/images/wall.png";
+    private static Image normalWall = null;
 
-    private final static String IRON_WALL = "src/main/resources/images/wallIron.png";
+    private static Image ironWall = null;
+
+    private static Image shot = null;
+
+
+    static {
+        try {
+            playerTank = new Image(new FileInputStream("src/main/resources/images/tank-yellow/yellow-tank-up.gif"));
+            normalTank = new Image(new FileInputStream("src/main/resources/images/tank-white/white-tank-up.gif"));
+            strongTank = new Image(new FileInputStream("src/main/resources/images/tank-green/green-tank-up.gif"));
+            randomTank = new Image(new FileInputStream("src/main/resources/images/tank-red/red-tank-up.gif"));
+            normalWall = new Image(new FileInputStream("src/main/resources/images/wall.png"));
+            ironWall = new Image(new FileInputStream("src/main/resources/images/wallIron.png"));
+            shot = new Image(new FileInputStream("src/main/resources/images/shot/shot-up.gif"));
+        } catch (FileNotFoundException e) {
+            System.out.println("Error get image " + e);
+        }
+    }
 
     public static Image attachTankImage(TankType tankType) {
-        String src;
         switch (tankType) {
-            case Player -> src = PLAYER_TANK;
-            case StrongEnemy -> src = STRONG_ENEMY;
-            case RandomEnemy -> src = RANDOM_ENEMY;
-            default -> src = NORMAL_ENEMY;
-        }
-        {
-            try {
-                return new Image(new FileInputStream(src));
-            } catch (FileNotFoundException e) {
-                System.out.println(e);
-                return null;
+            case Player -> {
+                return playerTank;
+            }
+            case StrongEnemy -> {
+                return strongTank;
+            }
+            case RandomEnemy -> {
+                return randomTank;
+            }
+            default -> {
+                return normalTank;
             }
         }
     }
 
     public static Image attachWallImage(WallType wallType) {
-        String src;
         switch (wallType) {
-            case Iron -> src = IRON_WALL;
-            default -> src = NORMAL_WALL;
-        }
-        {
-            try {
-                return new Image(new FileInputStream(src));
-            } catch (FileNotFoundException e) {
-                System.out.println(e);
-                return null;
+            case Iron -> {
+                return ironWall;
+            }
+            default -> {
+                return normalWall;
             }
         }
+    }
+
+    public static Image attachShotImage() {
+        return shot;
     }
 }

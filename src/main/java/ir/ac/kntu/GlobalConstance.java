@@ -7,7 +7,7 @@ public class GlobalConstance {
 
     public final static int MAP_HEIGHT = 500;
 
-    public static int mapSize = 10;
+    public static int mapSize = 20;
 
     public static int scale = MAP_HEIGHT / mapSize;
 

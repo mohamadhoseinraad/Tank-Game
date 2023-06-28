@@ -80,7 +80,6 @@ public class Tank implements SceneObject {
     }
 
     public void fire() {
-
     }
 
     public boolean collidesWith(SceneObject object) {
@@ -124,6 +123,14 @@ public class Tank implements SceneObject {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public TankSide getTankSide() {
+        return tankSide;
+    }
+
+    public void setTankSide(TankSide tankSide) {
+        this.tankSide = tankSide;
     }
 
     @Override
