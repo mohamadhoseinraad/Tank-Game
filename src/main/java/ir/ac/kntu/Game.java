@@ -31,7 +31,7 @@ public class Game extends Application {
 
     private static Tank player = new Tank(TankType.Player, TankSide.Player, mapSize / 2 * scale, (mapSize - 1) * scale + 25);
 
-    private static Tank test = new Tank(TankType.Player, TankSide.Player, 50, 50);
+    private static Tank test = new Tank(TankType.RandomEnemy, TankSide.Player, 50, 50);
 
     private int score = 0;
 

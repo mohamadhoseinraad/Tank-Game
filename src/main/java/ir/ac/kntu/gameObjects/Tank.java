@@ -15,19 +15,7 @@ import static ir.ac.kntu.GlobalConstance.scale;
 
 public class Tank implements SceneObject {
 
-
-    private Image image;
-
-    {
-        try {
-            image = new Image(new FileInputStream("src/main/resources/images/tank-yellow/yellow-tank-up.gif"));
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-        }
-    }
-
-
-    private ImageView imageView = new ImageView(image);
+    private ImageView imageView;
 
     private TankType tankType;
 
@@ -43,6 +31,7 @@ public class Tank implements SceneObject {
 
 
     public Tank(TankType tankType, TankSide tankSide, int x, int y) {
+        imageView = new ImageView(TankHelper.attachImage(tankType));
         imageView.setFitWidth(scale);
         imageView.setFitHeight(scale);
         this.tankType = tankType;
