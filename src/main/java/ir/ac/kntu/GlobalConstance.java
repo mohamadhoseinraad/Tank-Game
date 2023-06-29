@@ -19,6 +19,12 @@ public class GlobalConstance {
 
     public final static int PLAYER_FIRST_Y = 500;
 
+    public final static int NORMAL_TANK_HEALTH = 1;
+
+    public final static int STRONG_TANK_HEALTH = 2;
+
+    public final static int PLAYER_TANK_HEALTH = 2;
+
     public static void updateSize() {
         if (mapHeight % mapSize != 0) {
             mapHeight = ((mapHeight / mapSize) + 1) * mapSize;

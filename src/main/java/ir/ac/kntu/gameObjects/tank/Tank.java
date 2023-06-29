@@ -41,20 +41,20 @@ public class Tank implements SceneObject {
         this.y = y;
         switch (tankType) {
             case Player -> {
-                health = 3;
-                Game.playersTank.add(this);
+                health = PLAYER_TANK_HEALTH;
+                Game.getPlayersTank().add(this);
             }
             case NormalEnemy -> {
-                health = 1;
-                Game.enemyTank.add(this);
+                health = NORMAL_TANK_HEALTH;
+                Game.getEnemyTank().add(this);
             }
             case StrongEnemy -> {
-                Game.enemyTank.add(this);
-                health = 2;
+                Game.getEnemyTank().add(this);
+                health = STRONG_TANK_HEALTH;
             }
             default -> {
-                Game.enemyTank.add(this);
-                health = (new Random().nextInt(1, 3));
+                Game.getEnemyTank().add(this);
+                health = (new Random().nextInt(NORMAL_TANK_HEALTH, STRONG_TANK_HEALTH));
             }
         }
         Game.sceneObjects.add(this);
@@ -62,6 +62,14 @@ public class Tank implements SceneObject {
 
     public double getScale() {
         return scale;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public void move(double speed, Direction direction) {
@@ -121,9 +129,9 @@ public class Tank implements SceneObject {
     public boolean isVisible() {
         if (isDead()) {
             if (tankSide == TankSide.Player) {
-                Game.playersTank.remove(this);
+                Game.getPlayersTank().remove(this);
             } else {
-                Game.enemyTank.remove(this);
+                Game.getEnemyTank().remove(this);
             }
             return false;
         }

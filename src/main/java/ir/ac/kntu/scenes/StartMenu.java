@@ -5,6 +5,7 @@ import ir.ac.kntu.GameStatus;
 import ir.ac.kntu.gameObjects.CountDownTimer;
 import ir.ac.kntu.gameObjects.SceneObject;
 import javafx.animation.AnimationTimer;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -17,7 +18,7 @@ public class StartMenu {
 
     private static Button start = new Button("Start");
 
-    public static void start(Pane pane) {
+    public static Scene start(Pane pane) {
         makeScene();
         start.setOnAction(actionEvent -> {
             new CountDownTimer(Game.sceneObjects);
@@ -43,6 +44,7 @@ public class StartMenu {
         });
 
         pane.getChildren().add(start);
+        return new Scene(pane);
     }
 
     private static void makeScene() {

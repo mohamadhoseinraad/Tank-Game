@@ -38,6 +38,7 @@ public class Wall implements SceneObject {
     public void takeDamage(int damage) {
         if (wallType != WallType.Iron) {
             health -= damage;
+            imageView.setImage(GameObjectHelper.normalWallDamaged);
         }
     }
 

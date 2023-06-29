@@ -19,6 +19,8 @@ public class GameObjectHelper {
 
     private static Image normalWall = null;
 
+    public static Image normalWallDamaged = null;
+
     private static Image ironWall = null;
 
     private static Image shot = null;
@@ -31,6 +33,7 @@ public class GameObjectHelper {
             strongTank = new Image(new FileInputStream("src/main/resources/images/tank-green/green-tank-up.gif"));
             randomTank = new Image(new FileInputStream("src/main/resources/images/tank-red/red-tank-up.gif"));
             normalWall = new Image(new FileInputStream("src/main/resources/images/wall.png"));
+            normalWallDamaged = new Image(new FileInputStream("src/main/resources/images/wall-damaged.png"));
             ironWall = new Image(new FileInputStream("src/main/resources/images/wallIron.png"));
             shot = new Image(new FileInputStream("src/main/resources/images/shot/shot-up.gif"));
         } catch (FileNotFoundException e) {
