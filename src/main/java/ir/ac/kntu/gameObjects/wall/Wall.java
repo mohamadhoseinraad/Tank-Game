@@ -17,29 +17,23 @@ public class Wall implements SceneObject {
 
     private WallType wallType;
 
-    private int x;
+    private double x;
 
-    private int y;
+    private double y;
 
-    public Wall(WallType wallType, int x, int y) {
+    private double scale;
+
+    public Wall(WallType wallType, double x, double y, double scale) {
         this.wallType = wallType;
         this.x = x;
         this.y = y;
+        this.scale = scale;
         imageView = new ImageView(GameObjectHelper.attachWallImage(wallType));
         imageView.setFitWidth(scale);
         imageView.setFitHeight(scale);
         Game.sceneObjects.add(this);
     }
 
-    public Wall(int x, int y) {
-        this.wallType = WallType.Iron;
-        this.x = x;
-        this.y = y;
-        imageView = new ImageView(GameObjectHelper.attachWallImage(wallType));
-        imageView.setFitWidth(20);
-        imageView.setFitHeight(20);
-        Game.sceneObjects.add(this);
-    }
 
     public void takeDamage(int damage) {
         if (wallType != WallType.Iron) {
@@ -47,19 +41,19 @@ public class Wall implements SceneObject {
         }
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
@@ -81,16 +75,16 @@ public class Wall implements SceneObject {
     public boolean collidesWith(SceneObject object) {
         if (object instanceof Tank) {
             Tank tank = (Tank) object;
-            double scale = imageView.getFitHeight();
-            double tankLeft = x - scale / 2;
-            double tankRight = x + scale / 2;
-            double tankTop = y - scale / 2;
-            double tankBottom = y + scale / 2;
-            double shotLeft = tank.getX() - scale / 2;
-            double shotRight = tank.getX() + scale / 2;
-            double shotTop = tank.getY() - scale / 2;
-            double shotBottom = tank.getY() + scale / 2;
-            return tankLeft < shotRight && tankRight > shotLeft && tankTop < shotBottom && tankBottom > shotTop;
+            double tankScale = tank.getScale();
+            double wallLeft = x;
+            double wallRight = x + scale;
+            double wallTop = y;
+            double wallBottom = y + scale;
+            double tankLeft = tank.getX();
+            double tankRight = tank.getX() + tankScale;
+            double tankTop = tank.getY();
+            double tankBottom = tank.getY() + tankScale;
+            return wallLeft < tankRight && wallRight > tankLeft && wallTop < tankBottom && wallBottom > tankTop;
         }
         return false;
     }

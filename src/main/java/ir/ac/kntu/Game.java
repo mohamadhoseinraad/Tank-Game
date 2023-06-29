@@ -27,27 +27,27 @@ import static ir.ac.kntu.GlobalConstance.*;
 
 public class Game extends Application {
 
+    public static Pane pane = new Pane();
+
+    public static Scene scene = new Scene(pane);
+
 
     public static List<SceneObject> sceneObjects = new ArrayList<>();
 
     public static GameStatus gameStatus = GameStatus.Stop;
 
-    private static Tank player = new Tank(TankType.Player, TankSide.Player, mapSize / 2 * scale, (mapSize - 1) * scale + 25);
+    private static Tank player;
 
-    private static Tank test = new Tank(TankType.RandomEnemy, TankSide.Player, 50, 25);
-
-    private static Wall testWall = new Wall(WallType.Normal, 50, 75);
+    private static String[][] map = new String[10][10];
 
     private int score = 0;
 
-    public Pane pane = new Pane();
-
-    public Scene scene = new Scene(pane);
 
     public void start(Stage stage) {
         pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
         //StartMenu.start(pane);
         conformStage(stage);
+        readMap();
         EventHandler.getInstance().attachEventHandlers(scene);
         stage.show();
 
@@ -58,8 +58,8 @@ public class Game extends Application {
                 update();
                 if (currentNanoTime - lastUpdate >= 1_000_000_000) {
                     pane.getChildren().clear();
+                    makeGameScene();
                     if (!player.isDead()) {
-                        makeGameScene();
                         for (SceneObject sceneObject : sceneObjects) {
                             pane.getChildren().add(sceneObject.getNode());
                         }
@@ -81,19 +81,31 @@ public class Game extends Application {
     private void update() {
         for (SceneObject sceneObject : sceneObjects) {
             sceneObject.update();
-            for (SceneObject sceneObject2 : sceneObjects) {
-                sceneObject.collidesWith(sceneObject2);
-            }
         }
     }
 
-    private void conformStage(Stage stage) {
-        for (int i = 0; i < 26; i++) {
-            new Wall(30, i * 20);
-            new Wall(550, i * 20);
-            new Wall(30 + i * 20, 0);
-            new Wall(30 + i * 20, 525);
+    private void readMap() {
+        map[2][2] = "B";
+        mapSize = map.length;
+        GlobalConstance.updateSize();
+        Tank test = new Tank(TankType.RandomEnemy, TankSide.Player, MAP_FIRST_X + 4 * scale, MAP_FIRST_Y + 4 * scale, scale);
+        player = new Tank(TankType.Player, TankSide.Player, mapSize / 2 * scale, (mapSize - 1) * scale + 25, scale);
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                if (map[i][j] != null) {
+                    if (map[i][j].equals("B")) {
+                        new Wall(WallType.Normal, MAP_FIRST_X + i * scale, MAP_FIRST_Y + j * scale, scale);
+                    }
+                    if (map[i][j].equals("M")) {
+                        new Wall(WallType.Iron, MAP_FIRST_X + i * scale, MAP_FIRST_Y + j * scale, scale);
+                    }
+                }
+            }
         }
+        addMapWall();
+    }
+
+    private void conformStage(Stage stage) {
         stage.setScene(scene);
         stage.setTitle("Tank Game");
         stage.setHeight(WINDOWS_HEIGHT);
@@ -105,22 +117,22 @@ public class Game extends Application {
     }
 
     private void makeGameScene() {
-        Rectangle square = new Rectangle(500, 500);
+        Rectangle square = new Rectangle(mapHeight, mapHeight);
         square.setFill(Color.BLACK);
         square.setStroke(Color.WHITE);
         pane.getChildren().add(square);
-        square.setX(50);
-        square.setY(25);
-        Text scoreTitle = new Text("Score : ");
-        scoreTitle.setFont(new Font(40));
-        scoreTitle.setX(WINDOWS_WIDTH - 175);
-        scoreTitle.setY(WINDOWS_HEIGHT - 100);
-        Text currentScore = new Text(String.valueOf(score));
-        currentScore.setFont(new Font(40));
-        currentScore.setX(WINDOWS_WIDTH - 50);
-        currentScore.setY(WINDOWS_HEIGHT - 100);
-        pane.getChildren().add(currentScore);
-        pane.getChildren().add(scoreTitle);
+        square.setX(MAP_FIRST_X);
+        square.setY(MAP_FIRST_Y);
+//        Text scoreTitle = new Text("Score : ");
+//        scoreTitle.setFont(new Font(40));
+//        scoreTitle.setX(WINDOWS_WIDTH - 175);
+//        scoreTitle.setY(WINDOWS_HEIGHT - 100);
+//        Text currentScore = new Text(String.valueOf(score));
+//        currentScore.setFont(new Font(40));
+//        currentScore.setX(WINDOWS_WIDTH - 50);
+//        currentScore.setY(WINDOWS_HEIGHT - 100);
+//        pane.getChildren().add(currentScore);
+//        pane.getChildren().add(scoreTitle);
     }
 
     private void makeEndGame() {
@@ -131,6 +143,20 @@ public class Game extends Application {
         gameOver.setFill(Color.RED);
         pane.getChildren().add(gameOver);
         gameStatus = GameStatus.Stop;
+    }
+
+    private void addMapWall() {
+        int mapWallSize = 14;
+        for (int i = 0; i < mapHeight / mapWallSize; i++) {
+            //Left wall
+            new Wall(WallType.Iron, MAP_FIRST_X - mapWallSize, (MAP_FIRST_Y) + (i) * mapWallSize, mapWallSize);
+            //Right wall
+            new Wall(WallType.Iron, mapHeight + MAP_FIRST_X, (MAP_FIRST_Y) + (i) * mapWallSize, mapWallSize);
+            //Up wall
+            new Wall(WallType.Iron, (MAP_FIRST_X) + (i) * mapWallSize, MAP_FIRST_Y - mapWallSize, mapWallSize);
+            //Button
+            new Wall(WallType.Iron, (MAP_FIRST_X) + (i) * mapWallSize, MAP_FIRST_Y + mapHeight, mapWallSize);
+        }
     }
 
     public static Tank getPlayer() {

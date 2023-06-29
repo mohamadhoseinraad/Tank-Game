@@ -21,13 +21,16 @@ public class Tank implements SceneObject {
 
     private Direction direction = Direction.Up;
 
-    private int x;
+    private double x;
 
-    private int y;
+    private double y;
+
+    private double scale;
 
 
-    public Tank(TankType tankType, TankSide tankSide, int x, int y) {
+    public Tank(TankType tankType, TankSide tankSide, double x, double y, double scale) {
         imageView = new ImageView(GameObjectHelper.attachTankImage(tankType));
+        this.scale = scale;
         imageView.setFitWidth(scale);
         imageView.setFitHeight(scale);
         this.tankType = tankType;
@@ -51,10 +54,14 @@ public class Tank implements SceneObject {
         Game.sceneObjects.add(this);
     }
 
-    public void move(int speed, Direction direction) {
+    public double getScale() {
+        return scale;
+    }
+
+    public void move(double speed, Direction direction) {
         this.direction = direction;
-        int oldY = y;
-        int oldX = x;
+        double oldY = y;
+        double oldX = x;
         if (direction == Direction.Up) {
             y -= speed;
         }
@@ -109,19 +116,19 @@ public class Tank implements SceneObject {
         return false;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 

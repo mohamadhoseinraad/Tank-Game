@@ -24,16 +24,16 @@ public class PlayerController {
         //TODO set controller
         Tank player = Game.getPlayer();
         if (keyCode == KeyCode.DOWN) {
-            player.move(scale, Direction.Down);
+            player.move(scale / 2, Direction.Down);
         }
         if (keyCode == KeyCode.UP) {
-            player.move(scale, Direction.Up);
+            player.move(scale / 2, Direction.Up);
         }
         if (keyCode == KeyCode.RIGHT) {
-            player.move(scale, Direction.Right);
+            player.move(scale / 2, Direction.Right);
         }
         if (keyCode == KeyCode.LEFT) {
-            player.move(scale, Direction.Left);
+            player.move(scale / 2, Direction.Left);
         }
         if (keyCode == KeyCode.SPACE) {
             player.fire();
