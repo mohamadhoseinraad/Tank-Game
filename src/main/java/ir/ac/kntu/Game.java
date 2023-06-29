@@ -37,7 +37,9 @@ public class Game extends Application {
 
     public static GameStatus gameStatus = GameStatus.Running;
 
-    private static Tank[] playersTank = new Tank[1];
+    public static ArrayList<Tank> playersTank = new ArrayList<>();
+
+    public static ArrayList<Tank> enemyTank = new ArrayList<>();
 
     private static String[][] map = new String[10][10];
 
@@ -55,13 +57,16 @@ public class Game extends Application {
                 update();
                 if (currentNanoTime - lastUpdate >= 100_000_000) {
                     pane.getChildren().clear();
-                    if (gameStatus == GameStatus.Running) {
-                        makeGameScene();
-                        for (SceneObject sceneObject : sceneObjects) {
-                            pane.getChildren().add(sceneObject.getNode());
+                    makeGameScene();
+                    for (SceneObject sceneObject : sceneObjects) {
+                        pane.getChildren().add(sceneObject.getNode());
+                    }
+                    if (gameStatus == GameStatus.Stop) {
+                        if (enemyTank.size() == 0) {
+                            makeEndGameWin();
+                        } else {
+                            makeEndGame();
                         }
-                    } else {
-                        makeEndGame();
                     }
 
                     lastUpdate = currentNanoTime;
@@ -91,7 +96,10 @@ public class Game extends Application {
                 death++;
             }
         }
-        if (death == playersTank.length) {
+        if (death == playersTank.size()) {
+            gameStatus = GameStatus.Stop;
+        }
+        if (enemyTank.size() == 0) {
             gameStatus = GameStatus.Stop;
         }
     }
@@ -101,7 +109,7 @@ public class Game extends Application {
         mapSize = map.length;
         GlobalConstance.updateSize();
         Tank test = new Tank(TankType.RandomEnemy, TankSide.Enemy, MAP_FIRST_X + 4 * scale, MAP_FIRST_Y + 4 * scale, scale);
-        playersTank[0] = new Tank(TankType.Player, TankSide.Player, mapSize / 2 * scale, (mapSize - 1) * scale + 25, scale);
+        Tank tes = new Tank(TankType.Player, TankSide.Player, mapSize / 2 * scale, (mapSize - 1) * scale + 25, scale);
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
                 if (map[i][j] != null) {
@@ -152,10 +160,19 @@ public class Game extends Application {
     private void makeEndGame() {
         Text gameOver = new Text("Game Over");
         gameOver.setFont(new Font(50));
-        gameOver.setX(WINDOWS_WIDTH / 2 - 200);
-        gameOver.setY(WINDOWS_HEIGHT / 2);
+        gameOver.setX(MAP_FIRST_X + mapHeight / 2 - 150);
+        gameOver.setY(MAP_FIRST_Y + mapHeight / 2);
         gameOver.setFill(Color.RED);
-        sceneObjects = new ArrayList<>();
+        pane.getChildren().add(gameOver);
+        gameStatus = GameStatus.Stop;
+    }
+
+    private void makeEndGameWin() {
+        Text gameOver = new Text("Win");
+        gameOver.setFont(new Font(50));
+        gameOver.setX(MAP_FIRST_X + mapHeight / 2);
+        gameOver.setY(MAP_FIRST_Y + mapHeight / 2);
+        gameOver.setFill(Color.GREEN);
         pane.getChildren().add(gameOver);
         gameStatus = GameStatus.Stop;
     }
@@ -174,7 +191,7 @@ public class Game extends Application {
         }
     }
 
-    public static Tank[] getPlayersTank() {
+    public static ArrayList<Tank> getPlayersTank() {
         return playersTank;
     }
 

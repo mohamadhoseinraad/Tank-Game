@@ -37,22 +37,26 @@ public class Tank implements SceneObject {
         imageView.setFitHeight(scale);
         this.tankType = tankType;
         this.tankSide = tankSide;
+        this.x = x;
+        this.y = y;
         switch (tankType) {
             case Player -> {
                 health = 3;
+                Game.playersTank.add(this);
             }
             case NormalEnemy -> {
                 health = 1;
+                Game.enemyTank.add(this);
             }
             case StrongEnemy -> {
+                Game.enemyTank.add(this);
                 health = 2;
             }
             default -> {
-                health = (new Random().nextInt(1, 2));
+                Game.enemyTank.add(this);
+                health = (new Random().nextInt(1, 3));
             }
         }
-        this.x = x;
-        this.y = y;
         Game.sceneObjects.add(this);
     }
 
@@ -116,6 +120,11 @@ public class Tank implements SceneObject {
     @Override
     public boolean isVisible() {
         if (isDead()) {
+            if (tankSide == TankSide.Player) {
+                Game.playersTank.remove(this);
+            } else {
+                Game.enemyTank.remove(this);
+            }
             return false;
         }
         return true;
