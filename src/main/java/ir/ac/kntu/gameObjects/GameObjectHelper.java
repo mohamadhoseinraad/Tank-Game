@@ -25,6 +25,12 @@ public class GameObjectHelper {
 
     private static Image shot = null;
 
+    public static Image flag1 = null;
+
+    private static Image flag3 = null;
+
+    private static Image flag2 = null;
+
 
     static {
         try {
@@ -36,6 +42,7 @@ public class GameObjectHelper {
             normalWallDamaged = new Image(new FileInputStream("src/main/resources/images/wall-damaged.png"));
             ironWall = new Image(new FileInputStream("src/main/resources/images/wallIron.png"));
             shot = new Image(new FileInputStream("src/main/resources/images/shot/shot-up.gif"));
+            flag1 = new Image(new FileInputStream("src/main/resources/images/home.gif"));
         } catch (FileNotFoundException e) {
             System.out.println("Error get image " + e);
         }

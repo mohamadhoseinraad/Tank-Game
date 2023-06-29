@@ -87,6 +87,31 @@ public class Shot implements SceneObject {
         if (object instanceof Wall) {
             return collisionWithWall(object);
         }
+        if (object instanceof Flag) {
+            return collisionWithFlag(object);
+        }
+        return false;
+    }
+
+    private boolean collisionWithFlag(SceneObject object) {
+        double shotLeft = x;
+        double shotRight = x + scale;
+        double shotTop = y;
+        double shotBottom = y + scale;
+        Flag flag = (Flag) object;
+        if (tankSide == TankSide.Player) {
+            return false;
+        }
+        double flagScale = flag.getScale();
+        double tankLeft = flag.getX();
+        double tankRight = flag.getX() + flagScale;
+        double tankTop = flag.getY();
+        double tankBottom = flag.getY() + flagScale;
+        if (shotLeft < tankRight && shotRight > tankLeft && shotTop < tankBottom && shotBottom > tankTop) {
+            isCollision = true;
+            flag.takeDamage(damage);
+            return true;
+        }
         return false;
     }
 

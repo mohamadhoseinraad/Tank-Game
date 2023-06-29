@@ -4,6 +4,7 @@ import ir.ac.kntu.Game;
 import ir.ac.kntu.GameStatus;
 import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.eventHandler.EventHandler;
+import ir.ac.kntu.gameObjects.Flag;
 import ir.ac.kntu.gameObjects.tank.Tank;
 import ir.ac.kntu.gameObjects.tank.TankSide;
 import ir.ac.kntu.gameObjects.tank.TankType;
@@ -86,26 +87,33 @@ public class SceneHelper {
                 if (map[i][j] != null) {
                     double x = MAP_FIRST_X + j * scale;
                     double y = MAP_FIRST_Y + i * scale;
-                    if (map[i][j].equals("B")) {
-                        new Wall(WallType.Normal, x, y, scale);
-                    } else if (map[i][j].equals("M")) {
-                        new Wall(WallType.Iron, x, y, scale);
-                    } else if (map[i][j].equals("P")) {
-                        new Tank(TankType.Player, TankSide.Player, x, y, scale);
-                    } else if (map[i][j].equals("O")) {
-                        new Tank(TankType.NormalEnemy, TankSide.Enemy, x, y, scale);
-                    } else if (map[i][j].equals("A")) {
-                        new Tank(TankType.StrongEnemy, TankSide.Enemy, x, y, scale);
-                    } else if (map[i][j].equals("c")) {
-                        new Tank(TankType.RandomEnemy, TankSide.Enemy, x, y, scale).setHealth(NORMAL_TANK_HEALTH);
-                    } else if (map[i][j].equals("C")) {
-                        new Tank(TankType.RandomEnemy, TankSide.Enemy, x, y, scale).setHealth(STRONG_TANK_HEALTH);
+                    switch (map[i][j]) {
+                        case "B" -> new Wall(WallType.Normal, x, y, scale);
+                        case "M" -> new Wall(WallType.Iron, x, y, scale);
+                        case "P" -> new Tank(TankType.Player, TankSide.Player, x, y, scale);
+                        case "F" -> new Flag(x, y, scale);
+                        case "O", "A", "c", "C" -> attachEnemy(map[i][j], x, y);
+                        default -> {
+
+                        }
                     }
 
                 }
             }
         }
         addMapWall();
+    }
+
+    private static void attachEnemy(String s, double x, double y) {
+        switch (s) {
+            case "O" -> new Tank(TankType.NormalEnemy, TankSide.Enemy, x, y, scale);
+            case "A" -> new Tank(TankType.StrongEnemy, TankSide.Enemy, x, y, scale);
+            case "c" -> new Tank(TankType.RandomEnemy, TankSide.Enemy, x, y, scale).setHealth(NORMAL_TANK_HEALTH);
+            case "C" -> new Tank(TankType.RandomEnemy, TankSide.Enemy, x, y, scale).setHealth(STRONG_TANK_HEALTH);
+            default -> {
+
+            }
+        }
     }
 
     private static void addMapWall() {
