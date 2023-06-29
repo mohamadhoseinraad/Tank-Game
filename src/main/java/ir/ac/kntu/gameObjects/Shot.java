@@ -1,25 +1,19 @@
-package ir.ac.kntu.gameObjects.tank;
+package ir.ac.kntu.gameObjects;
 
 import ir.ac.kntu.Game;
-import ir.ac.kntu.gameObjects.*;
+import ir.ac.kntu.gameObjects.tank.Tank;
+import ir.ac.kntu.gameObjects.tank.TankSide;
 import ir.ac.kntu.gameObjects.wall.Wall;
-import ir.ac.kntu.gameObjects.wall.WallType;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
-import java.util.Random;
-
-import static ir.ac.kntu.GlobalConstance.*;
-
-public class Tank implements SceneObject {
+public class Shot implements SceneObject {
 
     private ImageView imageView;
 
-    private TankType tankType;
-
     private TankSide tankSide;
 
-    private int health;
+    private int damage;
 
     private Direction direction = Direction.Up;
 
@@ -29,30 +23,19 @@ public class Tank implements SceneObject {
 
     private double scale;
 
+    private boolean isCollision = false;
 
-    public Tank(TankType tankType, TankSide tankSide, double x, double y, double scale) {
-        imageView = new ImageView(GameObjectHelper.attachTankImage(tankType));
+
+    public Shot(TankSide tankSide, double x, double y, double scale, int damage, Direction direction) {
+        this.direction = direction;
+        imageView = new ImageView(GameObjectHelper.attachShotImage());
         this.scale = scale;
         imageView.setFitWidth(scale);
         imageView.setFitHeight(scale);
-        this.tankType = tankType;
         this.tankSide = tankSide;
-        switch (tankType) {
-            case Player -> {
-                health = 3;
-            }
-            case NormalEnemy -> {
-                health = 1;
-            }
-            case StrongEnemy -> {
-                health = 2;
-            }
-            default -> {
-                health = (new Random().nextInt(1, 2));
-            }
-        }
         this.x = x;
         this.y = y;
+        this.damage = damage;
         Game.sceneObjects.add(this);
     }
 
@@ -60,10 +43,20 @@ public class Tank implements SceneObject {
         return scale;
     }
 
+    public int getDamage() {
+        return damage;
+    }
+
+    public boolean isCollision() {
+        return isCollision;
+    }
+
+    public void setCollision(boolean collision) {
+        isCollision = collision;
+    }
+
     public void move(double speed, Direction direction) {
         this.direction = direction;
-        double oldY = y;
-        double oldX = x;
         if (direction == Direction.Up) {
             y -= speed;
         }
@@ -77,10 +70,7 @@ public class Tank implements SceneObject {
             x -= speed;
         }
         for (SceneObject sceneObject : Game.sceneObjects) {
-            if (sceneObject.collidesWith(this) && this != sceneObject) {
-                y = oldY;
-                x = oldX;
-            }
+            this.collidesWith(sceneObject);
         }
     }
 
@@ -88,45 +78,69 @@ public class Tank implements SceneObject {
 
     }
 
-    public void fire() {
-        new Shot(tankSide, x + scale / 2, y + scale / 2, scale / 3, 1, direction);
-    }
 
     public boolean collidesWith(SceneObject object) {
+
         if (object instanceof Tank) {
             return collisionWithTank(object);
+        }
+        if (object instanceof Wall) {
+            return collisionWithWall(object);
         }
         return false;
     }
 
-    public boolean collisionWithTank(SceneObject object) {
+    private boolean collisionWithTank(SceneObject object) {
+        double shotLeft = x;
+        double shotRight = x + scale;
+        double shotTop = y;
+        double shotBottom = y + scale;
         Tank tank = (Tank) object;
+        if (tank.getTankSide() == tankSide) {
+            return false;
+        }
         double tankScale = tank.getScale();
-        double thisLeft = x;
-        double thisRight = x + scale;
-        double thisTop = y;
-        double thisBottom = y + scale;
         double tankLeft = tank.getX();
         double tankRight = tank.getX() + tankScale;
         double tankTop = tank.getY();
         double tankBottom = tank.getY() + tankScale;
-        return thisLeft < tankRight && thisRight > tankLeft && thisTop < tankBottom && thisBottom > tankTop;
+        if (shotLeft < tankRight && shotRight > tankLeft && shotTop < tankBottom && shotBottom > tankTop) {
+            isCollision = true;
+            tank.takeDamage(damage);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean collisionWithWall(SceneObject object) {
+        double shotLeft = x;
+        double shotRight = x + scale;
+        double shotTop = y;
+        double shotBottom = y + scale;
+        Wall wall = (Wall) object;
+        double wallScale = wall.getScale();
+        double wallLeft = wall.getX();
+        double wallRight = wall.getX() + wallScale;
+        double wallTop = wall.getY();
+        double wallBottom = wall.getY() + wallScale;
+        if (shotLeft < wallRight && shotRight > wallLeft && shotTop < wallBottom && shotBottom > wallTop) {
+            isCollision = true;
+            wall.takeDamage(damage);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean isVisible() {
-        if (isDead()) {
+        if (isCollision) {
             return false;
         }
         return true;
     }
 
-    public void takeDamage(int damage) {
-        health -= damage;
-    }
-
     public boolean isDead() {
-        if (health <= 0) {
+        if (damage <= 0) {
             return true;
         }
         return false;
@@ -158,6 +172,7 @@ public class Tank implements SceneObject {
 
     @Override
     public void update() {
+        move(5, direction);
         imageView.setX(x);
         imageView.setY(y);
         switch (direction) {

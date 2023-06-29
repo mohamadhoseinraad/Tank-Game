@@ -53,7 +53,7 @@ public class Game extends Application {
 
             public void handle(long currentNanoTime) {
                 update();
-                if (currentNanoTime - lastUpdate >= 1_000_000_000) {
+                if (currentNanoTime - lastUpdate >= 100_000_000) {
                     pane.getChildren().clear();
                     if (gameStatus == GameStatus.Running) {
                         makeGameScene();
@@ -100,7 +100,7 @@ public class Game extends Application {
         map[2][2] = "B";
         mapSize = map.length;
         GlobalConstance.updateSize();
-        Tank test = new Tank(TankType.RandomEnemy, TankSide.Player, MAP_FIRST_X + 4 * scale, MAP_FIRST_Y + 4 * scale, scale);
+        Tank test = new Tank(TankType.RandomEnemy, TankSide.Enemy, MAP_FIRST_X + 4 * scale, MAP_FIRST_Y + 4 * scale, scale);
         playersTank[0] = new Tank(TankType.Player, TankSide.Player, mapSize / 2 * scale, (mapSize - 1) * scale + 25, scale);
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {

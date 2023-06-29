@@ -57,6 +57,10 @@ public class Wall implements SceneObject {
         this.y = y;
     }
 
+    public double getScale() {
+        return scale;
+    }
+
     @Override
     public void update() {
         imageView.setX(x);
