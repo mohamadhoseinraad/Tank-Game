@@ -105,6 +105,14 @@ public class Tank implements SceneObject {
         return false;
     }
 
+    @Override
+    public boolean isVisible() {
+        if (isDead()) {
+            return false;
+        }
+        return true;
+    }
+
     public void takeDamage(int damage) {
         health -= damage;
     }
@@ -142,17 +150,13 @@ public class Tank implements SceneObject {
 
     @Override
     public void update() {
-        if (!isDead()) {
-            imageView.setX(x);
-            imageView.setY(y);
-            switch (direction) {
-                case Down -> imageView.setRotate(180);
-                case Right -> imageView.setRotate(90);
-                case Left -> imageView.setRotate(270);
-                default -> imageView.setRotate(0);
-            }
-        } else {
-            Game.sceneObjects.remove(this);
+        imageView.setX(x);
+        imageView.setY(y);
+        switch (direction) {
+            case Down -> imageView.setRotate(180);
+            case Right -> imageView.setRotate(90);
+            case Left -> imageView.setRotate(270);
+            default -> imageView.setRotate(0);
         }
     }
 

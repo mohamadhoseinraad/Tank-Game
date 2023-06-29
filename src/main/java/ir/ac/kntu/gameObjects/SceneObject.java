@@ -9,4 +9,6 @@ public interface SceneObject {
     public Node getNode();
 
     public boolean collidesWith(SceneObject object);
+
+    public boolean isVisible();
 }

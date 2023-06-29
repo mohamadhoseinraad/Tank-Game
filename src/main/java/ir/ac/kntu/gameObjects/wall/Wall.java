@@ -61,9 +61,6 @@ public class Wall implements SceneObject {
     public void update() {
         imageView.setX(x);
         imageView.setY(y);
-        if (health <= 0) {
-            Game.sceneObjects.remove(this);
-        }
     }
 
     @Override
@@ -87,5 +84,13 @@ public class Wall implements SceneObject {
             return wallLeft < tankRight && wallRight > tankLeft && wallTop < tankBottom && wallBottom > tankTop;
         }
         return false;
+    }
+
+    @Override
+    public boolean isVisible() {
+        if (health <= 0) {
+            return false;
+        }
+        return true;
     }
 }

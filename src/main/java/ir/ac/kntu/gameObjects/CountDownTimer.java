@@ -60,4 +60,12 @@ public class CountDownTimer implements SceneObject {
     public boolean collidesWith(SceneObject object) {
         return false;
     }
+
+    @Override
+    public boolean isVisible() {
+        if (isEnd) {
+            return false;
+        }
+        return true;
+    }
 }

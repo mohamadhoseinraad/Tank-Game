@@ -22,7 +22,19 @@ public class PlayerController {
 
     public void handlePlayerMovements(KeyCode keyCode) {
         //TODO set controller
-        Tank player = Game.getPlayer();
+        Tank[] tanks = Game.getPlayersTank();
+        if (tanks.length == 1) {
+            Tank player = Game.getPlayersTank()[0];
+            handlePlayer1Movements(keyCode, player);
+        } else if (tanks.length == 2) {
+            Tank player = Game.getPlayersTank()[0];
+            handlePlayer1Movements(keyCode, player);
+            Tank player2 = Game.getPlayersTank()[1];
+            handlePlayer1Movements(keyCode, player2);
+        }
+    }
+
+    private void handlePlayer1Movements(KeyCode keyCode, Tank player) {
         if (keyCode == KeyCode.DOWN) {
             player.move(scale / 2, Direction.Down);
         }
@@ -36,6 +48,24 @@ public class PlayerController {
             player.move(scale / 2, Direction.Left);
         }
         if (keyCode == KeyCode.SPACE) {
+            player.fire();
+        }
+    }
+
+    private void handlePlayer2Movements(KeyCode keyCode, Tank player) {
+        if (keyCode == KeyCode.S) {
+            player.move(scale / 2, Direction.Down);
+        }
+        if (keyCode == KeyCode.W) {
+            player.move(scale / 2, Direction.Up);
+        }
+        if (keyCode == KeyCode.D) {
+            player.move(scale / 2, Direction.Right);
+        }
+        if (keyCode == KeyCode.A) {
+            player.move(scale / 2, Direction.Left);
+        }
+        if (keyCode == KeyCode.Q) {
             player.fire();
         }
     }

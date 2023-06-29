@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static ir.ac.kntu.GlobalConstance.*;
@@ -34,9 +35,9 @@ public class Game extends Application {
 
     public static List<SceneObject> sceneObjects = new ArrayList<>();
 
-    public static GameStatus gameStatus = GameStatus.Stop;
+    public static GameStatus gameStatus = GameStatus.Running;
 
-    private static Tank player;
+    private static Tank[] playersTank = new Tank[1];
 
     private static String[][] map = new String[10][10];
 
@@ -44,13 +45,9 @@ public class Game extends Application {
 
 
     public void start(Stage stage) {
-        pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-        //StartMenu.start(pane);
         conformStage(stage);
         readMap();
-        EventHandler.getInstance().attachEventHandlers(scene);
         stage.show();
-
         new AnimationTimer() {
             private long lastUpdate = 0;
 
@@ -58,8 +55,8 @@ public class Game extends Application {
                 update();
                 if (currentNanoTime - lastUpdate >= 1_000_000_000) {
                     pane.getChildren().clear();
-                    makeGameScene();
-                    if (!player.isDead()) {
+                    if (gameStatus == GameStatus.Running) {
+                        makeGameScene();
                         for (SceneObject sceneObject : sceneObjects) {
                             pane.getChildren().add(sceneObject.getNode());
                         }
@@ -79,8 +76,23 @@ public class Game extends Application {
     }
 
     private void update() {
-        for (SceneObject sceneObject : sceneObjects) {
-            sceneObject.update();
+        Iterator<SceneObject> iterator = sceneObjects.iterator();
+        while (iterator.hasNext()) {
+            SceneObject sceneObject = iterator.next();
+            if (sceneObject.isVisible()) {
+                sceneObject.update();
+            } else {
+                iterator.remove();
+            }
+        }
+        int death = 0;
+        for (Tank tank : playersTank) {
+            if (tank.isDead()) {
+                death++;
+            }
+        }
+        if (death == playersTank.length) {
+            gameStatus = GameStatus.Stop;
         }
     }
 
@@ -89,7 +101,7 @@ public class Game extends Application {
         mapSize = map.length;
         GlobalConstance.updateSize();
         Tank test = new Tank(TankType.RandomEnemy, TankSide.Player, MAP_FIRST_X + 4 * scale, MAP_FIRST_Y + 4 * scale, scale);
-        player = new Tank(TankType.Player, TankSide.Player, mapSize / 2 * scale, (mapSize - 1) * scale + 25, scale);
+        playersTank[0] = new Tank(TankType.Player, TankSide.Player, mapSize / 2 * scale, (mapSize - 1) * scale + 25, scale);
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
                 if (map[i][j] != null) {
@@ -106,6 +118,8 @@ public class Game extends Application {
     }
 
     private void conformStage(Stage stage) {
+        pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+        EventHandler.getInstance().attachEventHandlers(scene);
         stage.setScene(scene);
         stage.setTitle("Tank Game");
         stage.setHeight(WINDOWS_HEIGHT);
@@ -123,16 +137,16 @@ public class Game extends Application {
         pane.getChildren().add(square);
         square.setX(MAP_FIRST_X);
         square.setY(MAP_FIRST_Y);
-//        Text scoreTitle = new Text("Score : ");
-//        scoreTitle.setFont(new Font(40));
-//        scoreTitle.setX(WINDOWS_WIDTH - 175);
-//        scoreTitle.setY(WINDOWS_HEIGHT - 100);
-//        Text currentScore = new Text(String.valueOf(score));
-//        currentScore.setFont(new Font(40));
-//        currentScore.setX(WINDOWS_WIDTH - 50);
-//        currentScore.setY(WINDOWS_HEIGHT - 100);
-//        pane.getChildren().add(currentScore);
-//        pane.getChildren().add(scoreTitle);
+        Text scoreTitle = new Text("Score : ");
+        scoreTitle.setFont(new Font(40));
+        scoreTitle.setX(WINDOWS_WIDTH - 175);
+        scoreTitle.setY(WINDOWS_HEIGHT - 100);
+        Text currentScore = new Text(String.valueOf(score));
+        currentScore.setFont(new Font(40));
+        currentScore.setX(WINDOWS_WIDTH - 50);
+        currentScore.setY(WINDOWS_HEIGHT - 100);
+        pane.getChildren().add(currentScore);
+        pane.getChildren().add(scoreTitle);
     }
 
     private void makeEndGame() {
@@ -141,6 +155,7 @@ public class Game extends Application {
         gameOver.setX(WINDOWS_WIDTH / 2 - 200);
         gameOver.setY(WINDOWS_HEIGHT / 2);
         gameOver.setFill(Color.RED);
+        sceneObjects = new ArrayList<>();
         pane.getChildren().add(gameOver);
         gameStatus = GameStatus.Stop;
     }
@@ -159,8 +174,8 @@ public class Game extends Application {
         }
     }
 
-    public static Tank getPlayer() {
-        return player;
+    public static Tank[] getPlayersTank() {
+        return playersTank;
     }
 
     public int getScore() {
