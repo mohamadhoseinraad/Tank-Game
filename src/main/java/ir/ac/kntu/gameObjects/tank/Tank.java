@@ -21,6 +21,8 @@ public class Tank implements SceneObject {
 
     private int health;
 
+    private int firstHealth;
+
     private Direction direction = Direction.Up;
 
     private double x;
@@ -57,6 +59,7 @@ public class Tank implements SceneObject {
                 health = (new Random().nextInt(NORMAL_TANK_HEALTH, STRONG_TANK_HEALTH));
             }
         }
+        firstHealth = health;
         Game.sceneObjects.add(this);
     }
 
@@ -70,6 +73,7 @@ public class Tank implements SceneObject {
 
     public void setHealth(int health) {
         this.health = health;
+        firstHealth = health;
     }
 
     public void move(double speed, Direction direction) {
@@ -131,6 +135,11 @@ public class Tank implements SceneObject {
             if (tankSide == TankSide.Player) {
                 Game.getPlayersTank().remove(this);
             } else {
+                if (firstHealth == NORMAL_TANK_HEALTH) {
+                    Game.score += 100;
+                } else {
+                    Game.score += 200;
+                }
                 Game.getEnemyTank().remove(this);
             }
             return false;
