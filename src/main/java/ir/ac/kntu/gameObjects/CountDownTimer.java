@@ -25,7 +25,7 @@ public class CountDownTimer implements SceneObject {
 
     public CountDownTimer(List<SceneObject> sceneObjects) {
         secondStart = LocalTime.now().getSecond();
-        textField.setFill(Color.WHITE);
+        textField.setFill(Color.BLACK);
         textField.setFont(Font.font(100));
         textField.setLayoutX(WINDOWS_WIDTH / 2 - 50);
         textField.setLayoutY(WINDOWS_HEIGHT / 2 - 50);

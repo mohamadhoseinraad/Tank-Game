@@ -1,5 +1,7 @@
 package ir.ac.kntu;
 
+import ir.ac.kntu.gameObjects.CountDownTimer;
+import ir.ac.kntu.gameObjects.Direction;
 import ir.ac.kntu.gameObjects.SceneObject;
 import ir.ac.kntu.gameObjects.tank.Tank;
 import ir.ac.kntu.scenes.SceneHelper;
@@ -12,6 +14,10 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+
+import static ir.ac.kntu.GlobalConstance.NORMAL_TANK_HEALTH;
+import static ir.ac.kntu.GlobalConstance.STRONG_TANK_HEALTH;
 
 
 public class Game extends Application {
@@ -35,7 +41,34 @@ public class Game extends Application {
 
 
     public void start(Stage stage) {
-        SceneHelper.conformStage(stage);
+        SceneHelper.conformStage(stage, pane, scene);
+        stage.show();
+        CountDownTimer countDownTimer = new CountDownTimer(sceneObjects);
+        new AnimationTimer() {
+            private long lastUpdate = 0;
+
+            public void handle(long currentNanoTime) {
+                if (currentNanoTime - lastUpdate >= 1_000_000_000) {
+                    update();
+                    pane.getChildren().clear();
+                    for (SceneObject sceneObject : sceneObjects) {
+                        pane.getChildren().add(sceneObject.getNode());
+                    }
+                    if (countDownTimer.isEnd()) {
+                        this.stop();
+                        gameStatus = GameStatus.Running;
+                        startGame(stage);
+                    }
+                    lastUpdate = currentNanoTime;
+                }
+            }
+        }.start();
+
+
+    }
+
+    private void startGame(Stage stage) {
+        SceneHelper.conformStage(stage, pane, scene);
         SceneHelper.readMap(map);
         stage.show();
         new AnimationTimer() {
@@ -61,7 +94,6 @@ public class Game extends Application {
                 }
             }
         }.start();
-
     }
 
     public static void main(String[] args) {

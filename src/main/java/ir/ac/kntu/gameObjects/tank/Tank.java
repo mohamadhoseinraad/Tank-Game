@@ -109,6 +109,9 @@ public class Tank implements SceneObject {
     }
 
     public boolean collidesWith(SceneObject object) {
+        if (object == this) {
+            return false;
+        }
         if (object instanceof Tank) {
             return collisionWithTank(object);
         }

@@ -10,8 +10,10 @@ import ir.ac.kntu.gameObjects.tank.TankSide;
 import ir.ac.kntu.gameObjects.tank.TankType;
 import ir.ac.kntu.gameObjects.wall.Wall;
 import ir.ac.kntu.gameObjects.wall.WallType;
+import javafx.scene.Scene;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -27,10 +29,10 @@ import static ir.ac.kntu.GlobalConstance.MAP_FIRST_Y;
 
 public class SceneHelper {
 
-    public static void conformStage(Stage stage) {
-        Game.pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-        EventHandler.getInstance().attachEventHandlers(Game.scene);
-        stage.setScene(Game.scene);
+    public static void conformStage(Stage stage , Pane pane, Scene scene) {
+        pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+        EventHandler.getInstance().attachEventHandlers(scene);
+        stage.setScene(scene);
         stage.setTitle("Tank Game");
         stage.setHeight(WINDOWS_HEIGHT);
         stage.setWidth(WINDOWS_WIDTH);
