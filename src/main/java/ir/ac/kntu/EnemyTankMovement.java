@@ -33,9 +33,7 @@ public class EnemyTankMovement extends Thread {
         while (iterator.hasNext()) {
             Tank enemyTank = iterator.next();
             synchronized (enemyTank) {
-                Direction[] directions = new Direction[2];
-                directions[0] = Direction.Up;
-                directions[1] = Direction.Down;
+                Direction[] directions = Direction.values();
                 int index = new Random().nextInt(directions.length);
                 Direction direction = directions[index];
 

@@ -108,23 +108,21 @@ public class Game extends Application {
     }
 
     private void update() {
-        Iterator<SceneObject> iterator = sceneObjects.iterator();
-        synchronized (sceneObjects) {
-            while (iterator.hasNext()) {
-                SceneObject sceneObject = iterator.next();
-                synchronized (iterator)   {
-                    if (sceneObject.isVisible()) {
-                        sceneObject.update();
-                    } else {
-                        iterator.remove();
-                    }
-                }
+//        Iterator<SceneObject> iterator = sceneObjects.iterator();
+//        while (iterator.hasNext()) {
+//            SceneObject sceneObject = iterator.next();
+
+        List<SceneObject> copyOfSceneObjects = new ArrayList<>(sceneObjects);
+        for (SceneObject sceneObject : copyOfSceneObjects) {
+            if (sceneObject.isVisible()) {
+                sceneObject.update();
+            } else {
+                sceneObjects.remove(sceneObject);
             }
         }
         if (playersTank.size() == 0 || enemyTank.size() == 0) {
             gameStatus = GameStatus.Stop;
         }
-
     }
 
     public static ArrayList<Tank> getPlayersTank() {
