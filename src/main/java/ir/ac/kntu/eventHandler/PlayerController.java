@@ -32,7 +32,7 @@ public class PlayerController {
             Tank player = tanks.get(0);
             handlePlayer1Movements(keyCode, player);
             Tank player2 = tanks.get(1);
-            handlePlayer1Movements(keyCode, player2);
+            handlePlayer2Movements(keyCode, player2);
         }
     }
 

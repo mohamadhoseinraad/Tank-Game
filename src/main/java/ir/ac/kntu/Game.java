@@ -85,11 +85,12 @@ public class Game extends Application {
 
             public void handle(long currentNanoTime) {
                 update();
-                if (currentNanoTime - lastUpdate >= 100_000_000) {
+                if (currentNanoTime - lastUpdate >= 100_000) {
                     pane.getChildren().clear();
                     SceneHelper.makeGameScene();
                     draw();
                     if (gameStatus == GameStatus.Stop) {
+                        enemyFreezing = true;
                         if (enemyTank.size() == 0) {
                             SceneHelper.makeEndGameWin();
                         } else {
