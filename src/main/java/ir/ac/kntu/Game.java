@@ -8,6 +8,7 @@ import ir.ac.kntu.scenes.SceneHelper;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.*;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -41,31 +42,36 @@ public class Game extends Application {
 
     public static boolean enemyFreezing = false;
 
+    public static CountDownTimer countDownTimer;
+
 
     public void start(Stage stage) {
         SceneHelper.conformStage(stage, pane, scene);
         stage.show();
-        CountDownTimer countDownTimer = new CountDownTimer(sceneObjects);
-        new AnimationTimer() {
-            private long lastUpdate = 0;
+        Button start = new Button("Start");
+        pane.getChildren().add(start);
+        start.setOnAction(actionEvent -> {
+            countDownTimer = new CountDownTimer(Game.sceneObjects);
+            new AnimationTimer() {
+                private long lastUpdate = 0;
 
-            public void handle(long currentNanoTime) {
-                if (currentNanoTime - lastUpdate >= 1_000_000_000) {
-                    update();
-                    pane.getChildren().clear();
-                    for (SceneObject sceneObject : sceneObjects) {
-                        pane.getChildren().add(sceneObject.getNode());
+                public void handle(long currentNanoTime) {
+                    if (currentNanoTime - lastUpdate >= 1_000_000_000) {
+                        update();
+                        pane.getChildren().clear();
+                        for (SceneObject sceneObject : sceneObjects) {
+                            pane.getChildren().add(sceneObject.getNode());
+                        }
+                        if (countDownTimer.isEnd()) {
+                            this.stop();
+                            gameStatus = GameStatus.Running;
+                            startGame(stage);
+                        }
+                        lastUpdate = currentNanoTime;
                     }
-                    if (countDownTimer.isEnd()) {
-                        this.stop();
-                        gameStatus = GameStatus.Running;
-                        startGame(stage);
-                    }
-                    lastUpdate = currentNanoTime;
                 }
-            }
-        }.start();
-
+            }.start();
+        });
 
     }
 
