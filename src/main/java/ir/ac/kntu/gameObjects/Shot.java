@@ -7,6 +7,9 @@ import ir.ac.kntu.gameObjects.wall.Wall;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Shot implements SceneObject {
 
     private ImageView imageView;
@@ -69,7 +72,8 @@ public class Shot implements SceneObject {
         if (direction == Direction.Left) {
             x -= speed;
         }
-        for (SceneObject sceneObject : Game.sceneObjects) {
+        List<SceneObject> copyOfSceneObjects = new ArrayList<>(Game.sceneObjects);
+        for (SceneObject sceneObject : copyOfSceneObjects) {
             this.collidesWith(sceneObject);
         }
     }

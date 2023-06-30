@@ -86,9 +86,7 @@ public class Game extends Application {
                 if (currentNanoTime - lastUpdate >= 100_000_000) {
                     pane.getChildren().clear();
                     SceneHelper.makeGameScene();
-                    for (SceneObject sceneObject : sceneObjects) {
-                        pane.getChildren().add(sceneObject.getNode());
-                    }
+                    draw();
                     if (gameStatus == GameStatus.Stop) {
                         if (enemyTank.size() == 0) {
                             SceneHelper.makeEndGameWin();
@@ -101,6 +99,13 @@ public class Game extends Application {
                 }
             }
         }.start();
+    }
+
+    private void draw() {
+        List<SceneObject> copyOfSceneObjects = new ArrayList<>(sceneObjects);
+        for (SceneObject sceneObject : copyOfSceneObjects) {
+            pane.getChildren().add(sceneObject.getNode());
+        }
     }
 
     public static void main(String[] args) {

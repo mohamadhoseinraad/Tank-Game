@@ -7,6 +7,8 @@ import ir.ac.kntu.gameObjects.wall.WallType;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static ir.ac.kntu.GlobalConstance.*;
@@ -92,7 +94,8 @@ public class Tank implements SceneObject {
         if (direction == Direction.Left) {
             x -= speed;
         }
-        for (SceneObject sceneObject : Game.sceneObjects) {
+        List<SceneObject> copyOfSceneObjects = new ArrayList<>(Game.sceneObjects);
+        for (SceneObject sceneObject : copyOfSceneObjects) {
             if (sceneObject.collidesWith(this) && this != sceneObject) {
                 y = oldY;
                 x = oldX;
