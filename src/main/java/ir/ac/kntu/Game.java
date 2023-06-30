@@ -71,6 +71,13 @@ public class Game extends Application {
         SceneHelper.conformStage(stage, pane, scene);
         SceneHelper.readMap(map);
         stage.show();
+
+        EnemyTankMovement enemyTankMover = new EnemyTankMovement(Game.getEnemyTank());
+
+        // Start a new thread with the enemyTankMover instance
+        Thread enemyTankThread = new Thread(enemyTankMover);
+        enemyTankThread.setDaemon(true);
+        enemyTankThread.start();
         new AnimationTimer() {
             private long lastUpdate = 0;
 
@@ -102,17 +109,22 @@ public class Game extends Application {
 
     private void update() {
         Iterator<SceneObject> iterator = sceneObjects.iterator();
-        while (iterator.hasNext()) {
-            SceneObject sceneObject = iterator.next();
-            if (sceneObject.isVisible()) {
-                sceneObject.update();
-            } else {
-                iterator.remove();
+        synchronized (sceneObjects) {
+            while (iterator.hasNext()) {
+                SceneObject sceneObject = iterator.next();
+                synchronized (iterator)   {
+                    if (sceneObject.isVisible()) {
+                        sceneObject.update();
+                    } else {
+                        iterator.remove();
+                    }
+                }
             }
         }
         if (playersTank.size() == 0 || enemyTank.size() == 0) {
             gameStatus = GameStatus.Stop;
         }
+
     }
 
     public static ArrayList<Tank> getPlayersTank() {
