@@ -39,6 +39,8 @@ public class Game extends Application {
 
     public static int score = 0;
 
+    public static boolean enemyFreezing = false;
+
 
     public void start(Stage stage) {
         SceneHelper.conformStage(stage, pane, scene);
