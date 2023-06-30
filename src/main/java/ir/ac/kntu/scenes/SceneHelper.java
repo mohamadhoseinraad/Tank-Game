@@ -29,7 +29,7 @@ import static ir.ac.kntu.GlobalConstance.MAP_FIRST_Y;
 
 public class SceneHelper {
 
-    public static void conformStage(Stage stage , Pane pane, Scene scene) {
+    public static void conformStage(Stage stage, Pane pane, Scene scene) {
         pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
         EventHandler.getInstance().attachEventHandlers(scene);
         stage.setScene(scene);
@@ -51,14 +51,32 @@ public class SceneHelper {
         square.setY(MAP_FIRST_Y);
         Text scoreTitle = new Text("Score : ");
         scoreTitle.setFont(new Font(40));
-        scoreTitle.setX(WINDOWS_WIDTH - 175);
+        scoreTitle.setX(WINDOWS_WIDTH - 225);
         scoreTitle.setY(WINDOWS_HEIGHT - 100);
         Text currentScore = new Text(String.valueOf(Game.score));
         currentScore.setFont(new Font(40));
-        currentScore.setX(WINDOWS_WIDTH - 50);
+        currentScore.setX(WINDOWS_WIDTH - 100);
         currentScore.setY(WINDOWS_HEIGHT - 100);
         Game.pane.getChildren().add(currentScore);
         Game.pane.getChildren().add(scoreTitle);
+        makeHealth();
+    }
+
+    private static void makeHealth() {
+        for (int i = 0; i < Game.getPlayersTank().size(); i++) {
+            Tank tank = Game.getPlayersTank().get(i);
+            Text healthTitle = new Text("Helth : ");
+            healthTitle.setFont(new Font(40));
+            healthTitle.setX(WINDOWS_WIDTH - 225);
+            healthTitle.setY(WINDOWS_HEIGHT - 200 + i * 50);
+            Text currentHealth = new Text(String.valueOf(tank.getHealth()));
+            currentHealth.setFont(new Font(25));
+            currentHealth.setX(WINDOWS_WIDTH - 100);
+            currentHealth.setY(WINDOWS_HEIGHT - 200 + i * 50);
+            Game.pane.getChildren().add(currentHealth);
+            Game.pane.getChildren().add(healthTitle);
+
+        }
     }
 
     public static void makeEndGameLose() {
