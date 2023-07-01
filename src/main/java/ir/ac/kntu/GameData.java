@@ -92,4 +92,14 @@ public class GameData {
     public void setMap(String[][] map) {
         this.map = map;
     }
+
+    public void resetGame() {
+        sceneObjects = new ArrayList<>();
+        gameStatus = GameStatus.Running;
+        playersTank = new ArrayList<>();
+        enemyTank = new ArrayList<>();
+        map = SceneHelper.readMapFile();
+        score = 0;
+        enemyFreezing = true;
+    }
 }

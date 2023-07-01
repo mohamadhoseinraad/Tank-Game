@@ -1,5 +1,6 @@
 package ir.ac.kntu.scenes;
 
+import ir.ac.kntu.GameData;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -21,7 +23,7 @@ import static ir.ac.kntu.GlobalConstance.BUTTON_STYLE;
 
 public class StartMenu {
 
-    public static void makeMenuScene(Stage stage) {
+    public static void makeMenuScene(Stage stage, Pane pane, Scene scene) {
 
         Stage primaryStage = stage;
         BorderPane root;
@@ -31,7 +33,7 @@ public class StartMenu {
         HBox topOfPage = makeTitleGame();
         HBox bottomOfPage = new HBox();
         VBox loginBox = loginBox();
-        HBox levelsButtons = makeLevelsButton(stage);
+        HBox levelsButtons = makeLevelsButton(stage, pane, scene);
         bottomOfPage.getChildren().add(loginBox);
         bottomOfPage.getChildren().add(levelsButtons);
         page.getChildren().add(topOfPage);
@@ -41,7 +43,7 @@ public class StartMenu {
     }
 
 
-    private static HBox makeLevelsButton(Stage stage) {
+    private static HBox makeLevelsButton(Stage stage, Pane pane, Scene scene) {
         HBox levelsButtons = new HBox();
         VBox optionButtons = makeOptionsButton();
         VBox levelsButtonsLeft = new VBox();
@@ -52,16 +54,7 @@ public class StartMenu {
         conformVbox(levelsButtonsLeft);
         conformVbox(levelsButtonsRight);
         for (int i = 0; i < levels.length; i++) {
-            Button stageButton = new Button("Stage " + levels[i]);
-            stageButton.setStyle(BUTTON_STYLE);
-            stageButton.setOnMouseEntered(event -> stageButton.setStyle(BUTTON_STYLE_2));
-            stageButton.setOnMouseExited(event -> stageButton.setStyle(BUTTON_STYLE));
-            if (i < levels.length / 2) {
-                levelsButtonsLeft.getChildren().add(stageButton);
-            } else {
-                levelsButtonsRight.getChildren().add(stageButton);
-            }
-            //countDownTimer(stage, stageButton);
+            makeEachButton(levels, i, stage, pane, scene, levelsButtonsLeft, levelsButtonsRight);
         }
         levelsButtons.setAlignment(Pos.CENTER_RIGHT);
         levelsButtons.getChildren().add(levelsButtonsLeft);
@@ -69,6 +62,22 @@ public class StartMenu {
         levelsButtons.getChildren().add(optionButtons);
 
         return levelsButtons;
+    }
+
+    private static void makeEachButton(ir.ac.kntu.models.Stage[] levels, int i, Stage stage, Pane pane,
+                                       Scene scene, VBox levelsButtonsLeft, VBox levelsButtonsRight) {
+        Button stageButton = new Button("Stage " + levels[i]);
+        stageButton.setStyle(BUTTON_STYLE);
+        stageButton.setOnMouseEntered(event -> stageButton.setStyle(BUTTON_STYLE_2));
+        stageButton.setOnMouseExited(event -> stageButton.setStyle(BUTTON_STYLE));
+        if (i < levels.length / 2) {
+            levelsButtonsLeft.getChildren().add(stageButton);
+        } else {
+            levelsButtonsRight.getChildren().add(stageButton);
+        }
+        stageButton.setOnMouseClicked(mouseEvent -> {
+            GamePage.countDownTimer(stage, pane, scene, GameData.getInstance());
+        });
     }
 
 

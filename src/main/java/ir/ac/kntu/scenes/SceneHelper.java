@@ -4,6 +4,8 @@ import ir.ac.kntu.Game;
 import ir.ac.kntu.GameData;
 import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.eventHandler.EventHandler;
+import ir.ac.kntu.models.GameStatus;
+import ir.ac.kntu.models.gameObjects.CountDownTimer;
 import ir.ac.kntu.models.gameObjects.Flag;
 import ir.ac.kntu.models.gameObjects.SceneObject;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
@@ -11,6 +13,7 @@ import ir.ac.kntu.models.gameObjects.tank.TankSide;
 import ir.ac.kntu.models.gameObjects.tank.TankType;
 import ir.ac.kntu.models.gameObjects.wall.Wall;
 import ir.ac.kntu.models.gameObjects.wall.WallType;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -81,13 +84,29 @@ public class SceneHelper {
         }
     }
 
-    public static void makeEndGameLose(Pane pane) {
+    public static void makeEndGameLose(Pane pane, Stage stage, Scene scene) {
         Text gameOver = new Text("Game Over");
         gameOver.setFont(new Font(50));
         gameOver.setX(MAP_FIRST_X + mapHeight / 2 - 150);
         gameOver.setY(MAP_FIRST_Y + mapHeight / 2);
         gameOver.setFill(Color.RED);
         pane.getChildren().add(gameOver);
+        new AnimationTimer() {
+            int i = 3;
+            private long lastUpdate = 0;
+
+            public void handle(long currentNanoTime) {
+                if (currentNanoTime - lastUpdate >= 1_000_000_000) {
+                    i--;
+
+                    if (i == 0) {
+                        this.stop();
+                        StartMenu.makeMenuScene(stage, pane, scene);
+                    }
+                    lastUpdate = currentNanoTime;
+                }
+            }
+        }.start();
     }
 
     public static void makeEndGameWin(Pane pane) {

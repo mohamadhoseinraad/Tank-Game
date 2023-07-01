@@ -23,6 +23,7 @@ public class GamePage {
     public static void countDownTimer(Stage stage, Pane pane, Scene scene, GameData gameData) {
         SceneHelper.conformStage(stage, pane, scene);
         SceneHelper.makeGameScene(pane);
+        gameData.resetGame();
         SceneHelper.readMap(gameData.getMap(), gameData.getSceneObjects());
         countDownTimer = new CountDownTimer(gameData.getSceneObjects());
         new AnimationTimer() {
@@ -38,8 +39,9 @@ public class GamePage {
                     }
                     if (countDownTimer.isEnd()) {
                         this.stop();
+                        gameData.setEnemyFreezing(false);
                         gameData.setGameStatus(GameStatus.Running);
-                        gameLoop(pane, gameData);
+                        gameLoop(pane, gameData, stage, scene);
                     }
                     lastUpdate = currentNanoTime;
                 }
@@ -47,8 +49,7 @@ public class GamePage {
         }.start();
     }
 
-    private static void gameLoop(Pane pane, GameData gameData) {
-        enemyTankThread(gameData);
+    private static void gameLoop(Pane pane, GameData gameData, Stage stage, Scene scene) {
         new AnimationTimer() {
             private long lastUpdate = 0;
 
@@ -60,10 +61,11 @@ public class GamePage {
                     draw(gameData, pane);
                     if (gameData.getGameStatus() == GameStatus.Stop) {
                         gameData.setEnemyFreezing(true);
+                        this.stop();
                         if (gameData.getEnemyTank().size() == 0) {
                             SceneHelper.makeEndGameWin(pane);
                         } else {
-                            SceneHelper.makeEndGameLose(pane);
+                            SceneHelper.makeEndGameLose(pane, stage, scene);
                         }
                     }
 
@@ -71,15 +73,6 @@ public class GamePage {
                 }
             }
         }.start();
-    }
-
-    private static void enemyTankThread(GameData gameData) {
-        EnemyTankMovement enemyTankMover = new EnemyTankMovement(gameData.getEnemyTank());
-
-        // Start a new thread with the enemyTankMover instance
-        Thread enemyTankThread = new Thread(enemyTankMover);
-        //enemyTankThread.setDaemon(true);
-        enemyTankThread.start();
     }
 
     private static void draw(GameData gameData, Pane pane) {

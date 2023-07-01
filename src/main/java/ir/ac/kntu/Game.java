@@ -2,6 +2,7 @@ package ir.ac.kntu;
 
 import ir.ac.kntu.scenes.GamePage;
 import ir.ac.kntu.scenes.SceneHelper;
+import ir.ac.kntu.scenes.StartMenu;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,10 +22,8 @@ public class Game extends Application {
 
     public void start(Stage stage) {
         SceneHelper.conformStage(stage, PANE, SCENE);
-        //StartMenu.makeMenuScene(stage);
-        Button button = new Button("Start");
-        PANE.getChildren().add(button);
-        GamePage.countDownTimer(stage, PANE, SCENE, gameData);
+        enemyTankThread(gameData);
+        StartMenu.makeMenuScene(stage, PANE, SCENE);
         stage.show();
 
 
@@ -32,6 +31,15 @@ public class Game extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static void enemyTankThread(GameData gameData) {
+        EnemyTankMovement enemyTankMover = new EnemyTankMovement();
+
+        // Start a new thread with the enemyTankMover instance
+        Thread enemyTankThread = new Thread(enemyTankMover);
+        //enemyTankThread.setDaemon(true);
+        enemyTankThread.start();
     }
 
 

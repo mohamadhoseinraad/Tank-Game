@@ -8,10 +8,8 @@ import java.util.Iterator;
 
 public class EnemyTankMovement extends Thread {
 
-    private ArrayList<Tank> enemyTanks;
 
-    public EnemyTankMovement(ArrayList<Tank> enemyTanks) {
-        this.enemyTanks = enemyTanks;
+    public EnemyTankMovement() {
     }
 
     @Override
@@ -27,7 +25,7 @@ public class EnemyTankMovement extends Thread {
     }
 
     private void moveEnemyTanks() {
-        Iterator<Tank> iterator = enemyTanks.iterator();
+        Iterator<Tank> iterator = GameData.getInstance().getEnemyTank().iterator();
         while (iterator.hasNext()) {
             Tank enemyTank = iterator.next();
             synchronized (enemyTank) {
