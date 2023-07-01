@@ -5,23 +5,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.time.LocalTime;
 import java.util.List;
 
 import static ir.ac.kntu.GlobalConstance.WINDOWS_HEIGHT;
 import static ir.ac.kntu.GlobalConstance.WINDOWS_WIDTH;
 
 public class CountDownTimer implements SceneObject {
-    private Text textField = new Text("5");
+    private final Text textField = new Text("5");
 
     private int secondHalf = 4;
-
-    private int secondStart;
 
     private boolean isEnd = false;
 
     public CountDownTimer(List<SceneObject> sceneObjects) {
-        secondStart = LocalTime.now().getSecond();
         textField.setFill(Color.WHITE);
         textField.setFont(Font.font(100));
         textField.setLayoutX(WINDOWS_WIDTH / 2 - 50);
@@ -61,9 +57,6 @@ public class CountDownTimer implements SceneObject {
 
     @Override
     public boolean isVisible() {
-        if (isEnd) {
-            return false;
-        }
-        return true;
+        return !isEnd;
     }
 }

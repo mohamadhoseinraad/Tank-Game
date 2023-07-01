@@ -1,10 +1,10 @@
-package ir.ac.kntu;
+package ir.ac.kntu.threads;
 
+import ir.ac.kntu.GameData;
 import ir.ac.kntu.models.gameObjects.Direction;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Random;
 
 public class EnemyTankMovement extends Thread {
 
@@ -25,22 +25,18 @@ public class EnemyTankMovement extends Thread {
     }
 
     private void moveEnemyTanks() {
-        Iterator<Tank> iterator = GameData.getInstance().getEnemyTank().iterator();
-        while (iterator.hasNext()) {
-            Tank enemyTank = iterator.next();
+        for (Tank enemyTank : GameData.getInstance().getEnemyTank()) {
             synchronized (enemyTank) {
-//                Direction[] directions = Direction.values();
-//                int index = new Random().nextInt(directions.length);
-//                Direction direction = directions[index];
+                Direction[] directions = Direction.values();
                 Direction direction = Direction.Up;
                 if (GameData.getInstance().getPlayersTank().size() != 0) {
                     direction = findDirection(GameData.getInstance().getPlayersTank().get(0), enemyTank);
                 }
-
-
-                // Call the move() method on the enemy tank with the random direction
                 if (!GameData.getInstance().isEnemyFreezing()) {
-                    enemyTank.move(enemyTank.getScale() / 5, direction);
+                    if (!enemyTank.move(enemyTank.getScale() / 5, direction)) {
+                        direction = directions[new Random().nextInt(directions.length)];
+                        enemyTank.move(enemyTank.getScale() / 5, direction);
+                    }
                     enemyTank.fire();
                 }
             }

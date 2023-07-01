@@ -1,7 +1,5 @@
 package ir.ac.kntu.eventHandler;
 
-import ir.ac.kntu.Game;
-
 import ir.ac.kntu.GameData;
 import ir.ac.kntu.models.gameObjects.Direction;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
@@ -14,7 +12,7 @@ import static ir.ac.kntu.GlobalConstance.scale;
 
 public class PlayerController {
 
-    private static PlayerController instance = new PlayerController();
+    private static final PlayerController instance = new PlayerController();
 
     public static PlayerController getInstance() {
         return instance;

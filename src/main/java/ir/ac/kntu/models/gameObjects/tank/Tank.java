@@ -1,6 +1,5 @@
 package ir.ac.kntu.models.gameObjects.tank;
 
-import ir.ac.kntu.Game;
 import ir.ac.kntu.GameData;
 import ir.ac.kntu.models.gameObjects.Shot;
 import ir.ac.kntu.models.gameObjects.Direction;
@@ -17,11 +16,11 @@ import static ir.ac.kntu.GlobalConstance.*;
 
 public class Tank implements SceneObject {
 
-    private ImageView imageView;
+    private final ImageView imageView;
 
-    private TankType tankType;
+    private final TankType tankType;
 
-    private TankSide tankSide;
+    private final TankSide tankSide;
 
     private int health;
 
@@ -33,7 +32,7 @@ public class Tank implements SceneObject {
 
     private double y;
 
-    private double scale;
+    private final double scale;
 
 
     public Tank(TankType tankType, TankSide tankSide, double x, double y, double scale) {
@@ -46,19 +45,10 @@ public class Tank implements SceneObject {
         this.x = x;
         this.y = y;
         switch (tankType) {
-            case Player -> {
-                health = PLAYER_TANK_HEALTH;
-            }
-            case NormalEnemy -> {
-                health = NORMAL_TANK_HEALTH;
-            }
-            case StrongEnemy -> {
-                health = STRONG_TANK_HEALTH;
-            }
-            default -> {
-
-                health = (new Random().nextInt(NORMAL_TANK_HEALTH, STRONG_TANK_HEALTH));
-            }
+            case Player -> health = PLAYER_TANK_HEALTH;
+            case NormalEnemy -> health = NORMAL_TANK_HEALTH;
+            case StrongEnemy -> health = STRONG_TANK_HEALTH;
+            default -> health = (new Random().nextInt(NORMAL_TANK_HEALTH, STRONG_TANK_HEALTH));
         }
         firstHealth = health;
     }
@@ -76,7 +66,7 @@ public class Tank implements SceneObject {
         firstHealth = health;
     }
 
-    public void move(double speed, Direction direction) {
+    public boolean move(double speed, Direction direction) {
         this.direction = direction;
         double oldY = y;
         double oldX = x;
@@ -97,17 +87,15 @@ public class Tank implements SceneObject {
             if (sceneObject.collidesWith(this) && this != sceneObject) {
                 y = oldY;
                 x = oldX;
+                return false;
             }
         }
-    }
-
-    public void handleInput() {
-
+        return true;
     }
 
     public void fire() {
         GameData.getInstance().getSceneObjects().add(new Shot(tankSide, x + scale / 2, y + scale / 2,
-                scale / 3, 1, direction));
+                scale / 3, player_shot_damage, direction));
     }
 
     public boolean collidesWith(SceneObject object) {
@@ -157,35 +145,23 @@ public class Tank implements SceneObject {
     }
 
     public boolean isDead() {
-        if (health <= 0) {
-            return true;
-        }
-        return false;
+        return (health <= 0);
     }
 
     public double getX() {
         return x;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
 
     public double getY() {
         return y;
     }
 
-    public void setY(double y) {
-        this.y = y;
-    }
 
     public TankSide getTankSide() {
         return tankSide;
     }
 
-    public void setTankSide(TankSide tankSide) {
-        this.tankSide = tankSide;
-    }
 
     @Override
     public void update() {

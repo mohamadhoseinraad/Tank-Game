@@ -7,13 +7,13 @@ public class Flag implements SceneObject {
 
     private int health = 3;
 
-    private double x;
+    private final double x;
 
-    private double y;
+    private final double y;
 
-    private ImageView imageView;
+    private final ImageView imageView;
 
-    private double scale;
+    private final double scale;
 
     public Flag(double x, double y, double scale) {
         imageView = new ImageView(GameObjectHelper.flag1);
@@ -28,24 +28,12 @@ public class Flag implements SceneObject {
         return scale;
     }
 
-    public void setScale(double scale) {
-        this.scale = scale;
-    }
-
     public double getX() {
         return x;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
     public double getY() {
         return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
     }
 
     public void takeDamage(int damage) {
@@ -71,9 +59,6 @@ public class Flag implements SceneObject {
 
     @Override
     public boolean isVisible() {
-        if (health > 0) {
-            return true;
-        }
-        return false;
+        return health > 0;
     }
 }

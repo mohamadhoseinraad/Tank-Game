@@ -15,15 +15,13 @@ public class GlobalConstance {
 
     public static double scale = mapHeight / mapSize;
 
-    public final static int PLAYER_FIRST_X = 500;
-
-    public final static int PLAYER_FIRST_Y = 500;
-
     public final static int NORMAL_TANK_HEALTH = 1;
 
     public final static int STRONG_TANK_HEALTH = 2;
 
-    public final static int PLAYER_TANK_HEALTH = 2;
+    public final static int PLAYER_TANK_HEALTH = 3;
+
+    public static int player_shot_damage = 1;
 
     public static final String BUTTON_STYLE = "-fx-background-color: #FFA07A;" +
             " -fx-text-fill: black; -fx-font-size: 16px;" +

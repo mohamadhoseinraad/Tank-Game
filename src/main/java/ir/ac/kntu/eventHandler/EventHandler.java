@@ -6,7 +6,7 @@ import javafx.scene.input.KeyEvent;
 
 
 public class EventHandler {
-    private static EventHandler instance = new EventHandler();
+    private static final EventHandler instance = new EventHandler();
 
     public static EventHandler getInstance() {
         return instance;
@@ -20,7 +20,6 @@ public class EventHandler {
             PlayerController.getInstance().handlePlayerMovements(code);
         });
         scene.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> {
-            return;
         });
     }
 

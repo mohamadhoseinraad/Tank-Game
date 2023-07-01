@@ -1,6 +1,5 @@
 package ir.ac.kntu.models.gameObjects;
 
-import ir.ac.kntu.Game;
 import ir.ac.kntu.GameData;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.models.gameObjects.tank.TankSide;
@@ -13,19 +12,19 @@ import java.util.List;
 
 public class Shot implements SceneObject {
 
-    private ImageView imageView;
+    private final ImageView imageView;
 
-    private TankSide tankSide;
+    private final TankSide tankSide;
 
-    private int damage;
+    private final int damage;
 
-    private Direction direction = Direction.Up;
+    private Direction direction;
 
     private double x;
 
     private double y;
 
-    private double scale;
+    private final double scale;
 
     private boolean isCollision = false;
 
@@ -40,22 +39,6 @@ public class Shot implements SceneObject {
         this.x = x;
         this.y = y;
         this.damage = damage;
-    }
-
-    public double getScale() {
-        return scale;
-    }
-
-    public int getDamage() {
-        return damage;
-    }
-
-    public boolean isCollision() {
-        return isCollision;
-    }
-
-    public void setCollision(boolean collision) {
-        isCollision = collision;
     }
 
     public void move(double speed, Direction direction) {
@@ -76,10 +59,6 @@ public class Shot implements SceneObject {
         for (SceneObject sceneObject : copyOfSceneObjects) {
             this.collidesWith(sceneObject);
         }
-    }
-
-    public void handleInput() {
-
     }
 
 
@@ -162,41 +141,7 @@ public class Shot implements SceneObject {
 
     @Override
     public boolean isVisible() {
-        if (isCollision) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean isDead() {
-        if (damage <= 0) {
-            return true;
-        }
-        return false;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public TankSide getTankSide() {
-        return tankSide;
-    }
-
-    public void setTankSide(TankSide tankSide) {
-        this.tankSide = tankSide;
+        return !isCollision;
     }
 
     @Override

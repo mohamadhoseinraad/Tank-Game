@@ -1,14 +1,11 @@
 package ir.ac.kntu.scenes;
 
-import ir.ac.kntu.EnemyTankMovement;
-import ir.ac.kntu.Game;
 import ir.ac.kntu.GameData;
 import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.models.gameObjects.CountDownTimer;
 import ir.ac.kntu.models.gameObjects.SceneObject;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 

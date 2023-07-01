@@ -4,11 +4,11 @@ import javafx.scene.Node;
 
 public interface SceneObject {
 
-    public void update();
+    void update();
 
-    public Node getNode();
+    Node getNode();
 
-    public boolean collidesWith(SceneObject object);
+    boolean collidesWith(SceneObject object);
 
-    public boolean isVisible();
+    boolean isVisible();
 }

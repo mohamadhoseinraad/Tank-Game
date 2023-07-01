@@ -8,17 +8,17 @@ import javafx.scene.image.ImageView;
 
 public class Wall implements SceneObject {
 
-    private ImageView imageView;
+    private final ImageView imageView;
 
     private int health = 2;
 
-    private WallType wallType;
+    private final WallType wallType;
 
-    private double x;
+    private final double x;
 
-    private double y;
+    private final double y;
 
-    private double scale;
+    private final double scale;
 
     public Wall(WallType wallType, double x, double y, double scale) {
         this.wallType = wallType;
@@ -42,16 +42,8 @@ public class Wall implements SceneObject {
         return x;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
     public double getY() {
         return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
     }
 
     public double getScale() {
@@ -71,27 +63,21 @@ public class Wall implements SceneObject {
 
     @Override
     public boolean collidesWith(SceneObject object) {
-        if (object instanceof Tank) {
-            Tank tank = (Tank) object;
+        if (object instanceof Tank tank) {
             double tankScale = tank.getScale();
-            double wallLeft = x;
             double wallRight = x + scale;
-            double wallTop = y;
             double wallBottom = y + scale;
             double tankLeft = tank.getX();
             double tankRight = tank.getX() + tankScale;
             double tankTop = tank.getY();
             double tankBottom = tank.getY() + tankScale;
-            return wallLeft < tankRight && wallRight > tankLeft && wallTop < tankBottom && wallBottom > tankTop;
+            return x < tankRight && wallRight > tankLeft && y < tankBottom && wallBottom > tankTop;
         }
         return false;
     }
 
     @Override
     public boolean isVisible() {
-        if (health <= 0) {
-            return false;
-        }
-        return true;
+        return health > 0;
     }
 }

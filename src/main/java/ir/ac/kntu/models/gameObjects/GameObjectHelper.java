@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Objects;
 
 public class GameObjectHelper {
 
@@ -26,10 +27,6 @@ public class GameObjectHelper {
     private static Image shot = null;
 
     public static Image flag1 = null;
-
-    private static Image flag3 = null;
-
-    private static Image flag2 = null;
 
 
     static {
@@ -66,14 +63,10 @@ public class GameObjectHelper {
     }
 
     public static Image attachWallImage(WallType wallType) {
-        switch (wallType) {
-            case Iron -> {
-                return ironWall;
-            }
-            default -> {
-                return normalWall;
-            }
+        if (Objects.requireNonNull(wallType) == WallType.Iron) {
+            return ironWall;
         }
+        return normalWall;
     }
 
     public static Image attachShotImage() {
