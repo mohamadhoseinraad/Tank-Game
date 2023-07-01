@@ -23,6 +23,8 @@ public class GlobalConstance {
 
     public static int playerShotDamage = 1;
 
+    public static final String PLAYERS_DB_FILE = "src/main/resources/PlayerDB.txt";
+
     public static final String DEFAULT_MAP_ONE_PLAYER = "src/main/resources/map.txt";
 
     public static final String DEFAULT_MAP_TWO_PLAYER = "src/main/resources/map2.txt";
