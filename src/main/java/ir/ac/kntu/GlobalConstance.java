@@ -21,7 +21,7 @@ public class GlobalConstance {
 
     public final static int PLAYER_TANK_HEALTH = 3;
 
-    public static int player_shot_damage = 1;
+    public static int playerShotDamage = 1;
 
     public static final String DEFAULT_MAP_ONE_PLAYER = "src/main/resources/map.txt";
 

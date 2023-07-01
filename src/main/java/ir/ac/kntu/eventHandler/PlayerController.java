@@ -12,10 +12,10 @@ import static ir.ac.kntu.GlobalConstance.scale;
 
 public class PlayerController {
 
-    private static final PlayerController instance = new PlayerController();
+    private static final PlayerController INSTANCE = new PlayerController();
 
     public static PlayerController getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     private PlayerController() {

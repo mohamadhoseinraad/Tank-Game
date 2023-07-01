@@ -95,7 +95,7 @@ public class Tank implements SceneObject {
 
     public void fire() {
         GameData.getInstance().getSceneObjects().add(new Shot(tankSide, x + scale / 2, y + scale / 2,
-                scale / 3, player_shot_damage, direction));
+                scale / 3, playerShotDamage, direction));
     }
 
     public boolean collidesWith(SceneObject object) {

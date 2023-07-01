@@ -6,10 +6,10 @@ import javafx.scene.input.KeyEvent;
 
 
 public class EventHandler {
-    private static final EventHandler instance = new EventHandler();
+    private static final EventHandler INSTANCE = new EventHandler();
 
     public static EventHandler getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     private EventHandler() {}
