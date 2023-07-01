@@ -20,4 +20,25 @@ public class PlayerService {
     public void update() {
         PlayerDAO.writeDB(players);
     }
+
+    public void singUp(String username, String password) {
+        if (findPlayer(username, password) == null) {
+            players.add(new Player(username, password));
+        }
+    }
+
+    private Player findPlayer(String username, String password) {
+        for (Player player : players) {
+            if (player.login(username, password)) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public void login(String username, String password) {
+        if (findPlayer(username, password) != null) {
+            GameData.getInstance().setCurrentPlayer(findPlayer(username, password));
+        }
+    }
 }

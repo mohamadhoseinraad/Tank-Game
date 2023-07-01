@@ -1,6 +1,7 @@
 package ir.ac.kntu;
 
 import ir.ac.kntu.models.GameStatus;
+import ir.ac.kntu.models.Player;
 import ir.ac.kntu.models.gameObjects.SceneObject;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.scenes.SceneHelper;
@@ -36,6 +37,8 @@ public class GameData {
     private int score = 0;
 
     private boolean enemyFreezing = false;
+
+    private Player currentPlayer = null;
 
 
     public ArrayList<Tank> getPlayersTank() {
@@ -103,5 +106,21 @@ public class GameData {
         score = 0;
         enemyFreezing = true;
         map = SceneHelper.readMapFile(DEFAULT_MAP_ONE_PLAYER);
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public void updateUser() {
+        if (currentPlayer != null) {
+            currentPlayer.setHighScore(score);
+            PlayerService.getINSTANCE().update();
+            ;
+        }
     }
 }

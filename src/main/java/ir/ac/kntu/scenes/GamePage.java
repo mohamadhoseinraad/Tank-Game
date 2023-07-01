@@ -64,6 +64,7 @@ public class GamePage {
                     draw(gameData, pane);
                     if (gameData.getGameStatus() == GameStatus.Stop) {
                         gameData.setEnemyFreezing(true);
+                        GameData.getInstance().updateUser();
                         this.stop();
                         if (gameData.getEnemyTank().size() == 0) {
                             SceneHelper.makeEndGameWin(pane);

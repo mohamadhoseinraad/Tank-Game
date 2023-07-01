@@ -1,6 +1,7 @@
 package ir.ac.kntu.scenes;
 
 import ir.ac.kntu.GameData;
+import ir.ac.kntu.PlayerService;
 import ir.ac.kntu.models.Level;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -114,15 +115,18 @@ public class StartMenu {
 
 
         loginBox.getChildren().addAll(loginLabel, usernameField, passwordField);
-        loginBoxButtons(loginBox);
+        loginBoxButtons(loginBox, usernameField, passwordField);
 
         loginBox.setPadding(new Insets(30));
         return loginBox;
     }
 
-    private static void loginBoxButtons(VBox loginBox) {
+    private static void loginBoxButtons(VBox loginBox, TextField usernameField, PasswordField passwordField) {
         Button loginButton = new Button("Log In");
         loginButton.setStyle("-fx-background-color: #808080; -fx-text-fill: white;");
+        loginButton.setOnMouseClicked(mouseEvent -> {
+            PlayerService.getINSTANCE().login(usernameField.getText(), passwordField.getText());
+        });
 
         Button signUpConfirmButton = new Button("Sign Up");
         signUpConfirmButton.setStyle("-fx-background-color: #808080; -fx-text-fill: white;");

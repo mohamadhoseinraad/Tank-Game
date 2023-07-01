@@ -67,6 +67,23 @@ public class SceneHelper {
         pane.getChildren().add(currentScore);
         pane.getChildren().add(scoreTitle);
         makeHealth(pane);
+        userData(pane);
+    }
+
+    private static void userData(Pane pane) {
+        if (GameData.getInstance().getCurrentPlayer() != null) {
+            Text username = new Text(GameData.getInstance().getCurrentPlayer().getUsername());
+            username.setFill(Color.WHITE);
+            username.setFont(Font.font("Verdana", FontWeight.BOLD, 40));
+            username.setX(WINDOWS_WIDTH - 225);
+            username.setY(100);
+            Text highScore = new Text("HighScore" + GameData.getInstance().getCurrentPlayer().getHighScore());
+            highScore.setFill(Color.WHITE);
+            highScore.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+            highScore.setX(WINDOWS_WIDTH - 225);
+            highScore.setY(150);
+            pane.getChildren().addAll(username, highScore);
+        }
     }
 
     private static void makeHealth(Pane pane) {
