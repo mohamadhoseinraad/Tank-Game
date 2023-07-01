@@ -1,7 +1,6 @@
 package ir.ac.kntu.models.gameObjects.tank;
 
 import ir.ac.kntu.Game;
-import ir.ac.kntu.gameObjects.*;
 import ir.ac.kntu.models.gameObjects.Shot;
 import ir.ac.kntu.models.gameObjects.Direction;
 import ir.ac.kntu.models.gameObjects.GameObjectHelper;
