@@ -11,10 +11,13 @@ import ir.ac.kntu.models.gameObjects.tank.TankType;
 import ir.ac.kntu.models.gameObjects.wall.Wall;
 import ir.ac.kntu.models.gameObjects.wall.WallType;
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -32,7 +35,7 @@ import static ir.ac.kntu.GlobalConstance.*;
 public class SceneHelper {
 
     public static void conformStage(Stage stage, Pane pane, Scene scene) {
-        pane.setStyle("-fx-background-color: #000000;");
+        pane.setStyle("-fx-background-color: #708090;");
         EventHandler.getInstance().attachEventHandlers(scene);
         stage.setScene(scene);
         stage.setTitle("Tank Game");
@@ -196,8 +199,7 @@ public class SceneHelper {
         }
     }
 
-    public static String[][] readMapFile() {
-        String fileName = "src/main/resources/map.txt";
+    public static String[][] readMapFile(String fileName) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             int numRows = 0;
@@ -223,6 +225,35 @@ public class SceneHelper {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void getFileNameStage(Stage mainStage, Pane pane, Scene scene) {
+        Stage secondStage = new Stage();
+        Pane secondPane = new Pane();
+        Scene secondScene = new Scene(secondPane);
+        VBox vBox = new VBox();
+        Label fileLabel = new Label("File name");
+        fileLabel.setTextFill(Color.BLACK);
+        fileLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+
+        TextField usernameField = new TextField();
+        usernameField.setPromptText("File name");
+
+        Button save = new Button("Ok");
+        save.setStyle("-fx-background-color: #808080; -fx-text-fill: white;");
+        save.setOnMouseClicked(mouseEvent -> {
+            customMap += usernameField.getText() + ".txt";
+            GamePage.countDownTimer(mainStage, pane, scene, GameData.getInstance());
+            secondStage.close();
+        });
+
+        vBox.getChildren().addAll(fileLabel, usernameField, save);
+        vBox.setAlignment(Pos.CENTER);
+        secondPane.getChildren().add(vBox);
+        secondStage.setScene(secondScene);
+        secondStage.setWidth(300);
+        secondStage.setHeight(150);
+        secondStage.show();
     }
 
 

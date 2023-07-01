@@ -23,6 +23,12 @@ public class GlobalConstance {
 
     public static int player_shot_damage = 1;
 
+    public static final String DEFAULT_MAP_ONE_PLAYER = "src/main/resources/map.txt";
+
+    public static final String DEFAULT_MAP_TWO_PLAYER = "src/main/resources/map2.txt";
+
+    public static String customMap = "src/main/resources/";
+
     public static final String BUTTON_STYLE = "-fx-background-color: #FFA07A;" +
             " -fx-text-fill: black; -fx-font-size: 16px;" +
             " -fx-font-weight: bold; -fx-padding: 10px 20px;" +

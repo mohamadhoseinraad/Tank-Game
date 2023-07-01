@@ -8,6 +8,8 @@ import ir.ac.kntu.scenes.SceneHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ir.ac.kntu.GlobalConstance.DEFAULT_MAP_ONE_PLAYER;
+
 public class GameData {
 
     private final static GameData INSTANCE = new GameData();
@@ -29,7 +31,7 @@ public class GameData {
 
     private ArrayList<Tank> enemyTank = new ArrayList<>();
 
-    private String[][] map = SceneHelper.readMapFile();
+    private String[][] map = SceneHelper.readMapFile(DEFAULT_MAP_ONE_PLAYER);
 
     private int score = 0;
 
@@ -98,8 +100,8 @@ public class GameData {
         gameStatus = GameStatus.Running;
         playersTank = new ArrayList<>();
         enemyTank = new ArrayList<>();
-        map = SceneHelper.readMapFile();
         score = 0;
         enemyFreezing = true;
+        map = SceneHelper.readMapFile(DEFAULT_MAP_ONE_PLAYER);
     }
 }

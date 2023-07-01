@@ -44,7 +44,7 @@ public class StartMenu {
 
     private static HBox makeLevelsButton(Stage stage, Pane pane, Scene scene) {
         HBox levelsButtons = new HBox();
-        VBox optionButtons = makeOptionsButton();
+        VBox optionButtons = makeOptionsButton(stage, pane, scene);
         VBox levelsButtonsLeft = new VBox();
         VBox levelsButtonsRight = new VBox();
         levelsButtons.setAlignment(Pos.CENTER);
@@ -78,7 +78,7 @@ public class StartMenu {
     }
 
 
-    private static VBox makeOptionsButton() {
+    private static VBox makeOptionsButton(Stage stage, Pane pane, Scene scene) {
         VBox optionButtons = new VBox();
         conformVbox(optionButtons);
         Button customStageButton = new Button("Custom Stage");
@@ -86,6 +86,7 @@ public class StartMenu {
         customStageButton.setOnMouseEntered(event -> customStageButton.setStyle(BUTTON_STYLE_2));
         customStageButton.setOnMouseExited(event -> customStageButton.setStyle(BUTTON_STYLE));
         optionButtons.getChildren().add(customStageButton);
+        customStageButton.setOnMouseClicked(mouseEvent -> SceneHelper.getFileNameStage(stage, pane, scene));
 
         return optionButtons;
     }
