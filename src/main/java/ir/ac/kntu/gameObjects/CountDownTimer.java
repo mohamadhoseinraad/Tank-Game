@@ -17,7 +17,7 @@ import static ir.ac.kntu.GlobalConstance.WINDOWS_WIDTH;
 public class CountDownTimer implements SceneObject {
     private Text textField = new Text("5");
 
-    private int secondHalf = 5;
+    private int secondHalf = 4;
 
     private int secondStart;
 
@@ -25,7 +25,7 @@ public class CountDownTimer implements SceneObject {
 
     public CountDownTimer(List<SceneObject> sceneObjects) {
         secondStart = LocalTime.now().getSecond();
-        textField.setFill(Color.BLACK);
+        textField.setFill(Color.WHITE);
         textField.setFont(Font.font(100));
         textField.setLayoutX(WINDOWS_WIDTH / 2 - 50);
         textField.setLayoutY(WINDOWS_HEIGHT / 2 - 50);
@@ -42,6 +42,8 @@ public class CountDownTimer implements SceneObject {
         if (secondHalf == 0) {
             textField.setText("Go");
             textField.setFill(Color.GREEN);
+        }
+        if (secondHalf == -1) {
             isEnd = true;
             Game.gameStatus = GameStatus.Start;
         }
