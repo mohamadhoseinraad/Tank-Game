@@ -1,6 +1,7 @@
 package ir.ac.kntu.scenes;
 
 import ir.ac.kntu.Game;
+import ir.ac.kntu.GameData;
 import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.eventHandler.EventHandler;
 import ir.ac.kntu.models.gameObjects.Flag;
@@ -54,7 +55,7 @@ public class SceneHelper {
         scoreTitle.setFont(new Font(40));
         scoreTitle.setX(WINDOWS_WIDTH - 225);
         scoreTitle.setY(WINDOWS_HEIGHT - 100);
-        Text currentScore = new Text(String.valueOf(Game.getScore()));
+        Text currentScore = new Text(String.valueOf(GameData.getInstance().getScore()));
         currentScore.setFont(new Font(40));
         currentScore.setX(WINDOWS_WIDTH - 100);
         currentScore.setY(WINDOWS_HEIGHT - 100);
@@ -64,8 +65,8 @@ public class SceneHelper {
     }
 
     private static void makeHealth(Pane pane) {
-        for (int i = 0; i < Game.getPlayersTank().size(); i++) {
-            Tank tank = Game.getPlayersTank().get(i);
+        for (int i = 0; i < GameData.getInstance().getPlayersTank().size(); i++) {
+            Tank tank = GameData.getInstance().getPlayersTank().get(i);
             Text healthTitle = new Text("Helth : ");
             healthTitle.setFont(new Font(40));
             healthTitle.setX(WINDOWS_WIDTH - 225);
@@ -109,7 +110,11 @@ public class SceneHelper {
                     switch (map[i][j]) {
                         case "B" -> sceneObjects.add(new Wall(WallType.Normal, x, y, scale));
                         case "M" -> sceneObjects.add(new Wall(WallType.Iron, x, y, scale));
-                        case "P" -> sceneObjects.add(new Tank(TankType.Player, TankSide.Player, x, y, scale));
+                        case "P" -> {
+                            Tank tank = new Tank(TankType.Player, TankSide.Player, x, y, scale);
+                            sceneObjects.add(tank);
+                            GameData.getInstance().getPlayersTank().add(tank);
+                        }
                         case "F" -> sceneObjects.add(new Flag(x, y, scale));
                         case "O", "A", "c", "C" -> attachEnemy(map[i][j], x, y, sceneObjects);
                         default -> {
@@ -120,20 +125,27 @@ public class SceneHelper {
                 }
             }
         }
-        addMapWall();
+        addMapWall(sceneObjects);
     }
 
     private static void attachEnemy(String s, double x, double y, List<SceneObject> sceneObjects) {
+        Tank sceneObject = null;
         switch (s) {
-            case "O" -> sceneObjects.add(new Tank(TankType.NormalEnemy, TankSide.Enemy, x, y, scale));
-            case "A" -> sceneObjects.add(new Tank(TankType.StrongEnemy, TankSide.Enemy, x, y, scale));
+            case "O" -> {
+                sceneObject = new Tank(TankType.NormalEnemy, TankSide.Enemy, x, y, scale);
+                sceneObjects.add(sceneObject);
+            }
+            case "A" -> {
+                sceneObject = new Tank(TankType.StrongEnemy, TankSide.Enemy, x, y, scale);
+                sceneObjects.add(sceneObject);
+            }
             case "c" -> {
-                Tank sceneObject = new Tank(TankType.RandomEnemy, TankSide.Enemy, x, y, scale);
+                sceneObject = new Tank(TankType.RandomEnemy, TankSide.Enemy, x, y, scale);
                 sceneObject.setHealth(NORMAL_TANK_HEALTH);
                 sceneObjects.add(sceneObject);
             }
             case "C" -> {
-                Tank sceneObject = new Tank(TankType.RandomEnemy, TankSide.Enemy, x, y, scale);
+                sceneObject = new Tank(TankType.RandomEnemy, TankSide.Enemy, x, y, scale);
                 sceneObject.setHealth(STRONG_TANK_HEALTH);
                 sceneObjects.add(sceneObject);
             }
@@ -141,19 +153,26 @@ public class SceneHelper {
 
             }
         }
+        if (sceneObject != null) {
+            GameData.getInstance().getEnemyTank().add(sceneObject);
+        }
     }
 
-    private static void addMapWall() {
+    private static void addMapWall(List<SceneObject> sceneObjects) {
         int mapWallSize = 14;
         for (int i = 0; i < mapHeight / mapWallSize; i++) {
             //Left wall
-            new Wall(WallType.Iron, MAP_FIRST_X - mapWallSize, (MAP_FIRST_Y) + (i) * mapWallSize, mapWallSize);
+            sceneObjects.add(new Wall(WallType.Iron, MAP_FIRST_X - mapWallSize,
+                    (MAP_FIRST_Y) + (i) * mapWallSize, mapWallSize));
             //Right wall
-            new Wall(WallType.Iron, mapHeight + MAP_FIRST_X, (MAP_FIRST_Y) + (i) * mapWallSize, mapWallSize);
+            sceneObjects.add(new Wall(WallType.Iron, mapHeight + MAP_FIRST_X,
+                    (MAP_FIRST_Y) + (i) * mapWallSize, mapWallSize));
             //Up wall
-            new Wall(WallType.Iron, (MAP_FIRST_X) + (i) * mapWallSize, MAP_FIRST_Y - mapWallSize, mapWallSize);
+            sceneObjects.add(new Wall(WallType.Iron, (MAP_FIRST_X) + (i) * mapWallSize,
+                    MAP_FIRST_Y - mapWallSize, mapWallSize));
             //Button
-            new Wall(WallType.Iron, (MAP_FIRST_X) + (i) * mapWallSize, MAP_FIRST_Y + mapHeight, mapWallSize);
+            sceneObjects.add(new Wall(WallType.Iron, (MAP_FIRST_X) + (i) * mapWallSize,
+                    MAP_FIRST_Y + mapHeight, mapWallSize));
         }
     }
 

@@ -3,7 +3,6 @@ package ir.ac.kntu;
 import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.models.gameObjects.CountDownTimer;
 import ir.ac.kntu.models.gameObjects.SceneObject;
-import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.scenes.SceneHelper;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -20,25 +19,11 @@ public class Game extends Application {
 
     private static Pane pane = new Pane();
 
-
     private static Scene scene = new Scene(pane);
 
-
-    private static List<SceneObject> sceneObjects = new ArrayList<>();
-
-    private static GameStatus gameStatus = GameStatus.Running;
-
-    private static ArrayList<Tank> playersTank = new ArrayList<>();
-
-    private static ArrayList<Tank> enemyTank = new ArrayList<>();
-
-    private String[][] map = SceneHelper.readMapFile();
-
-    private static int score = 0;
-
-    private static boolean enemyFreezing = false;
-
     private static CountDownTimer countDownTimer;
+
+    private final GameData gameData = GameData.getInstance();
 
 
     public void start(Stage stage) {
@@ -56,8 +41,8 @@ public class Game extends Application {
         start.setOnAction(actionEvent -> {
             SceneHelper.conformStage(stage, pane, scene);
             SceneHelper.makeGameScene(pane);
-            SceneHelper.readMap(map, sceneObjects);
-            countDownTimer = new CountDownTimer(Game.sceneObjects);
+            SceneHelper.readMap(gameData.getMap(), gameData.getSceneObjects());
+            countDownTimer = new CountDownTimer(gameData.getSceneObjects());
             new AnimationTimer() {
                 private long lastUpdate = 0;
 
@@ -66,12 +51,12 @@ public class Game extends Application {
                         update();
                         pane.getChildren().clear();
                         SceneHelper.makeGameScene(pane);
-                        for (SceneObject sceneObject : sceneObjects) {
+                        for (SceneObject sceneObject : gameData.getSceneObjects()) {
                             pane.getChildren().add(sceneObject.getNode());
                         }
                         if (countDownTimer.isEnd()) {
                             this.stop();
-                            gameStatus = GameStatus.Running;
+                            gameData.setGameStatus(GameStatus.Running);
                             startGame(stage);
                         }
                         lastUpdate = currentNanoTime;
@@ -86,7 +71,7 @@ public class Game extends Application {
         //SceneHelper.readMap(map);
         stage.show();
 
-        EnemyTankMovement enemyTankMover = new EnemyTankMovement(Game.getEnemyTank());
+        EnemyTankMovement enemyTankMover = new EnemyTankMovement(gameData.getEnemyTank());
 
         // Start a new thread with the enemyTankMover instance
         Thread enemyTankThread = new Thread(enemyTankMover);
@@ -101,9 +86,9 @@ public class Game extends Application {
                     pane.getChildren().clear();
                     SceneHelper.makeGameScene(pane);
                     draw();
-                    if (gameStatus == GameStatus.Stop) {
-                        enemyFreezing = true;
-                        if (enemyTank.size() == 0) {
+                    if (gameData.getGameStatus() == GameStatus.Stop) {
+                        gameData.setEnemyFreezing(true);
+                        if (gameData.getEnemyTank().size() == 0) {
                             SceneHelper.makeEndGameWin(pane);
                         } else {
                             SceneHelper.makeEndGameLose(pane);
@@ -117,7 +102,7 @@ public class Game extends Application {
     }
 
     private void draw() {
-        List<SceneObject> copyOfSceneObjects = new ArrayList<>(sceneObjects);
+        List<SceneObject> copyOfSceneObjects = new ArrayList<>(gameData.getSceneObjects());
         for (SceneObject sceneObject : copyOfSceneObjects) {
             pane.getChildren().add(sceneObject.getNode());
         }
@@ -132,44 +117,18 @@ public class Game extends Application {
 //        while (iterator.hasNext()) {
 //            SceneObject sceneObject = iterator.next();
 
-        List<SceneObject> copyOfSceneObjects = new ArrayList<>(sceneObjects);
+        List<SceneObject> copyOfSceneObjects = new ArrayList<>(gameData.getSceneObjects());
         for (SceneObject sceneObject : copyOfSceneObjects) {
             if (sceneObject.isVisible()) {
                 sceneObject.update();
             } else {
-                sceneObjects.remove(sceneObject);
+                gameData.getSceneObjects().remove(sceneObject);
             }
         }
-        if (playersTank.size() == 0 || enemyTank.size() == 0) {
-            gameStatus = GameStatus.Stop;
+        if (gameData.getPlayersTank().size() == 0 || gameData.getEnemyTank().size() == 0) {
+            gameData.setGameStatus(GameStatus.Stop);
         }
     }
 
-    public static ArrayList<Tank> getPlayersTank() {
-        return playersTank;
-    }
 
-    public static ArrayList<Tank> getEnemyTank() {
-        return enemyTank;
-    }
-
-    public static List<SceneObject> getSceneObjects() {
-        return sceneObjects;
-    }
-
-    public static int getScore() {
-        return score;
-    }
-
-    public static void setScore(int score) {
-        Game.score = score;
-    }
-
-    public static boolean isEnemyFreezing() {
-        return enemyFreezing;
-    }
-
-    public static void setEnemyFreezing(boolean enemyFreezing) {
-        Game.enemyFreezing = enemyFreezing;
-    }
 }

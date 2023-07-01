@@ -1,6 +1,7 @@
 package ir.ac.kntu.models.gameObjects.tank;
 
 import ir.ac.kntu.Game;
+import ir.ac.kntu.GameData;
 import ir.ac.kntu.models.gameObjects.Shot;
 import ir.ac.kntu.models.gameObjects.Direction;
 import ir.ac.kntu.models.gameObjects.GameObjectHelper;
@@ -47,18 +48,15 @@ public class Tank implements SceneObject {
         switch (tankType) {
             case Player -> {
                 health = PLAYER_TANK_HEALTH;
-                Game.getPlayersTank().add(this);
             }
             case NormalEnemy -> {
                 health = NORMAL_TANK_HEALTH;
-                Game.getEnemyTank().add(this);
             }
             case StrongEnemy -> {
-                Game.getEnemyTank().add(this);
                 health = STRONG_TANK_HEALTH;
             }
             default -> {
-                Game.getEnemyTank().add(this);
+
                 health = (new Random().nextInt(NORMAL_TANK_HEALTH, STRONG_TANK_HEALTH));
             }
         }
@@ -94,7 +92,7 @@ public class Tank implements SceneObject {
         if (direction == Direction.Left) {
             x -= speed;
         }
-        List<SceneObject> copyOfSceneObjects = new ArrayList<>(Game.getSceneObjects());
+        List<SceneObject> copyOfSceneObjects = new ArrayList<>(GameData.getInstance().getSceneObjects());
         for (SceneObject sceneObject : copyOfSceneObjects) {
             if (sceneObject.collidesWith(this) && this != sceneObject) {
                 y = oldY;
@@ -108,7 +106,8 @@ public class Tank implements SceneObject {
     }
 
     public void fire() {
-        Game.getSceneObjects().add(new Shot(tankSide, x + scale / 2, y + scale / 2, scale / 3, 1, direction));
+        GameData.getInstance().getSceneObjects().add(new Shot(tankSide, x + scale / 2, y + scale / 2,
+                scale / 3, 1, direction));
     }
 
     public boolean collidesWith(SceneObject object) {
@@ -139,14 +138,14 @@ public class Tank implements SceneObject {
     public boolean isVisible() {
         if (isDead()) {
             if (tankSide == TankSide.Player) {
-                Game.getPlayersTank().remove(this);
+                GameData.getInstance().getPlayersTank().remove(this);
             } else {
                 if (firstHealth == NORMAL_TANK_HEALTH) {
-                    Game.setScore(Game.getScore() + 100);
+                    GameData.getInstance().setScore(GameData.getInstance().getScore() + 100);
                 } else {
-                    Game.setScore(Game.getScore() + 200);
+                    GameData.getInstance().setScore(GameData.getInstance().getScore() + 200);
                 }
-                Game.getEnemyTank().remove(this);
+                GameData.getInstance().getEnemyTank().remove(this);
             }
             return false;
         }

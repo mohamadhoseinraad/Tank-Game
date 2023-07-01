@@ -1,6 +1,7 @@
 package ir.ac.kntu.models.gameObjects;
 
 import ir.ac.kntu.Game;
+import ir.ac.kntu.GameData;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.models.gameObjects.tank.TankSide;
 import ir.ac.kntu.models.gameObjects.wall.Wall;
@@ -71,7 +72,7 @@ public class Shot implements SceneObject {
         if (direction == Direction.Left) {
             x -= speed;
         }
-        List<SceneObject> copyOfSceneObjects = new ArrayList<>(Game.getSceneObjects());
+        List<SceneObject> copyOfSceneObjects = new ArrayList<>(GameData.getInstance().getSceneObjects());
         for (SceneObject sceneObject : copyOfSceneObjects) {
             this.collidesWith(sceneObject);
         }

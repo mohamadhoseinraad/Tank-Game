@@ -2,6 +2,7 @@ package ir.ac.kntu.eventHandler;
 
 import ir.ac.kntu.Game;
 
+import ir.ac.kntu.GameData;
 import ir.ac.kntu.models.gameObjects.Direction;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import javafx.scene.input.KeyCode;
@@ -24,7 +25,7 @@ public class PlayerController {
 
     public void handlePlayerMovements(KeyCode keyCode) {
         //TODO set controller
-        ArrayList<Tank> tanks = Game.getPlayersTank();
+        ArrayList<Tank> tanks = GameData.getInstance().getPlayersTank();
         if (tanks.size() == 1) {
             Tank player = tanks.get(0);
             handlePlayer1Movements(keyCode, player);

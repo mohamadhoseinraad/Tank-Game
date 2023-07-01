@@ -35,13 +35,13 @@ public class EnemyTankMovement extends Thread {
 //                int index = new Random().nextInt(directions.length);
 //                Direction direction = directions[index];
                 Direction direction = Direction.Up;
-                if (Game.getPlayersTank().size() != 0) {
-                    direction = findDirection(Game.getPlayersTank().get(0), enemyTank);
+                if (GameData.getInstance().getPlayersTank().size() != 0) {
+                    direction = findDirection(GameData.getInstance().getPlayersTank().get(0), enemyTank);
                 }
 
 
                 // Call the move() method on the enemy tank with the random direction
-                if (!Game.isEnemyFreezing()) {
+                if (!GameData.getInstance().isEnemyFreezing()) {
                     enemyTank.move(enemyTank.getScale() / 5, direction);
                     enemyTank.fire();
                 }
