@@ -25,7 +25,6 @@ public class StartMenu {
 
     public static void makeMenuScene(Stage stage, Pane pane, Scene scene) {
 
-        Stage primaryStage = stage;
         BorderPane root;
         root = new BorderPane();
         root.setStyle("-fx-background-color: #000000;");
@@ -39,7 +38,7 @@ public class StartMenu {
         page.getChildren().add(topOfPage);
         page.getChildren().add(bottomOfPage);
         root.setCenter(page);
-        primaryStage.setScene(new Scene(root));
+        stage.setScene(new Scene(root));
     }
 
 
@@ -75,9 +74,7 @@ public class StartMenu {
         } else {
             levelsButtonsRight.getChildren().add(stageButton);
         }
-        stageButton.setOnMouseClicked(mouseEvent -> {
-            GamePage.countDownTimer(stage, pane, scene, GameData.getInstance());
-        });
+        stageButton.setOnMouseClicked(mouseEvent -> GamePage.countDownTimer(stage, pane, scene, GameData.getInstance()));
     }
 
 

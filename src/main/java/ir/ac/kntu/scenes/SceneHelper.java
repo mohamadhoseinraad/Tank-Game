@@ -1,11 +1,8 @@
 package ir.ac.kntu.scenes;
 
-import ir.ac.kntu.Game;
 import ir.ac.kntu.GameData;
 import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.eventHandler.EventHandler;
-import ir.ac.kntu.models.GameStatus;
-import ir.ac.kntu.models.gameObjects.CountDownTimer;
 import ir.ac.kntu.models.gameObjects.Flag;
 import ir.ac.kntu.models.gameObjects.SceneObject;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
@@ -21,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -30,12 +28,11 @@ import java.io.IOException;
 import java.util.List;
 
 import static ir.ac.kntu.GlobalConstance.*;
-import static ir.ac.kntu.GlobalConstance.MAP_FIRST_Y;
 
 public class SceneHelper {
 
     public static void conformStage(Stage stage, Pane pane, Scene scene) {
-        pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+        pane.setStyle("-fx-background-color: #000000;");
         EventHandler.getInstance().attachEventHandlers(scene);
         stage.setScene(scene);
         stage.setTitle("Tank Game");
@@ -55,13 +52,15 @@ public class SceneHelper {
         square.setX(MAP_FIRST_X);
         square.setY(MAP_FIRST_Y);
         Text scoreTitle = new Text("Score : ");
-        scoreTitle.setFont(new Font(40));
+        scoreTitle.setFill(Color.WHITE);
+        scoreTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 40));
         scoreTitle.setX(WINDOWS_WIDTH - 225);
         scoreTitle.setY(WINDOWS_HEIGHT - 100);
         Text currentScore = new Text(String.valueOf(GameData.getInstance().getScore()));
-        currentScore.setFont(new Font(40));
-        currentScore.setX(WINDOWS_WIDTH - 100);
-        currentScore.setY(WINDOWS_HEIGHT - 100);
+        currentScore.setFill(Color.WHITE);
+        currentScore.setFont(Font.font("Verdana", FontWeight.BOLD, 40));
+        currentScore.setX(WINDOWS_WIDTH - 150);
+        currentScore.setY(WINDOWS_HEIGHT - 50);
         pane.getChildren().add(currentScore);
         pane.getChildren().add(scoreTitle);
         makeHealth(pane);
@@ -70,13 +69,15 @@ public class SceneHelper {
     private static void makeHealth(Pane pane) {
         for (int i = 0; i < GameData.getInstance().getPlayersTank().size(); i++) {
             Tank tank = GameData.getInstance().getPlayersTank().get(i);
-            Text healthTitle = new Text("Helth : ");
-            healthTitle.setFont(new Font(40));
+            Text healthTitle = new Text("Health : ");
+            healthTitle.setFill(Color.WHITE);
+            healthTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 40));
             healthTitle.setX(WINDOWS_WIDTH - 225);
             healthTitle.setY(WINDOWS_HEIGHT - 200 + i * 50);
             Text currentHealth = new Text(String.valueOf(tank.getHealth()));
-            currentHealth.setFont(new Font(25));
-            currentHealth.setX(WINDOWS_WIDTH - 100);
+            currentHealth.setFill(Color.WHITE);
+            currentHealth.setFont(Font.font("Verdana", FontWeight.BOLD, 40));
+            currentHealth.setX(WINDOWS_WIDTH - 50);
             currentHealth.setY(WINDOWS_HEIGHT - 200 + i * 50);
             pane.getChildren().add(currentHealth);
             pane.getChildren().add(healthTitle);
