@@ -25,6 +25,18 @@ public class GlobalConstance {
 
     public final static int PLAYER_TANK_HEALTH = 2;
 
+    public static final String BUTTON_STYLE = "-fx-background-color: #FFA07A;" +
+            " -fx-text-fill: black; -fx-font-size: 16px;" +
+            " -fx-font-weight: bold; -fx-padding: 10px 20px;" +
+            " -fx-border-color: black; -fx-border-width: 2px;" +
+            " -fx-background-radius: 20px;";
+
+    public static final String BUTTON_STYLE_2 = "-fx-background-color: #20B2AA;" +
+            " -fx-text-fill: black; -fx-font-size: 16px;" +
+            " -fx-font-weight: bold; -fx-padding: 10px 20px;" +
+            " -fx-border-color: black; -fx-border-width: 2px;" +
+            " -fx-background-radius: 20px;";
+
     public static void updateSize() {
         if (mapHeight % mapSize != 0) {
             mapHeight = ((mapHeight / mapSize) + 1) * mapSize;
