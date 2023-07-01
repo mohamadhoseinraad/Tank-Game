@@ -5,6 +5,7 @@ import ir.ac.kntu.GameStatus;
 import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.eventHandler.EventHandler;
 import ir.ac.kntu.gameObjects.Flag;
+import ir.ac.kntu.gameObjects.SceneObject;
 import ir.ac.kntu.gameObjects.tank.Tank;
 import ir.ac.kntu.gameObjects.tank.TankSide;
 import ir.ac.kntu.gameObjects.tank.TankType;
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 import static ir.ac.kntu.GlobalConstance.*;
 import static ir.ac.kntu.GlobalConstance.MAP_FIRST_Y;
@@ -53,7 +55,7 @@ public class SceneHelper {
         scoreTitle.setFont(new Font(40));
         scoreTitle.setX(WINDOWS_WIDTH - 225);
         scoreTitle.setY(WINDOWS_HEIGHT - 100);
-        Text currentScore = new Text(String.valueOf(Game.score));
+        Text currentScore = new Text(String.valueOf(Game.getScore()));
         currentScore.setFont(new Font(40));
         currentScore.setX(WINDOWS_WIDTH - 100);
         currentScore.setY(WINDOWS_HEIGHT - 100);
@@ -86,7 +88,6 @@ public class SceneHelper {
         gameOver.setY(MAP_FIRST_Y + mapHeight / 2);
         gameOver.setFill(Color.RED);
         pane.getChildren().add(gameOver);
-        Game.gameStatus = GameStatus.Stop;
     }
 
     public static void makeEndGameWin(Pane pane) {
@@ -96,10 +97,9 @@ public class SceneHelper {
         gameOver.setY(MAP_FIRST_Y + mapHeight / 2);
         gameOver.setFill(Color.GREEN);
         pane.getChildren().add(gameOver);
-        Game.gameStatus = GameStatus.Stop;
     }
 
-    public static void readMap(String[][] map) {
+    public static void readMap(String[][] map, List<SceneObject> sceneObjects) {
         mapSize = map.length;
         GlobalConstance.updateSize();
         for (int i = 0; i < mapSize; i++) {
@@ -108,11 +108,11 @@ public class SceneHelper {
                     double x = MAP_FIRST_X + j * scale;
                     double y = MAP_FIRST_Y + i * scale;
                     switch (map[i][j]) {
-                        case "B" -> new Wall(WallType.Normal, x, y, scale);
-                        case "M" -> new Wall(WallType.Iron, x, y, scale);
-                        case "P" -> new Tank(TankType.Player, TankSide.Player, x, y, scale);
-                        case "F" -> new Flag(x, y, scale);
-                        case "O", "A", "c", "C" -> attachEnemy(map[i][j], x, y);
+                        case "B" -> sceneObjects.add(new Wall(WallType.Normal, x, y, scale));
+                        case "M" -> sceneObjects.add(new Wall(WallType.Iron, x, y, scale));
+                        case "P" -> sceneObjects.add(new Tank(TankType.Player, TankSide.Player, x, y, scale));
+                        case "F" -> sceneObjects.add(new Flag(x, y, scale));
+                        case "O", "A", "c", "C" -> attachEnemy(map[i][j], x, y, sceneObjects);
                         default -> {
 
                         }
@@ -124,12 +124,20 @@ public class SceneHelper {
         addMapWall();
     }
 
-    private static void attachEnemy(String s, double x, double y) {
+    private static void attachEnemy(String s, double x, double y, List<SceneObject> sceneObjects) {
         switch (s) {
-            case "O" -> new Tank(TankType.NormalEnemy, TankSide.Enemy, x, y, scale);
-            case "A" -> new Tank(TankType.StrongEnemy, TankSide.Enemy, x, y, scale);
-            case "c" -> new Tank(TankType.RandomEnemy, TankSide.Enemy, x, y, scale).setHealth(NORMAL_TANK_HEALTH);
-            case "C" -> new Tank(TankType.RandomEnemy, TankSide.Enemy, x, y, scale).setHealth(STRONG_TANK_HEALTH);
+            case "O" -> sceneObjects.add(new Tank(TankType.NormalEnemy, TankSide.Enemy, x, y, scale));
+            case "A" -> sceneObjects.add(new Tank(TankType.StrongEnemy, TankSide.Enemy, x, y, scale));
+            case "c" -> {
+                Tank sceneObject = new Tank(TankType.RandomEnemy, TankSide.Enemy, x, y, scale);
+                sceneObject.setHealth(NORMAL_TANK_HEALTH);
+                sceneObjects.add(sceneObject);
+            }
+            case "C" -> {
+                Tank sceneObject = new Tank(TankType.RandomEnemy, TankSide.Enemy, x, y, scale);
+                sceneObject.setHealth(STRONG_TANK_HEALTH);
+                sceneObjects.add(sceneObject);
+            }
             default -> {
 
             }

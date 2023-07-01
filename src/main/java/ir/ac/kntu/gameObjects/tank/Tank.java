@@ -62,7 +62,6 @@ public class Tank implements SceneObject {
             }
         }
         firstHealth = health;
-        Game.sceneObjects.add(this);
     }
 
     public double getScale() {
@@ -94,7 +93,7 @@ public class Tank implements SceneObject {
         if (direction == Direction.Left) {
             x -= speed;
         }
-        List<SceneObject> copyOfSceneObjects = new ArrayList<>(Game.sceneObjects);
+        List<SceneObject> copyOfSceneObjects = new ArrayList<>(Game.getSceneObjects());
         for (SceneObject sceneObject : copyOfSceneObjects) {
             if (sceneObject.collidesWith(this) && this != sceneObject) {
                 y = oldY;
@@ -108,7 +107,7 @@ public class Tank implements SceneObject {
     }
 
     public void fire() {
-        new Shot(tankSide, x + scale / 2, y + scale / 2, scale / 3, 1, direction);
+        Game.getSceneObjects().add(new Shot(tankSide, x + scale / 2, y + scale / 2, scale / 3, 1, direction));
     }
 
     public boolean collidesWith(SceneObject object) {
@@ -142,9 +141,9 @@ public class Tank implements SceneObject {
                 Game.getPlayersTank().remove(this);
             } else {
                 if (firstHealth == NORMAL_TANK_HEALTH) {
-                    Game.score += 100;
+                    Game.setScore(Game.getScore() + 100);
                 } else {
-                    Game.score += 200;
+                    Game.setScore(Game.getScore() + 200);
                 }
                 Game.getEnemyTank().remove(this);
             }

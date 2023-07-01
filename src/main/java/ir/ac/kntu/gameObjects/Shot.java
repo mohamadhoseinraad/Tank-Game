@@ -39,7 +39,6 @@ public class Shot implements SceneObject {
         this.x = x;
         this.y = y;
         this.damage = damage;
-        Game.sceneObjects.add(this);
     }
 
     public double getScale() {
@@ -72,7 +71,7 @@ public class Shot implements SceneObject {
         if (direction == Direction.Left) {
             x -= speed;
         }
-        List<SceneObject> copyOfSceneObjects = new ArrayList<>(Game.sceneObjects);
+        List<SceneObject> copyOfSceneObjects = new ArrayList<>(Game.getSceneObjects());
         for (SceneObject sceneObject : copyOfSceneObjects) {
             this.collidesWith(sceneObject);
         }

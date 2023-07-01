@@ -25,7 +25,6 @@ public class Flag implements SceneObject {
         imageView.setFitHeight(scale);
         this.x = x;
         this.y = y;
-        Game.sceneObjects.add(this);
     }
 
     public double getScale() {

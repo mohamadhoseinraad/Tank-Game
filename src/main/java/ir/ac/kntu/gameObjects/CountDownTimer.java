@@ -45,7 +45,6 @@ public class CountDownTimer implements SceneObject {
         }
         if (secondHalf == -1) {
             isEnd = true;
-            Game.gameStatus = GameStatus.Start;
         }
     }
 

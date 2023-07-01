@@ -31,7 +31,6 @@ public class Wall implements SceneObject {
         imageView = new ImageView(GameObjectHelper.attachWallImage(wallType));
         imageView.setFitWidth(scale);
         imageView.setFitHeight(scale);
-        Game.sceneObjects.add(this);
     }
 
 

@@ -4,40 +4,28 @@ import ir.ac.kntu.gameObjects.CountDownTimer;
 import ir.ac.kntu.gameObjects.SceneObject;
 import ir.ac.kntu.gameObjects.tank.Tank;
 import ir.ac.kntu.scenes.SceneHelper;
-import ir.ac.kntu.scenes.StartMenu;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.*;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static ir.ac.kntu.GlobalConstance.BUTTON_STYLE;
-import static ir.ac.kntu.GlobalConstance.BUTTON_STYLE_2;
-
 
 public class Game extends Application {
 
-    public static Pane pane = new Pane();
+    private static Pane pane = new Pane();
 
 
-    public static Scene scene = new Scene(pane);
+    private static Scene scene = new Scene(pane);
 
 
-    public static List<SceneObject> sceneObjects = new ArrayList<>();
+    private static List<SceneObject> sceneObjects = new ArrayList<>();
 
-    public static GameStatus gameStatus = GameStatus.Running;
+    private static GameStatus gameStatus = GameStatus.Running;
 
     private static ArrayList<Tank> playersTank = new ArrayList<>();
 
@@ -45,16 +33,19 @@ public class Game extends Application {
 
     private String[][] map = SceneHelper.readMapFile();
 
-    public static int score = 0;
+    private static int score = 0;
 
-    public static boolean enemyFreezing = false;
+    private static boolean enemyFreezing = false;
 
-    public static CountDownTimer countDownTimer;
+    private static CountDownTimer countDownTimer;
 
 
     public void start(Stage stage) {
         SceneHelper.conformStage(stage, pane, scene);
-        StartMenu.makeMenuScene(stage);
+        //StartMenu.makeMenuScene(stage);
+        Button button = new Button("Start");
+        pane.getChildren().add(button);
+        countDownTimer(stage, button);
         stage.show();
 
 
@@ -64,7 +55,7 @@ public class Game extends Application {
         start.setOnAction(actionEvent -> {
             SceneHelper.conformStage(stage, pane, scene);
             SceneHelper.makeGameScene(pane);
-            SceneHelper.readMap(map);
+            SceneHelper.readMap(map, sceneObjects);
             countDownTimer = new CountDownTimer(Game.sceneObjects);
             new AnimationTimer() {
                 private long lastUpdate = 0;
@@ -161,4 +152,23 @@ public class Game extends Application {
         return enemyTank;
     }
 
+    public static List<SceneObject> getSceneObjects() {
+        return sceneObjects;
+    }
+
+    public static int getScore() {
+        return score;
+    }
+
+    public static void setScore(int score) {
+        Game.score = score;
+    }
+
+    public static boolean isEnemyFreezing() {
+        return enemyFreezing;
+    }
+
+    public static void setEnemyFreezing(boolean enemyFreezing) {
+        Game.enemyFreezing = enemyFreezing;
+    }
 }

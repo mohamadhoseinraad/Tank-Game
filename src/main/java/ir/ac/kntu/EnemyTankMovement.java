@@ -44,7 +44,7 @@ public class EnemyTankMovement extends Thread {
 
 
                 // Call the move() method on the enemy tank with the random direction
-                if (!Game.enemyFreezing) {
+                if (!Game.isEnemyFreezing()) {
                     enemyTank.move(enemyTank.getScale() / 5, direction);
                     enemyTank.fire();
                 }
