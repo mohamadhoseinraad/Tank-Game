@@ -42,11 +42,11 @@ public class SceneHelper {
         stage.setMinWidth(WINDOWS_WIDTH);
     }
 
-    public static void makeGameScene() {
+    public static void makeGameScene(Pane pane) {
         Rectangle square = new Rectangle(mapHeight, mapHeight);
         square.setFill(Color.BLACK);
         square.setStroke(Color.WHITE);
-        Game.pane.getChildren().add(square);
+        pane.getChildren().add(square);
         square.setX(MAP_FIRST_X);
         square.setY(MAP_FIRST_Y);
         Text scoreTitle = new Text("Score : ");
@@ -57,12 +57,12 @@ public class SceneHelper {
         currentScore.setFont(new Font(40));
         currentScore.setX(WINDOWS_WIDTH - 100);
         currentScore.setY(WINDOWS_HEIGHT - 100);
-        Game.pane.getChildren().add(currentScore);
-        Game.pane.getChildren().add(scoreTitle);
-        makeHealth();
+        pane.getChildren().add(currentScore);
+        pane.getChildren().add(scoreTitle);
+        makeHealth(pane);
     }
 
-    private static void makeHealth() {
+    private static void makeHealth(Pane pane) {
         for (int i = 0; i < Game.getPlayersTank().size(); i++) {
             Tank tank = Game.getPlayersTank().get(i);
             Text healthTitle = new Text("Helth : ");
@@ -73,29 +73,29 @@ public class SceneHelper {
             currentHealth.setFont(new Font(25));
             currentHealth.setX(WINDOWS_WIDTH - 100);
             currentHealth.setY(WINDOWS_HEIGHT - 200 + i * 50);
-            Game.pane.getChildren().add(currentHealth);
-            Game.pane.getChildren().add(healthTitle);
+            pane.getChildren().add(currentHealth);
+            pane.getChildren().add(healthTitle);
 
         }
     }
 
-    public static void makeEndGameLose() {
+    public static void makeEndGameLose(Pane pane) {
         Text gameOver = new Text("Game Over");
         gameOver.setFont(new Font(50));
         gameOver.setX(MAP_FIRST_X + mapHeight / 2 - 150);
         gameOver.setY(MAP_FIRST_Y + mapHeight / 2);
         gameOver.setFill(Color.RED);
-        Game.pane.getChildren().add(gameOver);
+        pane.getChildren().add(gameOver);
         Game.gameStatus = GameStatus.Stop;
     }
 
-    public static void makeEndGameWin() {
+    public static void makeEndGameWin(Pane pane) {
         Text gameOver = new Text("Win");
         gameOver.setFont(new Font(50));
         gameOver.setX(MAP_FIRST_X + mapHeight / 2);
         gameOver.setY(MAP_FIRST_Y + mapHeight / 2);
         gameOver.setFill(Color.GREEN);
-        Game.pane.getChildren().add(gameOver);
+        pane.getChildren().add(gameOver);
         Game.gameStatus = GameStatus.Stop;
     }
 

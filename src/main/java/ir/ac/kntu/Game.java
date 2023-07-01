@@ -31,6 +31,7 @@ public class Game extends Application {
 
     public static Pane pane = new Pane();
 
+
     public static Scene scene = new Scene(pane);
 
 
@@ -62,7 +63,7 @@ public class Game extends Application {
     public void countDownTimer(Stage stage, Button start) {
         start.setOnAction(actionEvent -> {
             SceneHelper.conformStage(stage, pane, scene);
-            SceneHelper.makeGameScene();
+            SceneHelper.makeGameScene(pane);
             SceneHelper.readMap(map);
             countDownTimer = new CountDownTimer(Game.sceneObjects);
             new AnimationTimer() {
@@ -72,7 +73,7 @@ public class Game extends Application {
                     if (currentNanoTime - lastUpdate >= 1_000_000_000) {
                         update();
                         pane.getChildren().clear();
-                        SceneHelper.makeGameScene();
+                        SceneHelper.makeGameScene(pane);
                         for (SceneObject sceneObject : sceneObjects) {
                             pane.getChildren().add(sceneObject.getNode());
                         }
@@ -106,14 +107,14 @@ public class Game extends Application {
                 update();
                 if (currentNanoTime - lastUpdate >= 100_000) {
                     pane.getChildren().clear();
-                    SceneHelper.makeGameScene();
+                    SceneHelper.makeGameScene(pane);
                     draw();
                     if (gameStatus == GameStatus.Stop) {
                         enemyFreezing = true;
                         if (enemyTank.size() == 0) {
-                            SceneHelper.makeEndGameWin();
+                            SceneHelper.makeEndGameWin(pane);
                         } else {
-                            SceneHelper.makeEndGameLose();
+                            SceneHelper.makeEndGameLose(pane);
                         }
                     }
 
