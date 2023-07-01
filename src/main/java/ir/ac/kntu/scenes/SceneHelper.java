@@ -243,7 +243,7 @@ public class SceneHelper {
         save.setStyle("-fx-background-color: #808080; -fx-text-fill: white;");
         save.setOnMouseClicked(mouseEvent -> {
             customMap += usernameField.getText() + ".txt";
-            GamePage.countDownTimer(mainStage, pane, scene, GameData.getInstance());
+            GamePage.countDownTimer(null, mainStage, pane, scene, GameData.getInstance());
             secondStage.close();
         });
 

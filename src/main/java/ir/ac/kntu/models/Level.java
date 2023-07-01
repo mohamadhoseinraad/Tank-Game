@@ -1,6 +1,6 @@
 package ir.ac.kntu.models;
 
-public enum Stage {
+public enum Level {
     Leve1,
     Leve2,
     Leve3,

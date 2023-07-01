@@ -7,7 +7,7 @@ public class Player implements Serializable {
 
     private String password;
 
-    private Stage lastStage = Stage.Leve1;
+    private Level lastLevel = Level.Leve1;
 
     private int highScore = 0;
 
@@ -19,49 +19,49 @@ public class Player implements Serializable {
     }
 
     public void levelUp() {
-        switch (lastStage) {
+        switch (lastLevel) {
             case Leve1 -> {
-                lastStage = Stage.Leve2;
+                lastLevel = Level.Leve2;
                 break;
             }
             case Leve2 -> {
-                lastStage = Stage.Leve3;
+                lastLevel = Level.Leve3;
                 break;
             }
             case Leve3 -> {
-                lastStage = Stage.Leve4;
+                lastLevel = Level.Leve4;
                 break;
             }
             case Leve4 -> {
-                lastStage = Stage.Leve5;
+                lastLevel = Level.Leve5;
                 break;
             }
             case Leve5 -> {
-                lastStage = Stage.Leve6;
+                lastLevel = Level.Leve6;
                 break;
             }
             default -> {
-                brokeFunction(lastStage);
+                brokeFunction(lastLevel);
             }
         }
     }
 
-    private void brokeFunction(Stage stage) {
-        switch (stage) {
+    private void brokeFunction(Level level) {
+        switch (level) {
             case Leve6 -> {
-                lastStage = Stage.Leve7;
+                lastLevel = Level.Leve7;
                 break;
             }
             case Leve7 -> {
-                lastStage = Stage.Leve8;
+                lastLevel = Level.Leve8;
                 break;
             }
             case Leve8 -> {
-                lastStage = Stage.Leve9;
+                lastLevel = Level.Leve9;
                 break;
             }
             case Leve9 -> {
-                lastStage = Stage.Leve10;
+                lastLevel = Level.Leve10;
                 break;
             }
             default -> {
@@ -87,8 +87,8 @@ public class Player implements Serializable {
         return password;
     }
 
-    public Stage getLastStage() {
-        return lastStage;
+    public Level getLastStage() {
+        return lastLevel;
     }
 
     public int getHighScore() {

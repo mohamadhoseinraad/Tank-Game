@@ -1,6 +1,7 @@
 package ir.ac.kntu.scenes;
 
 import ir.ac.kntu.GameData;
+import ir.ac.kntu.models.Level;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -49,7 +50,7 @@ public class StartMenu {
         VBox levelsButtonsRight = new VBox();
         levelsButtons.setAlignment(Pos.CENTER);
         levelsButtons.setPadding(new Insets(30));
-        ir.ac.kntu.models.Stage[] levels = ir.ac.kntu.models.Stage.values();
+        Level[] levels = Level.values();
         conformVbox(levelsButtonsLeft);
         conformVbox(levelsButtonsRight);
         for (int i = 0; i < levels.length; i++) {
@@ -63,7 +64,7 @@ public class StartMenu {
         return levelsButtons;
     }
 
-    private static void makeEachButton(ir.ac.kntu.models.Stage[] levels, int i, Stage stage, Pane pane,
+    private static void makeEachButton(Level[] levels, int i, Stage stage, Pane pane,
                                        Scene scene, VBox levelsButtonsLeft, VBox levelsButtonsRight) {
         Button stageButton = new Button("Stage " + levels[i]);
         stageButton.setStyle(BUTTON_STYLE);
@@ -74,7 +75,7 @@ public class StartMenu {
         } else {
             levelsButtonsRight.getChildren().add(stageButton);
         }
-        stageButton.setOnMouseClicked(mouseEvent -> GamePage.countDownTimer(stage, pane, scene, GameData.getInstance()));
+        stageButton.setOnMouseClicked(mouseEvent -> GamePage.countDownTimer(levels[i], stage, pane, scene, GameData.getInstance()));
     }
 
 

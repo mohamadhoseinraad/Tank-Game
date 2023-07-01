@@ -2,6 +2,7 @@ package ir.ac.kntu.scenes;
 
 import ir.ac.kntu.GameData;
 import ir.ac.kntu.models.GameStatus;
+import ir.ac.kntu.models.Level;
 import ir.ac.kntu.models.gameObjects.CountDownTimer;
 import ir.ac.kntu.models.gameObjects.SceneObject;
 import javafx.animation.AnimationTimer;
@@ -12,15 +13,20 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ir.ac.kntu.GlobalConstance.customMap;
+
 public class GamePage {
 
     private static CountDownTimer countDownTimer;
 
 
-    public static void countDownTimer(Stage stage, Pane pane, Scene scene, GameData gameData) {
+    public static void countDownTimer(Level level, Stage stage, Pane pane, Scene scene, GameData gameData) {
         SceneHelper.conformStage(stage, pane, scene);
         SceneHelper.makeGameScene(pane);
         gameData.resetGame();
+        if (level == null) {
+            gameData.setMap(SceneHelper.readMapFile(customMap));
+        }
         SceneHelper.readMap(gameData.getMap(), gameData.getSceneObjects());
         countDownTimer = new CountDownTimer(gameData.getSceneObjects());
         new AnimationTimer() {
