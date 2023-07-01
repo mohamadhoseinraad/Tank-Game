@@ -1,13 +1,10 @@
 package ir.ac.kntu;
 
-import ir.ac.kntu.gameObjects.Direction;
-import ir.ac.kntu.gameObjects.SceneObject;
-import ir.ac.kntu.gameObjects.tank.Tank;
+import ir.ac.kntu.models.gameObjects.Direction;
+import ir.ac.kntu.models.gameObjects.tank.Tank;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
 
 public class EnemyTankMovement extends Thread {
 

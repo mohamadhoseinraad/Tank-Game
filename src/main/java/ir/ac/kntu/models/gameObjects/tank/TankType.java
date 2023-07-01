@@ -1,4 +1,4 @@
-package ir.ac.kntu.gameObjects.tank;
+package ir.ac.kntu.models.gameObjects.tank;
 
 import java.util.Random;
 

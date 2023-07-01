@@ -1,4 +1,4 @@
-package ir.ac.kntu.gameObjects;
+package ir.ac.kntu.models.gameObjects;
 
 import javafx.scene.Node;
 

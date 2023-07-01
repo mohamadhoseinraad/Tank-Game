@@ -1,4 +1,4 @@
-package ir.ac.kntu.gameObjects;
+package ir.ac.kntu.models.gameObjects;
 
 public enum Direction {
     Up, Down, Right, Left

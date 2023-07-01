@@ -1,9 +1,11 @@
-package ir.ac.kntu.gameObjects.tank;
+package ir.ac.kntu.models.gameObjects.tank;
 
 import ir.ac.kntu.Game;
 import ir.ac.kntu.gameObjects.*;
-import ir.ac.kntu.gameObjects.wall.Wall;
-import ir.ac.kntu.gameObjects.wall.WallType;
+import ir.ac.kntu.models.gameObjects.Shot;
+import ir.ac.kntu.models.gameObjects.Direction;
+import ir.ac.kntu.models.gameObjects.GameObjectHelper;
+import ir.ac.kntu.models.gameObjects.SceneObject;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 

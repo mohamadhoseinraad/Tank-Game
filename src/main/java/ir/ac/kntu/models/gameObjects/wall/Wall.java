@@ -1,13 +1,10 @@
-package ir.ac.kntu.gameObjects.wall;
+package ir.ac.kntu.models.gameObjects.wall;
 
-import ir.ac.kntu.Game;
-import ir.ac.kntu.gameObjects.GameObjectHelper;
-import ir.ac.kntu.gameObjects.SceneObject;
-import ir.ac.kntu.gameObjects.tank.Tank;
+import ir.ac.kntu.models.gameObjects.GameObjectHelper;
+import ir.ac.kntu.models.gameObjects.SceneObject;
+import ir.ac.kntu.models.gameObjects.tank.Tank;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
-
-import static ir.ac.kntu.GlobalConstance.scale;
 
 public class Wall implements SceneObject {
 

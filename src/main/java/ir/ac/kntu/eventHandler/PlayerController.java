@@ -2,8 +2,8 @@ package ir.ac.kntu.eventHandler;
 
 import ir.ac.kntu.Game;
 
-import ir.ac.kntu.gameObjects.Direction;
-import ir.ac.kntu.gameObjects.tank.Tank;
+import ir.ac.kntu.models.gameObjects.Direction;
+import ir.ac.kntu.models.gameObjects.tank.Tank;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;

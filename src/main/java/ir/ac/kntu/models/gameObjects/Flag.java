@@ -1,8 +1,5 @@
-package ir.ac.kntu.gameObjects;
+package ir.ac.kntu.models.gameObjects;
 
-import ir.ac.kntu.Game;
-import ir.ac.kntu.gameObjects.tank.TankSide;
-import ir.ac.kntu.gameObjects.tank.TankType;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 

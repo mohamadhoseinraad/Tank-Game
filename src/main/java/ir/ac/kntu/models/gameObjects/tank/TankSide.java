@@ -1,4 +1,4 @@
-package ir.ac.kntu.gameObjects.tank;
+package ir.ac.kntu.models.gameObjects.tank;
 
 public enum TankSide {
     Player, Enemy

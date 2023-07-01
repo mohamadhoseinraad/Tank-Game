@@ -1,8 +1,9 @@
 package ir.ac.kntu;
 
-import ir.ac.kntu.gameObjects.CountDownTimer;
-import ir.ac.kntu.gameObjects.SceneObject;
-import ir.ac.kntu.gameObjects.tank.Tank;
+import ir.ac.kntu.models.GameStatus;
+import ir.ac.kntu.models.gameObjects.CountDownTimer;
+import ir.ac.kntu.models.gameObjects.SceneObject;
+import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.scenes.SceneHelper;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;

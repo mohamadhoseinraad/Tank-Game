@@ -1,10 +1,5 @@
 package ir.ac.kntu.scenes;
 
-import ir.ac.kntu.Game;
-import ir.ac.kntu.GameStatus;
-import ir.ac.kntu.gameObjects.CountDownTimer;
-import ir.ac.kntu.gameObjects.SceneObject;
-import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,7 +9,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -54,7 +48,7 @@ public class StartMenu {
         VBox levelsButtonsRight = new VBox();
         levelsButtons.setAlignment(Pos.CENTER);
         levelsButtons.setPadding(new Insets(30));
-        ir.ac.kntu.Stage[] levels = ir.ac.kntu.Stage.values();
+        ir.ac.kntu.models.Stage[] levels = ir.ac.kntu.models.Stage.values();
         conformVbox(levelsButtonsLeft);
         conformVbox(levelsButtonsRight);
         for (int i = 0; i < levels.length; i++) {

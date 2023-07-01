@@ -1,16 +1,15 @@
 package ir.ac.kntu.scenes;
 
 import ir.ac.kntu.Game;
-import ir.ac.kntu.GameStatus;
 import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.eventHandler.EventHandler;
-import ir.ac.kntu.gameObjects.Flag;
-import ir.ac.kntu.gameObjects.SceneObject;
-import ir.ac.kntu.gameObjects.tank.Tank;
-import ir.ac.kntu.gameObjects.tank.TankSide;
-import ir.ac.kntu.gameObjects.tank.TankType;
-import ir.ac.kntu.gameObjects.wall.Wall;
-import ir.ac.kntu.gameObjects.wall.WallType;
+import ir.ac.kntu.models.gameObjects.Flag;
+import ir.ac.kntu.models.gameObjects.SceneObject;
+import ir.ac.kntu.models.gameObjects.tank.Tank;
+import ir.ac.kntu.models.gameObjects.tank.TankSide;
+import ir.ac.kntu.models.gameObjects.tank.TankType;
+import ir.ac.kntu.models.gameObjects.wall.Wall;
+import ir.ac.kntu.models.gameObjects.wall.WallType;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
