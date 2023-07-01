@@ -10,14 +10,14 @@ import java.util.List;
 
 public class GameData {
 
-    private final static GameData instance = new GameData();
+    private final static GameData INSTANCE = new GameData();
 
     private GameData() {
 
     }
 
     public static GameData getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
 

@@ -67,16 +67,7 @@ public class Game extends Application {
     }
 
     private void startGame(Stage stage) {
-        //SceneHelper.conformStage(stage, pane, scene);
-        //SceneHelper.readMap(map);
-        stage.show();
-
-        EnemyTankMovement enemyTankMover = new EnemyTankMovement(gameData.getEnemyTank());
-
-        // Start a new thread with the enemyTankMover instance
-        Thread enemyTankThread = new Thread(enemyTankMover);
-        //enemyTankThread.setDaemon(true);
-        enemyTankThread.start();
+        enemyTankThread();
         new AnimationTimer() {
             private long lastUpdate = 0;
 
@@ -101,6 +92,15 @@ public class Game extends Application {
         }.start();
     }
 
+    private void enemyTankThread() {
+        EnemyTankMovement enemyTankMover = new EnemyTankMovement(gameData.getEnemyTank());
+
+        // Start a new thread with the enemyTankMover instance
+        Thread enemyTankThread = new Thread(enemyTankMover);
+        //enemyTankThread.setDaemon(true);
+        enemyTankThread.start();
+    }
+
     private void draw() {
         List<SceneObject> copyOfSceneObjects = new ArrayList<>(gameData.getSceneObjects());
         for (SceneObject sceneObject : copyOfSceneObjects) {
@@ -113,10 +113,6 @@ public class Game extends Application {
     }
 
     private void update() {
-//        Iterator<SceneObject> iterator = sceneObjects.iterator();
-//        while (iterator.hasNext()) {
-//            SceneObject sceneObject = iterator.next();
-
         List<SceneObject> copyOfSceneObjects = new ArrayList<>(gameData.getSceneObjects());
         for (SceneObject sceneObject : copyOfSceneObjects) {
             if (sceneObject.isVisible()) {
