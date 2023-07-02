@@ -243,9 +243,8 @@ public class SceneHelper {
             read.close();
             return array;
         } catch (IOException e) {
-            e.printStackTrace();
+            return readMapFile(DEFAULT_MAP_ONE_PLAYER);
         }
-        return null;
     }
 
     public static void getFileNameStage(Stage mainStage, Pane pane, Scene scene) {

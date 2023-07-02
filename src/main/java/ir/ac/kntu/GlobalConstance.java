@@ -21,7 +21,9 @@ public class GlobalConstance {
 
     public final static int PLAYER_TANK_HEALTH = 3;
 
-    public static int playerShotDamage = 1;
+    public final static int DEFAULT_PLAYER_SHOT_DAMAGE = 1;
+
+    public static int playerShotDamage = DEFAULT_PLAYER_SHOT_DAMAGE;
 
     public static final String PLAYERS_DB_FILE = "src/main/resources/PlayerDB.txt";
 
@@ -48,5 +50,17 @@ public class GlobalConstance {
             mapHeight = ((mapHeight / mapSize) + 1) * mapSize;
         }
         scale = mapHeight / mapSize;
+    }
+
+    public static int getPlayerShotDamage() {
+        return playerShotDamage;
+    }
+
+    public static void resetPlayerShotDamage() {
+        GlobalConstance.playerShotDamage = DEFAULT_PLAYER_SHOT_DAMAGE;
+    }
+
+    public static void applyPowerPlayerShotDamage() {
+        playerShotDamage *= 2;
     }
 }

@@ -45,6 +45,17 @@ public class OperatorGift implements SceneObject {
         this.gifType = gifType;
     }
 
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
+    }
 
     @Override
     public void update() {

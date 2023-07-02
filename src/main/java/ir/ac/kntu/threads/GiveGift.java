@@ -11,6 +11,8 @@ import ir.ac.kntu.models.gameObjects.wall.Wall;
 import ir.ac.kntu.scenes.SceneHelper;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static ir.ac.kntu.GlobalConstance.*;
@@ -30,11 +32,12 @@ public class GiveGift extends Thread {
                 if (GameData.getInstance().sendGift) {
                     Point point = findEmptyPoint();
                     GifType[] gifTypes = GifType.values();
-                    GifType selected = gifTypes[new Random().nextInt(0, 2)];
+                    GifType selected = gifTypes[new Random().nextInt(0, gifTypes.length)];
                     OperatorGift operatorGift = new OperatorGift(point.x, point.y, scale, selected);
                     GameData.getInstance().getSceneObjects().add(operatorGift);
                     GameData.getInstance().sendGift = false;
-                    System.out.println("Gift dadam");
+                    sleep(5000);
+                    operatorGift.setExpired(true);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -44,10 +47,11 @@ public class GiveGift extends Thread {
 
     private Point findEmptyPoint() {
         int[][] nowayMap = new int[mapSize][mapSize];
-        for (SceneObject sceneObject : GameData.getInstance().getSceneObjects()) {
+        List<SceneObject> copyOfSceneObjects = new ArrayList<>(GameData.getInstance().getSceneObjects());
+        for (SceneObject sceneObject : copyOfSceneObjects) {
             if (sceneObject instanceof Wall wall) {
                 if (wall.getX() > MAP_FIRST_X && wall.getX() < MAP_FIRST_X + mapHeight
-                        && wall.getY() >= MAP_FIRST_Y && wall.getY() < MAP_FIRST_Y + mapHeight) {
+                        && wall.getY() > MAP_FIRST_Y && wall.getY() < MAP_FIRST_Y + mapHeight) {
                     int j = (int) ((wall.getX() - MAP_FIRST_X) / scale);
                     int i = (int) ((wall.getY() - MAP_FIRST_Y) / scale);
 
@@ -60,6 +64,10 @@ public class GiveGift extends Thread {
             } else if (sceneObject instanceof Flag flag) {
                 int j = (int) ((flag.getX() - MAP_FIRST_X) / scale);
                 int i = (int) ((flag.getY() - MAP_FIRST_Y) / scale);
+                nowayMap[i][j] = 1;
+            } else if (sceneObject instanceof OperatorGift gift) {
+                int j = (int) ((gift.getX() - MAP_FIRST_X) / scale);
+                int i = (int) ((gift.getY() - MAP_FIRST_Y) / scale);
                 nowayMap[i][j] = 1;
             }
         }
