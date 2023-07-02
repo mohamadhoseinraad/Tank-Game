@@ -35,11 +35,7 @@ public class GamePage {
             public void handle(long currentNanoTime) {
                 if (currentNanoTime - lastUpdate >= 1_000_000_000) {
                     update(gameData);
-                    pane.getChildren().clear();
-                    SceneHelper.makeGameScene(pane);
-                    for (SceneObject sceneObject : gameData.getSceneObjects()) {
-                        pane.getChildren().add(sceneObject.getNode());
-                    }
+                    draw(gameData, pane);
                     if (countDownTimer.isEnd()) {
                         this.stop();
                         gameData.setEnemyFreezing(false);
@@ -59,8 +55,6 @@ public class GamePage {
             public void handle(long currentNanoTime) {
                 update(gameData);
                 if (currentNanoTime - lastUpdate >= 100_000) {
-                    pane.getChildren().clear();
-                    SceneHelper.makeGameScene(pane);
                     draw(gameData, pane);
                     if (gameData.getGameStatus() == GameStatus.Stop) {
                         gameData.setEnemyFreezing(true);
@@ -80,6 +74,8 @@ public class GamePage {
     }
 
     private static void draw(GameData gameData, Pane pane) {
+        pane.getChildren().clear();
+        SceneHelper.makeGameScene(pane);
         List<SceneObject> copyOfSceneObjects = new ArrayList<>(gameData.getSceneObjects());
         for (SceneObject sceneObject : copyOfSceneObjects) {
             pane.getChildren().add(sceneObject.getNode());

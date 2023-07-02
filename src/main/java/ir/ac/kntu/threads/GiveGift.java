@@ -50,25 +50,13 @@ public class GiveGift extends Thread {
         List<SceneObject> copyOfSceneObjects = new ArrayList<>(GameData.getInstance().getSceneObjects());
         for (SceneObject sceneObject : copyOfSceneObjects) {
             if (sceneObject instanceof Wall wall) {
-                if (wall.getX() > MAP_FIRST_X && wall.getX() < MAP_FIRST_X + mapHeight
-                        && wall.getY() > MAP_FIRST_Y && wall.getY() < MAP_FIRST_Y + mapHeight) {
-                    int j = (int) ((wall.getX() - MAP_FIRST_X) / scale);
-                    int i = (int) ((wall.getY() - MAP_FIRST_Y) / scale);
-
-                    nowayMap[i][j] = 1;
-                }
+                applyWall(nowayMap, wall);
             } else if (sceneObject instanceof Tank tank) {
-                int j = (int) ((tank.getX() - MAP_FIRST_X) / scale);
-                int i = (int) ((tank.getY() - MAP_FIRST_Y) / scale);
-                nowayMap[i][j] = 1;
+                applyTank(nowayMap, tank);
             } else if (sceneObject instanceof Flag flag) {
-                int j = (int) ((flag.getX() - MAP_FIRST_X) / scale);
-                int i = (int) ((flag.getY() - MAP_FIRST_Y) / scale);
-                nowayMap[i][j] = 1;
+                applyFlag(nowayMap, flag);
             } else if (sceneObject instanceof OperatorGift gift) {
-                int j = (int) ((gift.getX() - MAP_FIRST_X) / scale);
-                int i = (int) ((gift.getY() - MAP_FIRST_Y) / scale);
-                nowayMap[i][j] = 1;
+                applyGift(nowayMap, gift);
             }
         }
         int x, y;
@@ -79,6 +67,33 @@ public class GiveGift extends Thread {
         x = (int) (MAP_FIRST_X + x * scale);
         y = (int) (MAP_FIRST_Y + y * scale);
         return new Point(x, y);
+    }
+
+    private static void applyGift(int[][] nowayMap, OperatorGift gift) {
+        int j = (int) ((gift.getX() - MAP_FIRST_X) / scale);
+        int i = (int) ((gift.getY() - MAP_FIRST_Y) / scale);
+        nowayMap[i][j] = 1;
+    }
+
+    private static void applyFlag(int[][] nowayMap, Flag flag) {
+        int j = (int) ((flag.getX() - MAP_FIRST_X) / scale);
+        int i = (int) ((flag.getY() - MAP_FIRST_Y) / scale);
+        nowayMap[i][j] = 1;
+    }
+
+    private static void applyTank(int[][] nowayMap, Tank tank) {
+        int j = (int) ((tank.getX() - MAP_FIRST_X) / scale);
+        int i = (int) ((tank.getY() - MAP_FIRST_Y) / scale);
+        nowayMap[i][j] = 1;
+    }
+
+    private void applyWall(int[][] nowayMap, Wall wall) {
+        if (wall.getX() > MAP_FIRST_X && wall.getX() < MAP_FIRST_X + mapHeight
+                && wall.getY() > MAP_FIRST_Y && wall.getY() < MAP_FIRST_Y + mapHeight) {
+            int j = (int) ((wall.getX() - MAP_FIRST_X) / scale);
+            int i = (int) ((wall.getY() - MAP_FIRST_Y) / scale);
+            nowayMap[i][j] = 1;
+        }
     }
 
 
