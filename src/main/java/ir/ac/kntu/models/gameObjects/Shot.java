@@ -1,6 +1,7 @@
 package ir.ac.kntu.models.gameObjects;
 
 import ir.ac.kntu.GameData;
+import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.models.gameObjects.tank.TankSide;
 import ir.ac.kntu.models.gameObjects.wall.Wall;
@@ -115,6 +116,9 @@ public class Shot implements SceneObject {
         if (shotLeft < tankRight && shotRight > tankLeft && shotTop < tankBottom && shotBottom > tankTop) {
             isCollision = true;
             tank.takeDamage(damage);
+            if (tank.getTankSide() == TankSide.Player) {
+                GlobalConstance.resetPlayerShotDamage();
+            }
             return true;
         }
         return false;
