@@ -6,10 +6,7 @@ import ir.ac.kntu.models.Level;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -89,6 +86,16 @@ public class StartMenu {
         customStageButton.setOnMouseExited(event -> customStageButton.setStyle(BUTTON_STYLE));
         optionButtons.getChildren().add(customStageButton);
         customStageButton.setOnMouseClicked(mouseEvent -> SceneHelper.getFileNameStage(stage, pane, scene));
+        CheckBox player2 = new CheckBox("Player 2");
+        player2.setStyle(BUTTON_STYLE);
+        player2.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                player2.setStyle(BUTTON_STYLE_2);
+            } else {
+                player2.setStyle(BUTTON_STYLE);
+            }
+        });
+        optionButtons.getChildren().add(player2);
 
         return optionButtons;
     }
