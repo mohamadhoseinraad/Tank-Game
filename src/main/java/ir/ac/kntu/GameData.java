@@ -11,8 +11,7 @@ import ir.ac.kntu.scenes.SceneHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ir.ac.kntu.GlobalConstance.DEFAULT_MAP_ONE_PLAYER;
-import static ir.ac.kntu.GlobalConstance.playerShotDamage;
+import static ir.ac.kntu.GlobalConstance.*;
 
 public class GameData {
 
@@ -42,6 +41,8 @@ public class GameData {
     private boolean enemyFreezing = false;
 
     public boolean sendGift = false;
+
+    public boolean player2Mode = false;
 
     private Player currentPlayer = null;
 
@@ -112,7 +113,23 @@ public class GameData {
         enemyTank = new ArrayList<>();
         score = 0;
         enemyFreezing = true;
-        map = SceneHelper.readMapFile(DEFAULT_MAP_ONE_PLAYER);
+        sendGift = false;
+        if (player2Mode) {
+            map = SceneHelper.readMapFile(DEFAULT_MAP_TWO_PLAYER);
+        } else {
+            map = SceneHelper.readMapFile(DEFAULT_MAP_ONE_PLAYER);
+        }
+    }
+
+    public void resetAll() {
+        sceneObjects = new ArrayList<>();
+        gameStatus = GameStatus.Running;
+        playersTank = new ArrayList<>();
+        enemyTank = new ArrayList<>();
+        score = 0;
+        enemyFreezing = true;
+        sendGift = false;
+        player2Mode = false;
     }
 
     public Player getCurrentPlayer() {

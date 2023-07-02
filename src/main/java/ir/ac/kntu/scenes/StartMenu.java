@@ -91,8 +91,10 @@ public class StartMenu {
         player2.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 player2.setStyle(BUTTON_STYLE_2);
+                GameData.getInstance().player2Mode = true;
             } else {
                 player2.setStyle(BUTTON_STYLE);
+                GameData.getInstance().player2Mode = true;
             }
         });
         optionButtons.getChildren().add(player2);

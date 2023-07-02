@@ -155,6 +155,7 @@ public class SceneHelper {
 
                     if (i == 0) {
                         this.stop();
+                        GameData.getInstance().resetAll();
                         StartMenu.makeMenuScene(stage, pane, scene);
                     }
                     lastUpdate = currentNanoTime;

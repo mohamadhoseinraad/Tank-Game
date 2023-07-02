@@ -1,0 +1,13 @@
+A   c       O
+ B B M M B B
+ B B MMM B B
+ B B M M B B
+ B B     B B
+          C
+M MM     MM M
+     B B
+ B B MBM B B
+ B B B B B B
+ B B     B B
+ B B BBB B B
+    PBFBP
