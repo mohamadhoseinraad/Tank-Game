@@ -18,7 +18,12 @@ public class EnemyTankMovement extends Thread {
         while (true) {
             try {
                 sleep(1000); // wait for 1 second
-                moveEnemyTanks();
+                if (!GameData.getInstance().isEnemyFreezing()) {
+                    moveEnemyTanks();
+                } else {
+                    sleep(5000);
+                    GameData.getInstance().setEnemyFreezing(false);
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -34,13 +39,12 @@ public class EnemyTankMovement extends Thread {
                 if (GameData.getInstance().getPlayersTank().size() != 0) {
                     direction = findDirection(GameData.getInstance().getPlayersTank().get(0), enemyTank);
                 }
-                if (!GameData.getInstance().isEnemyFreezing()) {
-                    if (!enemyTank.move(enemyTank.getScale() / 5, direction)) {
-                        direction = directions[new Random().nextInt(directions.length)];
-                        enemyTank.move(enemyTank.getScale() / 5, direction);
-                    }
-                    enemyTank.fire();
+                if (!enemyTank.move(enemyTank.getScale() / 5, direction)) {
+                    direction = directions[new Random().nextInt(directions.length)];
+                    enemyTank.move(enemyTank.getScale() / 5, direction);
                 }
+                enemyTank.fire();
+
             }
         }
 
