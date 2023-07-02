@@ -72,6 +72,7 @@ public class SceneHelper {
         pane.getChildren().add(scoreTitle);
         makeHealth(pane);
         userData(pane);
+        makeTankData(pane);
     }
 
     private static void userData(Pane pane) {
@@ -107,6 +108,22 @@ public class SceneHelper {
             pane.getChildren().add(healthTitle);
 
         }
+    }
+
+    private static void makeTankData(Pane pane) {
+        Text healthTitle = new Text("Shot power : ");
+        healthTitle.setFill(Color.WHITE);
+        healthTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        healthTitle.setX(WINDOWS_WIDTH - 225);
+        healthTitle.setY(WINDOWS_HEIGHT - 300);
+        Text currentHealth = new Text(String.valueOf(playerShotDamage));
+        currentHealth.setFill(Color.WHITE);
+        currentHealth.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        currentHealth.setX(WINDOWS_WIDTH - 50);
+        currentHealth.setY(WINDOWS_HEIGHT - 290);
+        pane.getChildren().add(currentHealth);
+        pane.getChildren().add(healthTitle);
+
     }
 
     public static void makeEndGameLose(Pane pane, Stage stage, Scene scene) {
