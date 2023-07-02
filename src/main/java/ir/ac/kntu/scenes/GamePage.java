@@ -23,6 +23,7 @@ public class GamePage {
     public static void countDownTimer(Level level, Stage stage, Pane pane, Scene scene, GameData gameData) {
         SceneHelper.conformStage(stage, pane, scene);
         SceneHelper.makeGameScene(pane);
+        gameData.setLevel(level);
         gameData.resetGame();
         if (level == null) {
             gameData.setMap(SceneHelper.readMapFile(customMap));

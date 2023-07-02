@@ -73,6 +73,18 @@ public class SceneHelper {
         makeHealth(pane);
         userData(pane);
         makeTankData(pane);
+        stageTitle(pane);
+    }
+
+    private static void stageTitle(Pane pane) {
+        if (GameData.getInstance().getLevel() != null) {
+            Text level = new Text(GameData.getInstance().getLevel().toString());
+            level.setFill(Color.WHITE);
+            level.setFont(Font.font("Verdana", FontWeight.BOLD, 40));
+            level.setX(WINDOWS_WIDTH - 225);
+            level.setY(50);
+            pane.getChildren().addAll(level);
+        }
     }
 
     private static void userData(Pane pane) {

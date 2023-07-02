@@ -130,6 +130,9 @@ public class StartMenu {
 
         Button signUpConfirmButton = new Button("Sign Up");
         signUpConfirmButton.setStyle("-fx-background-color: #808080; -fx-text-fill: white;");
+        signUpConfirmButton.setOnMouseClicked(mouseEvent -> {
+            PlayerService.getINSTANCE().singUp(usernameField.getText(), passwordField.getText());
+        });
 
         loginBox.getChildren().addAll(loginButton, signUpConfirmButton);
 

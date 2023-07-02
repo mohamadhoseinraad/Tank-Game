@@ -1,6 +1,7 @@
 package ir.ac.kntu;
 
 import ir.ac.kntu.models.GameStatus;
+import ir.ac.kntu.models.Level;
 import ir.ac.kntu.models.Player;
 import ir.ac.kntu.models.gameObjects.SceneObject;
 import ir.ac.kntu.models.gameObjects.operatorGift.GifType;
@@ -43,6 +44,8 @@ public class GameData {
     public boolean sendGift = false;
 
     private Player currentPlayer = null;
+
+    private Level level;
 
 
     public ArrayList<Tank> getPlayersTank() {
@@ -118,6 +121,14 @@ public class GameData {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
 
     public void updateUser() {

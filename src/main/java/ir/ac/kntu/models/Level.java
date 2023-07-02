@@ -1,15 +1,15 @@
 package ir.ac.kntu.models;
 
 public enum Level {
-    Leve1,
-    Leve2,
-    Leve3,
-    Leve4,
-    Leve5,
-    Leve6,
-    Leve7,
-    Leve8,
-    Leve9,
-    Leve10,
+    Level_1,
+    Level_2,
+    Level_3,
+    Level_4,
+    Level_5,
+    Level_6,
+    Level_7,
+    Level_8,
+    Level_9,
+    Level_10,
 
 }

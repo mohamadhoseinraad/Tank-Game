@@ -11,6 +11,9 @@ public class PlayerService {
 
     private PlayerService() {
         players = PlayerDAO.readDB();
+        if (players == null) {
+            players = new ArrayList<>();
+        }
     }
 
     public static PlayerService getINSTANCE() {
@@ -25,6 +28,7 @@ public class PlayerService {
         if (findPlayer(username, password) == null) {
             players.add(new Player(username, password));
         }
+        update();
     }
 
     private Player findPlayer(String username, String password) {
