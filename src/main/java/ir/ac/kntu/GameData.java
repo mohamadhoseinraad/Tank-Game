@@ -3,6 +3,7 @@ package ir.ac.kntu;
 import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.models.Player;
 import ir.ac.kntu.models.gameObjects.SceneObject;
+import ir.ac.kntu.models.gameObjects.operatorGift.GifType;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.scenes.SceneHelper;
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ir.ac.kntu.GlobalConstance.DEFAULT_MAP_ONE_PLAYER;
+import static ir.ac.kntu.GlobalConstance.playerShotDamage;
 
 public class GameData {
 
@@ -37,6 +39,8 @@ public class GameData {
     private int score = 0;
 
     private boolean enemyFreezing = false;
+
+    public boolean sendGift = false;
 
     private Player currentPlayer = null;
 
@@ -121,6 +125,18 @@ public class GameData {
             currentPlayer.setHighScore(score);
             PlayerService.getINSTANCE().update();
             ;
+        }
+    }
+
+    public void applyGift(GifType gifType) {
+        switch (gifType) {
+            case Enemy_Freezing -> enemyFreezing = true;
+            case Extra_Shot -> playerShotDamage *= 2;
+            default -> {
+                for (Tank tank : playersTank) {
+                    tank.setHealth(tank.getHealth() + 1);
+                }
+            }
         }
     }
 }

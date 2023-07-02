@@ -4,6 +4,7 @@ import ir.ac.kntu.GameData;
 import ir.ac.kntu.models.gameObjects.Direction;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class EnemyTankMovement extends Thread {
@@ -25,7 +26,8 @@ public class EnemyTankMovement extends Thread {
     }
 
     private void moveEnemyTanks() {
-        for (Tank enemyTank : GameData.getInstance().getEnemyTank()) {
+        ArrayList<Tank> enemyTanks = new ArrayList<>(GameData.getInstance().getEnemyTank());
+        for (Tank enemyTank : enemyTanks) {
             synchronized (enemyTank) {
                 Direction[] directions = Direction.values();
                 Direction direction = Direction.Up;

@@ -133,6 +133,9 @@ public class Tank implements SceneObject {
                 } else {
                     GameData.getInstance().setScore(GameData.getInstance().getScore() + 200);
                 }
+                if (tankType == TankType.RandomEnemy) {
+                    GameData.getInstance().sendGift = true;
+                }
                 GameData.getInstance().getEnemyTank().remove(this);
             }
             return false;

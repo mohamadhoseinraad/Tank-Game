@@ -5,6 +5,8 @@ import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.eventHandler.EventHandler;
 import ir.ac.kntu.models.gameObjects.Flag;
 import ir.ac.kntu.models.gameObjects.SceneObject;
+import ir.ac.kntu.models.gameObjects.operatorGift.GifType;
+import ir.ac.kntu.models.gameObjects.operatorGift.OperatorGift;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.models.gameObjects.tank.TankSide;
 import ir.ac.kntu.models.gameObjects.tank.TankType;
@@ -29,7 +31,6 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -274,40 +275,6 @@ public class SceneHelper {
         secondStage.setWidth(300);
         secondStage.setHeight(150);
         secondStage.show();
-    }
-
-    public static Point findEmptyPoint() {
-        ArrayList<Point> noway = new ArrayList<>();
-        SceneHelper.readMap(GameData.getInstance().getMap(), GameData.getInstance().getSceneObjects());
-        int[][] nowayMap = new int[mapSize][mapSize];
-        for (SceneObject sceneObject : GameData.getInstance().getSceneObjects()) {
-            if (sceneObject instanceof Wall) {
-                Wall wall = (Wall) sceneObject;
-                wall.getX();
-                if (wall.getX() > MAP_FIRST_X && wall.getX() < MAP_FIRST_X + mapHeight
-                        && wall.getY() >= MAP_FIRST_Y && wall.getY() < MAP_FIRST_Y + mapHeight) {
-                    int j = (int) ((wall.getX() - MAP_FIRST_X) / scale);
-                    int i = (int) ((wall.getY() - MAP_FIRST_Y) / scale);
-
-                    nowayMap[i][j] = 1;
-                }
-            } else if (sceneObject instanceof Tank) {
-                Tank tank = (Tank) sceneObject;
-                tank.getX();
-                int j = (int) ((tank.getX() - MAP_FIRST_X) / scale);
-                int i = (int) ((tank.getY() - MAP_FIRST_Y) / scale);
-                nowayMap[i][j] = 1;
-            }
-        }
-
-        int x, y;
-        do {
-            x = new Random().nextInt(0, mapSize);
-            y = new Random().nextInt(0, mapSize);
-        } while (nowayMap[y][x] == 1);
-        x = (int) (MAP_FIRST_X + x * scale);
-        y = (int) (MAP_FIRST_Y + y * scale);
-        return new Point(x, y);
     }
 
 

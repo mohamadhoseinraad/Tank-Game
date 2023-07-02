@@ -3,6 +3,7 @@ package ir.ac.kntu;
 import ir.ac.kntu.scenes.SceneHelper;
 import ir.ac.kntu.scenes.StartMenu;
 import ir.ac.kntu.threads.EnemyTankMovement;
+import ir.ac.kntu.threads.GiveGift;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -19,6 +20,7 @@ public class Game extends Application {
     public void start(Stage stage) {
         SceneHelper.conformStage(stage, PANE, SCENE);
         enemyTankThread();
+        giveGift();
         StartMenu.makeMenuScene(stage, PANE, SCENE);
         stage.show();
     }
@@ -31,6 +33,12 @@ public class Game extends Application {
         EnemyTankMovement enemyTankMover = new EnemyTankMovement();
         Thread enemyTankThread = new Thread(enemyTankMover);
         enemyTankThread.start();
+    }
+
+    public static void giveGift() {
+        GiveGift giveGift = new GiveGift();
+        Thread giveGiftThread = new Thread(giveGift);
+        giveGiftThread.start();
     }
 
 

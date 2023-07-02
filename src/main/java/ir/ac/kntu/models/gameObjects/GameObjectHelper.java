@@ -1,5 +1,6 @@
 package ir.ac.kntu.models.gameObjects;
 
+import ir.ac.kntu.models.gameObjects.operatorGift.GifType;
 import ir.ac.kntu.models.gameObjects.tank.TankType;
 import ir.ac.kntu.models.gameObjects.wall.WallType;
 import javafx.scene.image.Image;
@@ -28,6 +29,12 @@ public class GameObjectHelper {
 
     public static Image flag1 = null;
 
+    public static Image extraHealth = null;
+
+    public static Image enemyFreezing = null;
+
+    public static Image extraShot = null;
+
 
     static {
         try {
@@ -40,6 +47,9 @@ public class GameObjectHelper {
             ironWall = new Image(new FileInputStream("src/main/resources/images/wallIron.png"));
             shot = new Image(new FileInputStream("src/main/resources/images/shot/shot-up.gif"));
             flag1 = new Image(new FileInputStream("src/main/resources/images/home.gif"));
+            extraHealth = new Image(new FileInputStream("src/main/resources/images/gift/giftTank.jpeg"));
+            enemyFreezing = new Image(new FileInputStream("src/main/resources/images/gift/giftTime.png"));
+            extraShot = new Image(new FileInputStream("src/main/resources/images/gift/giftStar.jpeg"));
         } catch (FileNotFoundException e) {
             System.out.println("Error get image " + e);
         }
@@ -71,5 +81,19 @@ public class GameObjectHelper {
 
     public static Image attachShotImage() {
         return shot;
+    }
+
+    public static Image attachGiftImage(GifType gifType) {
+        switch (gifType) {
+            case Enemy_Freezing -> {
+                return enemyFreezing;
+            }
+            case Extra_Shot -> {
+                return extraShot;
+            }
+            default -> {
+                return extraHealth;
+            }
+        }
     }
 }
