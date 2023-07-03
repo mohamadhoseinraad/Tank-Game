@@ -39,11 +39,8 @@ public class EnemyTankMovement extends Thread {
                 Direction[] directions = Direction.values();
                 Direction direction = Direction.Up;
                 if (GameData.getInstance().getPlayersTank().size() != 0) {
-                    if (enemyTank.getHealth() < 2) {
-                        direction = findDirection(GameData.getInstance().getPlayersTank().get(0), enemyTank);
-                    } else {
-                        direction = findDirectionFlag(GameData.getInstance().getPlayersFlag(), enemyTank);
-                    }
+
+                    direction = findDirection(GameData.getInstance().getPlayersTank().get(0), enemyTank);
                 }
                 if (!enemyTank.move(enemyTank.getScale() / 5, direction)) {
                     direction = directions[RandGenerate.getINSTANCE().getRanBetween(0, directions.length)];

@@ -110,6 +110,9 @@ public class Tank implements SceneObject {
 
     public boolean collisionWithTank(SceneObject object) {
         Tank tank = (Tank) object;
+        if (tank.getTankSide() == tankSide) {
+            return false;
+        }
         double tankScale = tank.getScale();
         double thisLeft = x;
         double thisRight = x + scale;

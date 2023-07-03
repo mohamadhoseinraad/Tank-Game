@@ -86,4 +86,8 @@ public class Player implements Serializable, Comparable {
         }
         return 0;
     }
+
+    public void setLastLevel(Level lastLevel) {
+        this.lastLevel = lastLevel;
+    }
 }
