@@ -21,14 +21,7 @@ public class GamePage {
 
 
     public static void countDownTimer(Level level, Stage stage, Pane pane, Scene scene, GameData gameData, int health) {
-        SceneHelper.conformStage(stage, pane, scene);
-        SceneHelper.makeGameScene(pane);
-        gameData.resetGame(level);
-        gameData.setGameStatus(GameStatus.Start);
-        if (level == null) {
-            gameData.setMap(SceneHelper.readMapFile(customMap));
-        }
-        SceneHelper.readMap(gameData.getMap(), gameData.getSceneObjects(), health);
+        conformationGame(level, stage, pane, scene, gameData, health);
         countDownTimer = new CountDownTimer(gameData.getSceneObjects());
         new AnimationTimer() {
             private long lastUpdate = 0;
@@ -39,14 +32,29 @@ public class GamePage {
                     draw(gameData, pane);
                     if (countDownTimer.isEnd()) {
                         this.stop();
-                        gameData.setEnemyFreezing(false);
-                        gameLoop(pane, gameData, stage, scene);
-                        gameData.setGameStatus(GameStatus.Running);
+                        startGame(gameData, pane, stage, scene);
                     }
                     lastUpdate = currentNanoTime;
                 }
             }
         }.start();
+    }
+
+    private static void startGame(GameData gameData, Pane pane, Stage stage, Scene scene) {
+        gameData.setEnemyFreezing(false);
+        gameLoop(pane, gameData, stage, scene);
+        gameData.setGameStatus(GameStatus.Running);
+    }
+
+    private static void conformationGame(Level level, Stage stage, Pane pane, Scene scene, GameData gameData, int health) {
+        SceneHelper.conformStage(stage, pane, scene);
+        SceneHelper.makeGameScene(pane);
+        gameData.resetGame(level);
+        gameData.setGameStatus(GameStatus.Start);
+        if (level == null) {
+            gameData.setMap(SceneHelper.readMapFile(customMap));
+        }
+        SceneHelper.readMap(gameData.getMap(), gameData.getSceneObjects(), health);
     }
 
     private static void gameLoop(Pane pane, GameData gameData, Stage stage, Scene scene) {
@@ -58,20 +66,24 @@ public class GamePage {
                 if (currentNanoTime - lastUpdate >= 100_000) {
                     draw(gameData, pane);
                     if (gameData.getGameStatus() == GameStatus.Stop) {
-                        gameData.setEnemyFreezing(true);
-                        GameData.getInstance().updateUser();
                         this.stop();
-                        if (gameData.getEnemyNumber() == 0 && gameData.getEnemyTank().size() == 0) {
-                            SceneHelper.makeEndGameWin(pane, stage, scene, gameData.getPlayersTank().get(0).getHealth());
-                        } else {
-                            SceneHelper.makeEndGameLose(pane, stage, scene);
-                        }
+                        endGameMassage(gameData, pane, stage, scene);
                     }
 
                     lastUpdate = currentNanoTime;
                 }
             }
         }.start();
+    }
+
+    private static void endGameMassage(GameData gameData, Pane pane, Stage stage, Scene scene) {
+        gameData.setEnemyFreezing(true);
+        GameData.getInstance().updateUser();
+        if (gameData.getEnemyNumber() == 0 && gameData.getEnemyTank().size() == 0) {
+            SceneHelper.makeEndGameWin(pane, stage, scene, gameData.getPlayersTank().get(0).getHealth());
+        } else {
+            SceneHelper.makeEndGameLose(pane, stage, scene);
+        }
     }
 
     private static void draw(GameData gameData, Pane pane) {
@@ -93,6 +105,10 @@ public class GamePage {
                 gameData.getSceneObjects().remove(sceneObject);
             }
         }
+        checkEndGame(gameData);
+    }
+
+    private static void checkEndGame(GameData gameData) {
         if (gameData.getPlayersTank().size() == 0 ||
                 !GameData.getInstance().getPlayersFlag().isVisible() ||
                 (gameData.getEnemyTank().size() == 0
