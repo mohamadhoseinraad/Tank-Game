@@ -52,9 +52,9 @@ public class GamePage {
         gameData.resetGame(level);
         gameData.setGameStatus(GameStatus.Start);
         if (level == null) {
-            gameData.setMap(SceneHelper.readMapFile(customMap));
+            gameData.setMap(GameEnvironmentHelper.readMapFile(customMap));
         }
-        SceneHelper.readMap(gameData.getMap(), gameData.getSceneObjects(), health);
+        GameEnvironmentHelper.readMap(gameData.getMap(), gameData.getSceneObjects(), health);
     }
 
     private static void gameLoop(Pane pane, GameData gameData, Stage stage, Scene scene) {
@@ -80,9 +80,9 @@ public class GamePage {
         gameData.setEnemyFreezing(true);
         GameData.getInstance().updateUser();
         if (gameData.getEnemyNumber() == 0 && gameData.getEnemyTank().size() == 0) {
-            SceneHelper.makeEndGameWin(pane, stage, scene, gameData.getPlayersTank().get(0).getHealth());
+            EndGameScene.endGameWinMassage(pane, stage, scene, gameData.getPlayersTank().get(0).getHealth());
         } else {
-            SceneHelper.makeEndGameLose(pane, stage, scene);
+            EndGameScene.makeEndGameLose(pane, stage, scene);
         }
     }
 

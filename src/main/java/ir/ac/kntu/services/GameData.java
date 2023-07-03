@@ -8,7 +8,7 @@ import ir.ac.kntu.models.gameObjects.Flag;
 import ir.ac.kntu.models.gameObjects.SceneObject;
 import ir.ac.kntu.models.gameObjects.operatorGift.GifType;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
-import ir.ac.kntu.scenes.SceneHelper;
+import ir.ac.kntu.scenes.GameEnvironmentHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class GameData {
 
     private ArrayList<Tank> enemyTank = new ArrayList<>();
 
-    private String[][] map = SceneHelper.readMapFile(DEFAULT_MAP_ONE_PLAYER);
+    private String[][] map = GameEnvironmentHelper.readMapFile(DEFAULT_MAP_ONE_PLAYER);
 
     private int score = 0;
 
@@ -123,9 +123,9 @@ public class GameData {
         sendGift = false;
         applyLevel(level);
         if (player2Mode && level != null) {
-            map = SceneHelper.readMapFile(DEFAULT_MAP_TWO_PLAYER);
+            map = GameEnvironmentHelper.readMapFile(DEFAULT_MAP_TWO_PLAYER);
         } else {
-            map = SceneHelper.readMapFile(DEFAULT_MAP_ONE_PLAYER);
+            map = GameEnvironmentHelper.readMapFile(DEFAULT_MAP_ONE_PLAYER);
         }
     }
 
