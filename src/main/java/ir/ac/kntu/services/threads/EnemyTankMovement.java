@@ -1,5 +1,6 @@
 package ir.ac.kntu.services.threads;
 
+import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.services.RandGenerate;
 import ir.ac.kntu.models.gameObjects.Direction;
@@ -20,7 +21,7 @@ public class EnemyTankMovement extends Thread {
                 sleep(1000); // wait for 1 second
                 if (!GameData.getInstance().isEnemyFreezing()) {
                     moveEnemyTanks();
-                } else {
+                } else if (GameData.getInstance().getGameStatus() == GameStatus.Running) {
                     sleep(5000);
                     GameData.getInstance().setEnemyFreezing(false);
                 }
