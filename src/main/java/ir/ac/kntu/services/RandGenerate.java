@@ -1,4 +1,4 @@
-package ir.ac.kntu;
+package ir.ac.kntu.services;
 
 import java.util.Random;
 
@@ -6,7 +6,7 @@ public class RandGenerate {
 
     private final static RandGenerate INSTANCE = new RandGenerate();
 
-    private Random random;
+    private final Random random;
 
     private RandGenerate() {
         random = new Random();

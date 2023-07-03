@@ -1,23 +1,19 @@
-package ir.ac.kntu.threads;
+package ir.ac.kntu.services.threads;
 
-import ir.ac.kntu.GameData;
-import ir.ac.kntu.RandGenerate;
+import ir.ac.kntu.services.GameData;
+import ir.ac.kntu.services.RandGenerate;
 import ir.ac.kntu.models.GameStatus;
-import ir.ac.kntu.models.gameObjects.Direction;
 import ir.ac.kntu.models.gameObjects.Flag;
 import ir.ac.kntu.models.gameObjects.SceneObject;
-import ir.ac.kntu.models.gameObjects.operatorGift.GifType;
 import ir.ac.kntu.models.gameObjects.operatorGift.OperatorGift;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.models.gameObjects.tank.TankSide;
 import ir.ac.kntu.models.gameObjects.tank.TankType;
 import ir.ac.kntu.models.gameObjects.wall.Wall;
-import ir.ac.kntu.scenes.SceneHelper;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static ir.ac.kntu.GlobalConstance.*;
 import static ir.ac.kntu.GlobalConstance.scale;

@@ -1,12 +1,10 @@
 package ir.ac.kntu.scenes;
 
-import ir.ac.kntu.GameData;
+import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.GlobalConstance;
-import ir.ac.kntu.eventHandler.EventHandler;
+import ir.ac.kntu.services.eventHandler.EventHandler;
 import ir.ac.kntu.models.gameObjects.Flag;
 import ir.ac.kntu.models.gameObjects.SceneObject;
-import ir.ac.kntu.models.gameObjects.operatorGift.GifType;
-import ir.ac.kntu.models.gameObjects.operatorGift.OperatorGift;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.models.gameObjects.tank.TankSide;
 import ir.ac.kntu.models.gameObjects.tank.TankType;
@@ -27,12 +25,10 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
-import java.util.Random;
 
 import static ir.ac.kntu.GlobalConstance.*;
 

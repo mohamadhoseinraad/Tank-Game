@@ -1,7 +1,7 @@
 package ir.ac.kntu.models.gameObjects.tank;
 
-import ir.ac.kntu.GameData;
-import ir.ac.kntu.RandGenerate;
+import ir.ac.kntu.services.GameData;
+import ir.ac.kntu.services.RandGenerate;
 import ir.ac.kntu.models.gameObjects.Shot;
 import ir.ac.kntu.models.gameObjects.Direction;
 import ir.ac.kntu.models.gameObjects.GameObjectHelper;
@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static ir.ac.kntu.GlobalConstance.*;
 

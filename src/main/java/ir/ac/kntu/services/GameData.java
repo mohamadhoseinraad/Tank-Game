@@ -1,5 +1,6 @@
-package ir.ac.kntu;
+package ir.ac.kntu.services;
 
+import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.models.Level;
 import ir.ac.kntu.models.Player;
@@ -152,14 +153,13 @@ public class GameData {
         if (currentPlayer != null) {
             currentPlayer.setHighScore(score);
             PlayerService.getINSTANCE().update();
-            ;
         }
     }
 
     public void applyGift(GifType gifType) {
         switch (gifType) {
             case Enemy_Freezing -> enemyFreezing = true;
-            case Extra_Shot -> playerShotDamage *= 2;
+            case Extra_Shot -> GlobalConstance.applyPowerPlayerShotDamage();
             default -> {
                 for (Tank tank : playersTank) {
                     tank.setHealth(tank.getHealth() + 1);

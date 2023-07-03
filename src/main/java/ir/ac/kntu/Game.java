@@ -2,9 +2,9 @@ package ir.ac.kntu;
 
 import ir.ac.kntu.scenes.SceneHelper;
 import ir.ac.kntu.scenes.StartMenu;
-import ir.ac.kntu.threads.AddEnemy;
-import ir.ac.kntu.threads.EnemyTankMovement;
-import ir.ac.kntu.threads.GiveGift;
+import ir.ac.kntu.services.threads.AddEnemy;
+import ir.ac.kntu.services.threads.EnemyTankMovement;
+import ir.ac.kntu.services.threads.GiveGift;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;

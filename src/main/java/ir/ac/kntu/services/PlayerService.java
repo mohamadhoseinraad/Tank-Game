@@ -1,4 +1,4 @@
-package ir.ac.kntu;
+package ir.ac.kntu.services;
 
 import ir.ac.kntu.models.Player;
 

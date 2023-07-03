@@ -1,6 +1,6 @@
 package ir.ac.kntu.scenes;
 
-import ir.ac.kntu.GameData;
+import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.models.Level;
 import ir.ac.kntu.models.gameObjects.CountDownTimer;

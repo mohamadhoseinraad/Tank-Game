@@ -1,16 +1,12 @@
 package ir.ac.kntu.models.gameObjects.operatorGift;
 
-import ir.ac.kntu.GameData;
-import ir.ac.kntu.models.gameObjects.Flag;
+import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.models.gameObjects.GameObjectHelper;
 import ir.ac.kntu.models.gameObjects.SceneObject;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.models.gameObjects.tank.TankSide;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class OperatorGift implements SceneObject {
 

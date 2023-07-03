@@ -13,7 +13,7 @@ public class GlobalConstance {
 
     public static int mapSize = 20;
 
-    public static double scale = mapHeight / mapSize;
+    public static double scale = (double) mapHeight / mapSize;
 
     public final static int NORMAL_TANK_HEALTH = 1;
 
@@ -49,11 +49,7 @@ public class GlobalConstance {
         if (mapHeight % mapSize != 0) {
             mapHeight = ((mapHeight / mapSize) + 1) * mapSize;
         }
-        scale = mapHeight / mapSize;
-    }
-
-    public static int getPlayerShotDamage() {
-        return playerShotDamage;
+        scale = (double) mapHeight / mapSize;
     }
 
     public static void resetPlayerShotDamage() {

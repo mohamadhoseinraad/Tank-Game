@@ -1,7 +1,7 @@
 package ir.ac.kntu.scenes;
 
-import ir.ac.kntu.GameData;
-import ir.ac.kntu.PlayerService;
+import ir.ac.kntu.services.GameData;
+import ir.ac.kntu.services.PlayerService;
 import ir.ac.kntu.models.Level;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
