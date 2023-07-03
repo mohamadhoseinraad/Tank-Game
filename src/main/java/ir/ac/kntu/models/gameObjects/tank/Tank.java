@@ -1,6 +1,7 @@
 package ir.ac.kntu.models.gameObjects.tank;
 
 import ir.ac.kntu.GameData;
+import ir.ac.kntu.RandGenerate;
 import ir.ac.kntu.models.gameObjects.Shot;
 import ir.ac.kntu.models.gameObjects.Direction;
 import ir.ac.kntu.models.gameObjects.GameObjectHelper;
@@ -48,7 +49,7 @@ public class Tank implements SceneObject {
             case Player -> health = PLAYER_TANK_HEALTH;
             case NormalEnemy -> health = NORMAL_TANK_HEALTH;
             case StrongEnemy -> health = STRONG_TANK_HEALTH;
-            default -> health = (new Random().nextInt(STRONG_TANK_HEALTH));
+            default -> health = RandGenerate.getINSTANCE().getRanBetween(NORMAL_TANK_HEALTH, STRONG_TANK_HEALTH + 1);
         }
         firstHealth = health;
     }

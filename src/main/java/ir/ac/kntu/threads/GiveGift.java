@@ -1,6 +1,7 @@
 package ir.ac.kntu.threads;
 
 import ir.ac.kntu.GameData;
+import ir.ac.kntu.RandGenerate;
 import ir.ac.kntu.models.gameObjects.Direction;
 import ir.ac.kntu.models.gameObjects.Flag;
 import ir.ac.kntu.models.gameObjects.SceneObject;
@@ -32,7 +33,7 @@ public class GiveGift extends Thread {
                 if (GameData.getInstance().sendGift) {
                     Point point = findEmptyPoint();
                     GifType[] gifTypes = GifType.values();
-                    GifType selected = gifTypes[new Random().nextInt( gifTypes.length)];
+                    GifType selected = gifTypes[new Random().nextInt(gifTypes.length)];
                     OperatorGift operatorGift = new OperatorGift(point.x, point.y, scale, selected);
                     GameData.getInstance().getSceneObjects().add(operatorGift);
                     GameData.getInstance().sendGift = false;
@@ -61,8 +62,8 @@ public class GiveGift extends Thread {
         }
         int x, y;
         do {
-            x = new Random().nextInt( mapSize);
-            y = new Random().nextInt( mapSize);
+            x = RandGenerate.getINSTANCE().getRanBetween(0, mapSize);
+            y = RandGenerate.getINSTANCE().getRanBetween(0, mapSize);
         } while (nowayMap[y][x] == 1);
         x = (int) (MAP_FIRST_X + x * scale);
         y = (int) (MAP_FIRST_Y + y * scale);

@@ -1,6 +1,7 @@
 package ir.ac.kntu.threads;
 
 import ir.ac.kntu.GameData;
+import ir.ac.kntu.RandGenerate;
 import ir.ac.kntu.models.gameObjects.Direction;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 
@@ -40,7 +41,7 @@ public class EnemyTankMovement extends Thread {
                     direction = findDirection(GameData.getInstance().getPlayersTank().get(0), enemyTank);
                 }
                 if (!enemyTank.move(enemyTank.getScale() / 5, direction)) {
-                    direction = directions[new Random().nextInt(directions.length)];
+                    direction = directions[RandGenerate.getINSTANCE().getRanBetween(0, directions.length)];
                     enemyTank.move(enemyTank.getScale() / 5, direction);
                 }
                 enemyTank.fire();
