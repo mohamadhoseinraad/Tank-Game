@@ -35,20 +35,19 @@ public class EnemyTankMovement extends Thread {
     private void moveEnemyTanks() {
         ArrayList<Tank> enemyTanks = new ArrayList<>(GameData.getInstance().getEnemyTank());
         for (Tank enemyTank : enemyTanks) {
-            synchronized (enemyTank) {
-                Direction[] directions = Direction.values();
-                Direction direction = Direction.Up;
-                if (GameData.getInstance().getPlayersTank().size() != 0) {
 
-                    direction = findDirection(GameData.getInstance().getPlayersTank().get(0), enemyTank);
-                }
-                if (!enemyTank.move(enemyTank.getScale() / 5, direction)) {
-                    direction = directions[RandGenerate.getINSTANCE().getRanBetween(0, directions.length)];
-                    enemyTank.move(enemyTank.getScale() / 5, direction);
-                }
-                enemyTank.fire();
+            Direction[] directions = Direction.values();
+            Direction direction = Direction.Up;
+            if (GameData.getInstance().getPlayersTank().size() != 0) {
 
+                direction = findDirection(GameData.getInstance().getPlayersTank().get(0), enemyTank);
             }
+            if (!enemyTank.move(enemyTank.getScale() / 5, direction)) {
+                direction = directions[RandGenerate.getINSTANCE().getRanBetween(0, directions.length)];
+                enemyTank.move(enemyTank.getScale() / 5, direction);
+            }
+            enemyTank.fire();
+
         }
 
     }

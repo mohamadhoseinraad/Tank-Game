@@ -1,5 +1,7 @@
 package ir.ac.kntu.models.gameObjects;
 
+import ir.ac.kntu.models.GameObjectHelper;
+import ir.ac.kntu.models.SceneObject;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 

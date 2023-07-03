@@ -1,5 +1,7 @@
 package ir.ac.kntu.models.gameObjects;
 
+import ir.ac.kntu.models.GameObjectHelper;
+import ir.ac.kntu.models.SceneObject;
 import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.models.gameObjects.tank.Tank;

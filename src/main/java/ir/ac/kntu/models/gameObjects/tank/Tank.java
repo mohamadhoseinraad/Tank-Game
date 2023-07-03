@@ -4,8 +4,8 @@ import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.services.RandGenerate;
 import ir.ac.kntu.models.gameObjects.Shot;
 import ir.ac.kntu.models.gameObjects.Direction;
-import ir.ac.kntu.models.gameObjects.GameObjectHelper;
-import ir.ac.kntu.models.gameObjects.SceneObject;
+import ir.ac.kntu.models.GameObjectHelper;
+import ir.ac.kntu.models.SceneObject;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 

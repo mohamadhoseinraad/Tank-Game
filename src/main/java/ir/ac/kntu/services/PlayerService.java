@@ -3,9 +3,7 @@ package ir.ac.kntu.services;
 import ir.ac.kntu.models.Player;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 
 public class PlayerService {
     private ArrayList<Player> players;
@@ -54,7 +52,7 @@ public class PlayerService {
     public ArrayList<Player> getTopPlayers() {
         ArrayList<Player> result = new ArrayList<>();
         ArrayList<Player> cpy = new ArrayList<>(players);
-        Collections.sort(cpy, Collections.reverseOrder());
+        cpy.sort(Collections.reverseOrder());
         int i = 1;
         for (Player player : cpy) {
             result.add(player);

@@ -1,8 +1,8 @@
 package ir.ac.kntu.models.gameObjects.operatorGift;
 
 import ir.ac.kntu.services.GameData;
-import ir.ac.kntu.models.gameObjects.GameObjectHelper;
-import ir.ac.kntu.models.gameObjects.SceneObject;
+import ir.ac.kntu.models.GameObjectHelper;
+import ir.ac.kntu.models.SceneObject;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.models.gameObjects.tank.TankSide;
 import javafx.scene.Node;

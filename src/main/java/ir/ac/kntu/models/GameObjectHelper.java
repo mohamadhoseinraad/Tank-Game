@@ -1,4 +1,4 @@
-package ir.ac.kntu.models.gameObjects;
+package ir.ac.kntu.models;
 
 import ir.ac.kntu.models.gameObjects.operatorGift.GifType;
 import ir.ac.kntu.models.gameObjects.tank.TankType;

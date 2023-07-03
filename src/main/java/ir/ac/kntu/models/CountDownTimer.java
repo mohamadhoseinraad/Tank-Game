@@ -1,5 +1,6 @@
-package ir.ac.kntu.models.gameObjects;
+package ir.ac.kntu.models;
 
+import ir.ac.kntu.models.SceneObject;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;

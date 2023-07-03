@@ -1,12 +1,12 @@
-package ir.ac.kntu.scenes.game;
+package ir.ac.kntu.GUI.game;
 
-import ir.ac.kntu.scenes.EndGameScene;
-import ir.ac.kntu.scenes.SceneHelper;
+import ir.ac.kntu.GUI.EndGameScene;
+import ir.ac.kntu.GUI.SceneHelper;
 import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.models.Level;
-import ir.ac.kntu.models.gameObjects.CountDownTimer;
-import ir.ac.kntu.models.gameObjects.SceneObject;
+import ir.ac.kntu.models.CountDownTimer;
+import ir.ac.kntu.models.SceneObject;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;

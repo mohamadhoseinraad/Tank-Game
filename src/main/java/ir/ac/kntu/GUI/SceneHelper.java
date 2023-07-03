@@ -1,4 +1,4 @@
-package ir.ac.kntu.scenes;
+package ir.ac.kntu.GUI;
 
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.services.GameData;

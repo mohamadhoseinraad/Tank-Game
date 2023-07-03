@@ -1,6 +1,6 @@
-package ir.ac.kntu.scenes.start;
+package ir.ac.kntu.GUI.start;
 
-import ir.ac.kntu.scenes.StageHelper;
+import ir.ac.kntu.GUI.StageHelper;
 import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.services.PlayerService;
 import javafx.scene.Scene;

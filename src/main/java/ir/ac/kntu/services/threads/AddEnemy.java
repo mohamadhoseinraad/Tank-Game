@@ -4,7 +4,7 @@ import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.services.RandGenerate;
 import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.models.gameObjects.Flag;
-import ir.ac.kntu.models.gameObjects.SceneObject;
+import ir.ac.kntu.models.SceneObject;
 import ir.ac.kntu.models.gameObjects.operatorGift.OperatorGift;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.models.gameObjects.tank.TankSide;
@@ -19,8 +19,6 @@ import static ir.ac.kntu.GlobalConstance.*;
 import static ir.ac.kntu.GlobalConstance.scale;
 
 public class AddEnemy extends Thread {
-
-    int i = 0;
 
 
     public AddEnemy() {

@@ -1,4 +1,4 @@
-package ir.ac.kntu.scenes.start;
+package ir.ac.kntu.GUI.start;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

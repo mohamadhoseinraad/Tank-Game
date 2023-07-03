@@ -3,7 +3,7 @@ package ir.ac.kntu.services.threads;
 import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.services.RandGenerate;
 import ir.ac.kntu.models.gameObjects.Flag;
-import ir.ac.kntu.models.gameObjects.SceneObject;
+import ir.ac.kntu.models.SceneObject;
 import ir.ac.kntu.models.gameObjects.operatorGift.GifType;
 import ir.ac.kntu.models.gameObjects.operatorGift.OperatorGift;
 import ir.ac.kntu.models.gameObjects.tank.Tank;

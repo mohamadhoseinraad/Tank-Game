@@ -5,10 +5,10 @@ import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.models.Level;
 import ir.ac.kntu.models.Player;
 import ir.ac.kntu.models.gameObjects.Flag;
-import ir.ac.kntu.models.gameObjects.SceneObject;
+import ir.ac.kntu.models.SceneObject;
 import ir.ac.kntu.models.gameObjects.operatorGift.GifType;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
-import ir.ac.kntu.scenes.game.GameEnvironmentHelper;
+import ir.ac.kntu.GUI.game.GameEnvironmentHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,24 +84,12 @@ public class GameData {
     }
 
 
-    public void setSceneObjects(List<SceneObject> sceneObjects) {
-        this.sceneObjects = sceneObjects;
-    }
-
     public GameStatus getGameStatus() {
         return gameStatus;
     }
 
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
-    }
-
-    public void setPlayersTank(ArrayList<Tank> playersTank) {
-        this.playersTank = playersTank;
-    }
-
-    public void setEnemyTank(ArrayList<Tank> enemyTank) {
-        this.enemyTank = enemyTank;
     }
 
     public String[][] getMap() {
@@ -159,10 +147,6 @@ public class GameData {
 
     public void minusEnemyNumber() {
         enemyNumber--;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
     }
 
     public void updateUser() {

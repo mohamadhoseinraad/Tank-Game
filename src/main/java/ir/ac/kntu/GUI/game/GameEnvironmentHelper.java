@@ -1,8 +1,8 @@
-package ir.ac.kntu.scenes.game;
+package ir.ac.kntu.GUI.game;
 
 import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.models.gameObjects.Flag;
-import ir.ac.kntu.models.gameObjects.SceneObject;
+import ir.ac.kntu.models.SceneObject;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.models.gameObjects.tank.TankSide;
 import ir.ac.kntu.models.gameObjects.tank.TankType;
