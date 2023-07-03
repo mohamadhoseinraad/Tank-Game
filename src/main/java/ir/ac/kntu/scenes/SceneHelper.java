@@ -1,5 +1,6 @@
 package ir.ac.kntu.scenes;
 
+import ir.ac.kntu.models.Level;
 import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.services.eventHandler.EventHandler;
@@ -151,6 +152,7 @@ public class SceneHelper {
 
                     if (i == 0) {
                         this.stop();
+                        GameData.getInstance().resetAll(null);
                         StartMenu.makeMenuScene(stage, pane, scene);
                     }
                     lastUpdate = currentNanoTime;
@@ -159,16 +161,44 @@ public class SceneHelper {
         }.start();
     }
 
-    public static void makeEndGameWin(Pane pane) {
+    public static void makeEndGameWin(Pane pane, Stage stage, Scene scene, int playerHealth) {
         Text gameOver = new Text("Win");
         gameOver.setFont(new Font(50));
         gameOver.setX(MAP_FIRST_X + mapHeight / 2);
         gameOver.setY(MAP_FIRST_Y + mapHeight / 2);
         gameOver.setFill(Color.GREEN);
         pane.getChildren().add(gameOver);
+        updateLevel();
+        new AnimationTimer() {
+            int i = 3;
+            private long lastUpdate = 0;
+
+            public void handle(long currentNanoTime) {
+                if (currentNanoTime - lastUpdate >= 1_000_000_000) {
+                    i--;
+
+                    if (i == 0) {
+                        this.stop();
+                        if (GameData.getInstance().getLevel() == null || GameData.getInstance().getLevel() == Level.Level_10) {
+                            GameData.getInstance().resetAll(null);
+                            StartMenu.makeMenuScene(stage, pane, scene);
+                        } else {
+                            GamePage.countDownTimer(GameData.getInstance().getCurrentPlayer().getLastStage(), stage, pane, scene, GameData.getInstance(), playerHealth);
+                        }
+                    }
+                    lastUpdate = currentNanoTime;
+                }
+            }
+        }.start();
     }
 
-    public static void readMap(String[][] map, List<SceneObject> sceneObjects) {
+    private static void updateLevel() {
+        if (GameData.getInstance().getLevel() != null && GameData.getInstance().getLevel() == GameData.getInstance().getCurrentPlayer().getLastStage()) {
+            GameData.getInstance().getCurrentPlayer().levelUp();
+        }
+    }
+
+    public static void readMap(String[][] map, List<SceneObject> sceneObjects, int health) {
         mapSize = map.length;
         GlobalConstance.updateSize();
         for (int i = 0; i < mapSize; i++) {
@@ -181,6 +211,7 @@ public class SceneHelper {
                         case "M" -> sceneObjects.add(new Wall(WallType.Iron, x, y, scale));
                         case "P" -> {
                             Tank tank = new Tank(TankType.Player, TankSide.Player, x, y, scale);
+                            tank.setHealth(health);
                             sceneObjects.add(tank);
                             GameData.getInstance().getPlayersTank().add(tank);
                         }
@@ -286,7 +317,7 @@ public class SceneHelper {
         save.setStyle("-fx-background-color: #808080; -fx-text-fill: white;");
         save.setOnMouseClicked(mouseEvent -> {
             customMap += usernameField.getText() + ".txt";
-            GamePage.countDownTimer(null, mainStage, pane, scene, GameData.getInstance());
+            GamePage.countDownTimer(null, mainStage, pane, scene, GameData.getInstance(), PLAYER_TANK_HEALTH);
             secondStage.close();
         });
 

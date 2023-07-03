@@ -20,7 +20,7 @@ public class GamePage {
     private static CountDownTimer countDownTimer;
 
 
-    public static void countDownTimer(Level level, Stage stage, Pane pane, Scene scene, GameData gameData) {
+    public static void countDownTimer(Level level, Stage stage, Pane pane, Scene scene, GameData gameData, int health) {
         SceneHelper.conformStage(stage, pane, scene);
         SceneHelper.makeGameScene(pane);
         gameData.resetGame(level);
@@ -28,7 +28,7 @@ public class GamePage {
         if (level == null) {
             gameData.setMap(SceneHelper.readMapFile(customMap));
         }
-        SceneHelper.readMap(gameData.getMap(), gameData.getSceneObjects());
+        SceneHelper.readMap(gameData.getMap(), gameData.getSceneObjects(), health);
         countDownTimer = new CountDownTimer(gameData.getSceneObjects());
         new AnimationTimer() {
             private long lastUpdate = 0;
@@ -61,8 +61,8 @@ public class GamePage {
                         gameData.setEnemyFreezing(true);
                         GameData.getInstance().updateUser();
                         this.stop();
-                        if (gameData.getEnemyNumber() == 0) {
-                            SceneHelper.makeEndGameWin(pane);
+                        if (gameData.getEnemyNumber() == 0 && gameData.getEnemyTank().size() == 0) {
+                            SceneHelper.makeEndGameWin(pane, stage, scene, gameData.getPlayersTank().get(0).getHealth());
                         } else {
                             SceneHelper.makeEndGameLose(pane, stage, scene);
                         }

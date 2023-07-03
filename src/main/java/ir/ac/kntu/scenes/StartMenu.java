@@ -1,5 +1,6 @@
 package ir.ac.kntu.scenes;
 
+import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.services.PlayerService;
 import ir.ac.kntu.models.Level;
@@ -51,6 +52,9 @@ public class StartMenu {
         conformVbox(levelsButtonsRight);
         for (int i = 0; i < levels.length; i++) {
             makeEachButton(levels, i, stage, pane, scene, levelsButtonsLeft, levelsButtonsRight);
+            if (levels[i] == GameData.getInstance().getCurrentPlayer().getLastStage()) {
+                break;
+            }
         }
         levelsButtons.setAlignment(Pos.CENTER_RIGHT);
         levelsButtons.getChildren().add(levelsButtonsLeft);
@@ -72,7 +76,8 @@ public class StartMenu {
         } else {
             levelsButtonsRight.getChildren().add(stageButton);
         }
-        stageButton.setOnMouseClicked(mouseEvent -> GamePage.countDownTimer(levels[i], stage, pane, scene, GameData.getInstance()));
+        stageButton.setOnMouseClicked(mouseEvent -> GamePage.countDownTimer(levels[i], stage, pane, scene, GameData.getInstance(),
+                PLAYER_TANK_HEALTH));
     }
 
 
