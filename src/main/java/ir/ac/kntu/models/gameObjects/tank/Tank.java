@@ -48,7 +48,7 @@ public class Tank implements SceneObject {
             case Player -> health = PLAYER_TANK_HEALTH;
             case NormalEnemy -> health = NORMAL_TANK_HEALTH;
             case StrongEnemy -> health = STRONG_TANK_HEALTH;
-            default -> health = (new Random().nextInt(NORMAL_TANK_HEALTH, STRONG_TANK_HEALTH));
+            default -> health = (new Random().nextInt(STRONG_TANK_HEALTH));
         }
         firstHealth = health;
     }
