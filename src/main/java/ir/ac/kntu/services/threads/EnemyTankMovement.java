@@ -1,6 +1,7 @@
 package ir.ac.kntu.services.threads;
 
 import ir.ac.kntu.models.GameStatus;
+import ir.ac.kntu.models.gameObjects.Flag;
 import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.services.RandGenerate;
 import ir.ac.kntu.models.gameObjects.Direction;
@@ -38,7 +39,11 @@ public class EnemyTankMovement extends Thread {
                 Direction[] directions = Direction.values();
                 Direction direction = Direction.Up;
                 if (GameData.getInstance().getPlayersTank().size() != 0) {
-                    direction = findDirection(GameData.getInstance().getPlayersTank().get(0), enemyTank);
+                    if (enemyTank.getHealth() < 2) {
+                        direction = findDirection(GameData.getInstance().getPlayersTank().get(0), enemyTank);
+                    } else {
+                        direction = findDirectionFlag(GameData.getInstance().getPlayersFlag(), enemyTank);
+                    }
                 }
                 if (!enemyTank.move(enemyTank.getScale() / 5, direction)) {
                     direction = directions[RandGenerate.getINSTANCE().getRanBetween(0, directions.length)];
@@ -51,22 +56,42 @@ public class EnemyTankMovement extends Thread {
 
     }
 
-    private Direction findDirection(Tank enemy, Tank self) {
-        if (Math.abs(enemy.getX() - self.getX()) > Math.abs(enemy.getY() - self.getY())) {
-            if (enemy.getX() > self.getX()) {
+    private Direction findDirection(Tank target, Tank self) {
+        if (Math.abs(target.getX() - self.getX()) > Math.abs(target.getY() - self.getY())) {
+            if (target.getX() > self.getX()) {
                 return Direction.Right;
             }
-            if (enemy.getX() < self.getX()) {
+            if (target.getX() < self.getX()) {
                 return Direction.Left;
             }
         } else {
-            if (enemy.getY() > self.getY()) {
+            if (target.getY() > self.getY()) {
                 return Direction.Down;
             }
-            if (enemy.getY() < self.getY()) {
+            if (target.getY() < self.getY()) {
                 return Direction.Up;
             }
         }
         return Direction.Right;
     }
+
+    private Direction findDirectionFlag(Flag target, Tank self) {
+        if (Math.abs(target.getX() - self.getX()) > Math.abs(target.getY() - self.getY())) {
+            if (target.getX() > self.getX()) {
+                return Direction.Right;
+            }
+            if (target.getX() < self.getX()) {
+                return Direction.Left;
+            }
+        } else {
+            if (target.getY() > self.getY()) {
+                return Direction.Down;
+            }
+            if (target.getY() < self.getY()) {
+                return Direction.Up;
+            }
+        }
+        return Direction.Right;
+    }
+
 }
