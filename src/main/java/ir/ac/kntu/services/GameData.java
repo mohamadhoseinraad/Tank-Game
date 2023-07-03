@@ -29,7 +29,7 @@ public class GameData {
 
     private List<SceneObject> sceneObjects = new ArrayList<>();
 
-    private GameStatus gameStatus = GameStatus.Running;
+    private GameStatus gameStatus = GameStatus.Stop;
 
     private ArrayList<Tank> playersTank = new ArrayList<>();
 
@@ -48,6 +48,8 @@ public class GameData {
     private Player currentPlayer = null;
 
     private Level level;
+
+    private int enemyNumber = 4;
 
 
     public ArrayList<Tank> getPlayersTank() {
@@ -107,7 +109,7 @@ public class GameData {
         this.map = map;
     }
 
-    public void resetGame() {
+    public void resetGame(Level level) {
         sceneObjects = new ArrayList<>();
         gameStatus = GameStatus.Running;
         playersTank = new ArrayList<>();
@@ -115,6 +117,7 @@ public class GameData {
         score = 0;
         enemyFreezing = true;
         sendGift = false;
+        applyLevel(level);
         if (player2Mode) {
             map = SceneHelper.readMapFile(DEFAULT_MAP_TWO_PLAYER);
         } else {
@@ -122,7 +125,7 @@ public class GameData {
         }
     }
 
-    public void resetAll() {
+    public void resetAll(Level level) {
         sceneObjects = new ArrayList<>();
         gameStatus = GameStatus.Running;
         playersTank = new ArrayList<>();
@@ -131,6 +134,7 @@ public class GameData {
         enemyFreezing = true;
         sendGift = false;
         player2Mode = false;
+        applyLevel(level);
     }
 
     public Player getCurrentPlayer() {
@@ -143,6 +147,14 @@ public class GameData {
 
     public Level getLevel() {
         return level;
+    }
+
+    public int getEnemyNumber() {
+        return enemyNumber;
+    }
+
+    public void minusEnemyNumber() {
+        enemyNumber--;
     }
 
     public void setLevel(Level level) {
@@ -165,6 +177,22 @@ public class GameData {
                     tank.setHealth(tank.getHealth() + 1);
                 }
             }
+        }
+    }
+
+    private void applyLevel(Level level) {
+        switch (level) {
+            case Level_1 -> enemyNumber = 10;
+            case Level_2 -> enemyNumber = 14;
+            case Level_3 -> enemyNumber = 18;
+            case Level_4 -> enemyNumber = 22;
+            case Level_5 -> enemyNumber = 26;
+            case Level_6 -> enemyNumber = 30;
+            case Level_7 -> enemyNumber = 34;
+            case Level_8 -> enemyNumber = 38;
+            case Level_9 -> enemyNumber = 42;
+            case Level_10 -> enemyNumber = 46;
+            default -> enemyNumber = 0;
         }
     }
 }

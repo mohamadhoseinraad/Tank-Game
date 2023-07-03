@@ -24,7 +24,7 @@ public class GamePage {
         SceneHelper.conformStage(stage, pane, scene);
         SceneHelper.makeGameScene(pane);
         gameData.setLevel(level);
-        gameData.resetGame();
+        gameData.resetGame(level);
         gameData.setGameStatus(GameStatus.Start);
         if (level == null) {
             gameData.setMap(SceneHelper.readMapFile(customMap));
@@ -41,8 +41,8 @@ public class GamePage {
                     if (countDownTimer.isEnd()) {
                         this.stop();
                         gameData.setEnemyFreezing(false);
-                        gameData.setGameStatus(GameStatus.Running);
                         gameLoop(pane, gameData, stage, scene);
+                        gameData.setGameStatus(GameStatus.Running);
                     }
                     lastUpdate = currentNanoTime;
                 }
@@ -62,7 +62,7 @@ public class GamePage {
                         gameData.setEnemyFreezing(true);
                         GameData.getInstance().updateUser();
                         this.stop();
-                        if (gameData.getEnemyTank().size() == 0) {
+                        if (gameData.getEnemyNumber() == 0) {
                             SceneHelper.makeEndGameWin(pane);
                         } else {
                             SceneHelper.makeEndGameLose(pane, stage, scene);
@@ -94,7 +94,9 @@ public class GamePage {
                 gameData.getSceneObjects().remove(sceneObject);
             }
         }
-        if (gameData.getPlayersTank().size() == 0 || gameData.getEnemyTank().size() == 0) {
+        if (gameData.getPlayersTank().size() == 0 ||
+                (gameData.getEnemyTank().size() == 0
+                        && gameData.getEnemyNumber() == 0)) {
             gameData.setGameStatus(GameStatus.Stop);
         }
     }

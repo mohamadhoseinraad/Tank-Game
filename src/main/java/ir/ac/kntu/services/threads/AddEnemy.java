@@ -32,7 +32,9 @@ public class AddEnemy extends Thread {
         while (true) {
             try {
                 sleep(1000); // wait for 1 second
-                if (i <= 3 && GameData.getInstance().getGameStatus() == GameStatus.Running) {
+                if (GameData.getInstance().getEnemyTank().size() < 4
+                        && GameData.getInstance().getEnemyNumber() > 0
+                        && GameData.getInstance().getGameStatus() == GameStatus.Running) {
                     Point point = findEmptyPoint();
                     TankType tankType = tankTypes[RandGenerate.getINSTANCE().getRanBetween(0, tankTypes.length)];
                     Tank sceneObject = new Tank(tankType, TankSide.Enemy, point.x, point.y, scale);
@@ -42,7 +44,7 @@ public class AddEnemy extends Thread {
                             GameData.getInstance().getEnemyTank().add(sceneObject);
                         }
                     }
-                    i++;
+                    GameData.getInstance().minusEnemyNumber();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
