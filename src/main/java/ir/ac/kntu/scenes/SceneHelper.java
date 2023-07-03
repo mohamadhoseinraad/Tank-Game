@@ -222,9 +222,7 @@ public class SceneHelper {
 
             }
         }
-        if (sceneObject != null) {
-            GameData.getInstance().getEnemyTank().add(sceneObject);
-        }
+        GameData.getInstance().getEnemyTank().add(sceneObject);
     }
 
     private static void addMapWall(List<SceneObject> sceneObjects) {
