@@ -133,14 +133,23 @@ public class StartMenu {
                                         HBox bottomOfPage, Scene scene, Pane pane, Stage stage) {
         Button loginButton = new Button("Log In");
         loginButton.setStyle("-fx-background-color: #808080; -fx-text-fill: white;");
+        Button signOut = new Button("Sing out");
+        signOut.setStyle("-fx-background-color: #808080; -fx-text-fill: white;");
+        Button signUpConfirmButton = new Button("Sign Up");
+        signUpConfirmButton.setStyle("-fx-background-color: #808080; -fx-text-fill: white;");
         loginButton.setOnMouseClicked(mouseEvent -> {
             if (PlayerService.getINSTANCE().login(usernameField.getText(), passwordField.getText())) {
                 makeLevelsButton(stage, pane, scene, bottomOfPage);
+                loginBox.getChildren().removeAll(loginButton, signUpConfirmButton);
+                loginBox.getChildren().add(signOut);
             }
         });
 
-        Button signUpConfirmButton = new Button("Sign Up");
-        signUpConfirmButton.setStyle("-fx-background-color: #808080; -fx-text-fill: white;");
+        signOut.setOnMouseClicked(mouseEvent -> {
+            GameData.getInstance().setCurrentPlayer(null);
+            makeMenuScene(stage, pane, scene);
+        });
+
         signUpConfirmButton.setOnMouseClicked(mouseEvent -> {
             PlayerService.getINSTANCE().singUp(usernameField.getText(), passwordField.getText());
         });
