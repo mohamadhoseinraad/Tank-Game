@@ -14,11 +14,10 @@ public class RandGenerate {
 
     public int getRanBetween(int from, int to) {
         int result;
-        return random.nextInt(from, to);
-//        do {
-//            result = random.nextInt();
-//        } while (!(result >= from && result < to));
-//        return result;
+        do {
+            result = random.nextInt(to);
+        } while (!(result >= from && result < to));
+        return result;
     }
 
     public static RandGenerate getINSTANCE() {
