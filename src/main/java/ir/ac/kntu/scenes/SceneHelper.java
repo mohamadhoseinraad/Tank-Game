@@ -213,13 +213,7 @@ public class SceneHelper {
                     switch (map[i][j]) {
                         case "B" -> sceneObjects.add(new Wall(WallType.Normal, x, y, scale));
                         case "M" -> sceneObjects.add(new Wall(WallType.Iron, x, y, scale));
-                        case "P" -> {
-                            Tank tank = new Tank(TankType.Player, TankSide.Player, x, y, scale);
-                            tank.setHealth(health);
-                            sceneObjects.add(tank);
-                            GameData.getInstance().getPlayersTank().add(tank);
-                        }
-                        case "F" -> sceneObjects.add(new Flag(x, y, scale));
+                        case "P", "F" -> attachPlayers(map[i][j], x, y, sceneObjects, health);
                         case "O", "A", "c", "C" -> attachEnemy(map[i][j], x, y, sceneObjects);
                         default -> {
 
@@ -230,6 +224,25 @@ public class SceneHelper {
             }
         }
         addMapWall(sceneObjects);
+    }
+
+    private static void attachPlayers(String s, double x, double y, List<SceneObject> sceneObjects, int health) {
+        switch (s) {
+            case "P" -> {
+                Tank tank = new Tank(TankType.Player, TankSide.Player, x, y, scale);
+                tank.setHealth(health);
+                sceneObjects.add(tank);
+                GameData.getInstance().getPlayersTank().add(tank);
+            }
+            case "F" -> {
+                Flag flag = new Flag(x, y, scale);
+                sceneObjects.add(flag);
+                GameData.getInstance().setPlayersFlag(flag);
+            }
+            default -> {
+
+            }
+        }
     }
 
     private static void attachEnemy(String s, double x, double y, List<SceneObject> sceneObjects) {

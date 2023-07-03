@@ -4,6 +4,7 @@ import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.models.Level;
 import ir.ac.kntu.models.Player;
+import ir.ac.kntu.models.gameObjects.Flag;
 import ir.ac.kntu.models.gameObjects.SceneObject;
 import ir.ac.kntu.models.gameObjects.operatorGift.GifType;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
@@ -32,6 +33,8 @@ public class GameData {
     private GameStatus gameStatus = GameStatus.Stop;
 
     private ArrayList<Tank> playersTank = new ArrayList<>();
+
+    private Flag playersFlag = null;
 
     private ArrayList<Tank> enemyTank = new ArrayList<>();
 
@@ -199,5 +202,13 @@ public class GameData {
                 default -> enemyNumber = 0;
             }
         }
+    }
+
+    public Flag getPlayersFlag() {
+        return playersFlag;
+    }
+
+    public void setPlayersFlag(Flag playersFlag) {
+        this.playersFlag = playersFlag;
     }
 }

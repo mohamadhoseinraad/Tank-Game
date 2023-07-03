@@ -94,6 +94,7 @@ public class GamePage {
             }
         }
         if (gameData.getPlayersTank().size() == 0 ||
+                !GameData.getInstance().getPlayersFlag().isVisible() ||
                 (gameData.getEnemyTank().size() == 0
                         && gameData.getEnemyNumber() == 0)) {
             gameData.setGameStatus(GameStatus.Stop);
