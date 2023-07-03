@@ -8,7 +8,7 @@ import ir.ac.kntu.models.gameObjects.Flag;
 import ir.ac.kntu.models.gameObjects.SceneObject;
 import ir.ac.kntu.models.gameObjects.operatorGift.GifType;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
-import ir.ac.kntu.scenes.GameEnvironmentHelper;
+import ir.ac.kntu.scenes.game.GameEnvironmentHelper;
 
 import java.util.ArrayList;
 import java.util.List;

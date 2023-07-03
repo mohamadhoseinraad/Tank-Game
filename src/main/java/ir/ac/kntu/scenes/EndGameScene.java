@@ -1,6 +1,8 @@
 package ir.ac.kntu.scenes;
 
 import ir.ac.kntu.models.Level;
+import ir.ac.kntu.scenes.game.GamePage;
+import ir.ac.kntu.scenes.start.StartMenu;
 import ir.ac.kntu.services.GameData;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;

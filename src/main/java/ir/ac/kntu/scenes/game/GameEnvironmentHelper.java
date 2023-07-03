@@ -1,4 +1,4 @@
-package ir.ac.kntu.scenes;
+package ir.ac.kntu.scenes.game;
 
 import ir.ac.kntu.GlobalConstance;
 import ir.ac.kntu.models.gameObjects.Flag;

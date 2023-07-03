@@ -1,7 +1,7 @@
 package ir.ac.kntu;
 
 import ir.ac.kntu.scenes.SceneHelper;
-import ir.ac.kntu.scenes.StartMenu;
+import ir.ac.kntu.scenes.start.StartMenu;
 import ir.ac.kntu.services.threads.AddEnemy;
 import ir.ac.kntu.services.threads.EnemyTankMovement;
 import ir.ac.kntu.services.threads.GiveGift;

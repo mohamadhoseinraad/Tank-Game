@@ -1,5 +1,6 @@
-package ir.ac.kntu.scenes;
+package ir.ac.kntu.scenes.start;
 
+import ir.ac.kntu.scenes.StageHelper;
 import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.services.PlayerService;
 import javafx.scene.Scene;
@@ -47,7 +48,8 @@ public class LoginPage {
     }
 
     public static void singUpEvent(TextField usernameField, PasswordField passwordField, Button signUpConfirmButton) {
-        signUpConfirmButton.setOnMouseClicked(mouseEvent -> PlayerService.getINSTANCE().singUp(usernameField.getText(), passwordField.getText()));
+        signUpConfirmButton.setOnMouseClicked(mouseEvent -> PlayerService.getINSTANCE().singUp(usernameField.getText(),
+                passwordField.getText()));
     }
 
     @NotNull

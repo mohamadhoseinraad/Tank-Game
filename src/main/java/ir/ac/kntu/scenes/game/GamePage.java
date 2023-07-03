@@ -1,5 +1,7 @@
-package ir.ac.kntu.scenes;
+package ir.ac.kntu.scenes.game;
 
+import ir.ac.kntu.scenes.EndGameScene;
+import ir.ac.kntu.scenes.SceneHelper;
 import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.models.Level;
@@ -46,7 +48,8 @@ public class GamePage {
         gameData.setGameStatus(GameStatus.Running);
     }
 
-    private static void conformationGame(Level level, Stage stage, Pane pane, Scene scene, GameData gameData, int health) {
+    private static void conformationGame(Level level, Stage stage, Pane pane, Scene scene,
+                                         GameData gameData, int health) {
         SceneHelper.conformStage(stage, pane, scene);
         SceneHelper.makeGameScene(pane);
         gameData.resetGame(level);
