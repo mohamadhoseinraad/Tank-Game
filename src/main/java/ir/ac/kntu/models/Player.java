@@ -3,6 +3,7 @@ package ir.ac.kntu.models;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Player implements Serializable, Comparable {
     private final String username;
@@ -89,5 +90,18 @@ public class Player implements Serializable, Comparable {
 
     public void setLastLevel(Level lastLevel) {
         this.lastLevel = lastLevel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return username.equals(player.username) && password.equals(player.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password);
     }
 }
