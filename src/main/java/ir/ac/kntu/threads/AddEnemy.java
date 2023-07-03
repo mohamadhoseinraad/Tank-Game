@@ -1,6 +1,7 @@
 package ir.ac.kntu.threads;
 
 import ir.ac.kntu.GameData;
+import ir.ac.kntu.RandGenerate;
 import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.models.gameObjects.Direction;
 import ir.ac.kntu.models.gameObjects.Flag;
@@ -37,7 +38,7 @@ public class AddEnemy extends Thread {
                 sleep(1000); // wait for 1 second
                 if (i <= 3 && GameData.getInstance().getGameStatus() == GameStatus.Running) {
                     Point point = findEmptyPoint();
-                    TankType tankType = tankTypes[new Random().nextInt(0, tankTypes.length)];
+                    TankType tankType = tankTypes[RandGenerate.getINSTANCE().getRanBetween(0, tankTypes.length)];
                     Tank sceneObject = new Tank(tankType, TankSide.Enemy, point.x, point.y, scale);
                     synchronized (GameData.getInstance().getSceneObjects()) {
                         GameData.getInstance().getSceneObjects().add(sceneObject);
@@ -69,7 +70,7 @@ public class AddEnemy extends Thread {
         }
         int x, y;
         do {
-            x = new Random().nextInt(0, mapSize);
+            x = RandGenerate.getINSTANCE().getRanBetween(0, mapSize);
             y = 0;
         } while (nowayMap[y][x] == 1);
         x = (int) (MAP_FIRST_X + x * scale);
