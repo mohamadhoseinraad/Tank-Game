@@ -1,8 +1,10 @@
 package ir.ac.kntu.models;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 
-public class Player implements Serializable {
+public class Player implements Serializable, Comparable {
     private final String username;
 
     private final String password;
@@ -72,5 +74,16 @@ public class Player implements Serializable {
 
     public boolean login(String username, String password) {
         return username.equals(this.username) && password.equals(this.password);
+    }
+
+    @Override
+    public int compareTo(@NotNull Object o) {
+        Player secP = (Player) o;
+        if (secP.getHighScore() > highScore) {
+            return -1;
+        } else if (secP.getHighScore() < highScore) {
+            return 1;
+        }
+        return 0;
     }
 }

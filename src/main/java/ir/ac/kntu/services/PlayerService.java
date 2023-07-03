@@ -3,6 +3,9 @@ package ir.ac.kntu.services;
 import ir.ac.kntu.models.Player;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class PlayerService {
     private ArrayList<Player> players;
@@ -31,7 +34,7 @@ public class PlayerService {
         update();
     }
 
-    private Player findPlayer(String username, String password) {
+    public Player findPlayer(String username, String password) {
         for (Player player : players) {
             if (player.login(username, password)) {
                 return player;
@@ -46,5 +49,24 @@ public class PlayerService {
             return true;
         }
         return false;
+    }
+
+    public ArrayList<Player> getTopPlayers() {
+        ArrayList<Player> result = new ArrayList<>();
+        ArrayList<Player> cpy = new ArrayList<>(players);
+        Collections.sort(cpy, Collections.reverseOrder());
+        int i = 1;
+        for (Player player : cpy) {
+            result.add(player);
+            if (i == 10) {
+                break;
+            }
+            i++;
+        }
+        return result;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
     }
 }

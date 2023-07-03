@@ -1,8 +1,10 @@
 package ir.ac.kntu.scenes;
 
 import ir.ac.kntu.models.Level;
+import ir.ac.kntu.models.Player;
 import ir.ac.kntu.services.GameData;
 import ir.ac.kntu.GlobalConstance;
+import ir.ac.kntu.services.PlayerService;
 import ir.ac.kntu.services.eventHandler.EventHandler;
 import ir.ac.kntu.models.gameObjects.Flag;
 import ir.ac.kntu.models.gameObjects.SceneObject;
@@ -29,6 +31,8 @@ import javafx.stage.Stage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static ir.ac.kntu.GlobalConstance.*;
@@ -330,5 +334,33 @@ public class SceneHelper {
         secondStage.show();
     }
 
+    public static void rankPlayersStage() {
+        Stage secondStage = new Stage();
+        Pane secondPane = new Pane();
+        Scene secondScene = new Scene(secondPane);
+        VBox vBox = new VBox();
+
+        ArrayList<Player> dataTopPlayers = PlayerService.getINSTANCE().getTopPlayers();
+        dataTopPlayers.forEach((player) -> {
+            Label fileLabel = new Label(player.getUsername() + "-" + player.getHighScore());
+            fileLabel.setTextFill(Color.BLACK);
+            fileLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+            vBox.getChildren().add(fileLabel);
+        });
+
+        Button save = new Button("Ok");
+        save.setStyle("-fx-background-color: #808080; -fx-text-fill: white;");
+        save.setOnMouseClicked(mouseEvent -> {
+            secondStage.close();
+        });
+
+        vBox.getChildren().addAll(save);
+        vBox.setAlignment(Pos.CENTER);
+        secondPane.getChildren().add(vBox);
+        secondStage.setScene(secondScene);
+        secondStage.setWidth(200);
+        secondStage.setHeight(400);
+        secondStage.show();
+    }
 
 }
