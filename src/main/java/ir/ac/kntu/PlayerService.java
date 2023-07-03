@@ -40,9 +40,11 @@ public class PlayerService {
         return null;
     }
 
-    public void login(String username, String password) {
+    public boolean login(String username, String password) {
         if (findPlayer(username, password) != null) {
             GameData.getInstance().setCurrentPlayer(findPlayer(username, password));
+            return true;
         }
+        return false;
     }
 }

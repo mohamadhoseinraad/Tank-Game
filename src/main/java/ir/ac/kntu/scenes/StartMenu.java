@@ -30,10 +30,8 @@ public class StartMenu {
         VBox page = new VBox();
         HBox topOfPage = makeTitleGame();
         HBox bottomOfPage = new HBox();
-        VBox loginBox = loginBox();
-        HBox levelsButtons = makeLevelsButton(stage, pane, scene);
+        VBox loginBox = loginBox(bottomOfPage, scene, pane, stage);
         bottomOfPage.getChildren().add(loginBox);
-        bottomOfPage.getChildren().add(levelsButtons);
         page.getChildren().add(topOfPage);
         page.getChildren().add(bottomOfPage);
         root.setCenter(page);
@@ -41,7 +39,7 @@ public class StartMenu {
     }
 
 
-    private static HBox makeLevelsButton(Stage stage, Pane pane, Scene scene) {
+    private static HBox makeLevelsButton(Stage stage, Pane pane, Scene scene, HBox bottomOfPage) {
         HBox levelsButtons = new HBox();
         VBox optionButtons = makeOptionsButton(stage, pane, scene);
         VBox levelsButtonsLeft = new VBox();
@@ -59,6 +57,7 @@ public class StartMenu {
         levelsButtons.getChildren().add(levelsButtonsRight);
         levelsButtons.getChildren().add(optionButtons);
 
+        bottomOfPage.getChildren().add(levelsButtons);
         return levelsButtons;
     }
 
@@ -102,7 +101,7 @@ public class StartMenu {
         return optionButtons;
     }
 
-    private static VBox loginBox() {
+    private static VBox loginBox(HBox bottomOfPage, Scene scene, Pane pane, Stage stage) {
         VBox loginBox;
         TextField usernameField;
         PasswordField passwordField;
@@ -124,17 +123,20 @@ public class StartMenu {
 
 
         loginBox.getChildren().addAll(loginLabel, usernameField, passwordField);
-        loginBoxButtons(loginBox, usernameField, passwordField);
+        loginBoxButtons(loginBox, usernameField, passwordField, bottomOfPage, scene, pane, stage);
 
         loginBox.setPadding(new Insets(30));
         return loginBox;
     }
 
-    private static void loginBoxButtons(VBox loginBox, TextField usernameField, PasswordField passwordField) {
+    private static void loginBoxButtons(VBox loginBox, TextField usernameField, PasswordField passwordField,
+                                        HBox bottomOfPage, Scene scene, Pane pane, Stage stage) {
         Button loginButton = new Button("Log In");
         loginButton.setStyle("-fx-background-color: #808080; -fx-text-fill: white;");
         loginButton.setOnMouseClicked(mouseEvent -> {
-            PlayerService.getINSTANCE().login(usernameField.getText(), passwordField.getText());
+            if (PlayerService.getINSTANCE().login(usernameField.getText(), passwordField.getText())) {
+                makeLevelsButton(stage, pane, scene, bottomOfPage);
+            }
         });
 
         Button signUpConfirmButton = new Button("Sign Up");
