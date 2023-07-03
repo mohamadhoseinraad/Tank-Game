@@ -25,6 +25,7 @@ public class GamePage {
         SceneHelper.makeGameScene(pane);
         gameData.setLevel(level);
         gameData.resetGame();
+        gameData.setGameStatus(GameStatus.Start);
         if (level == null) {
             gameData.setMap(SceneHelper.readMapFile(customMap));
         }
