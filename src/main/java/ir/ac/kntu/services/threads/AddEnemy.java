@@ -66,7 +66,7 @@ public class AddEnemy extends Thread {
         }
         int x, y;
         do {
-            x = RandGenerate.getINSTANCE().getRanBetween(0, mapSize);
+            x = RandGenerate.getINSTANCE().getRanEnemyLoc();
             y = 0;
         } while (nowayMap[y][x] == 1);
         x = (int) (MAP_FIRST_X + x * scale);
