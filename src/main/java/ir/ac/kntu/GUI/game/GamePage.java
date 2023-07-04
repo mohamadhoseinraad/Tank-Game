@@ -7,6 +7,7 @@ import ir.ac.kntu.models.GameStatus;
 import ir.ac.kntu.models.Level;
 import ir.ac.kntu.models.CountDownTimer;
 import ir.ac.kntu.models.SceneObject;
+import ir.ac.kntu.services.threads.ShotSoundPlay;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -31,6 +32,9 @@ public class GamePage {
             public void handle(long currentNanoTime) {
                 if (currentNanoTime - lastUpdate >= 1_000_000_000) {
                     update(gameData);
+                    if (!countDownTimer.isEnd()){
+                        ShotSoundPlay.setIsBeep(true);
+                    }
                     draw(gameData, pane);
                     if (countDownTimer.isEnd()) {
                         this.stop();

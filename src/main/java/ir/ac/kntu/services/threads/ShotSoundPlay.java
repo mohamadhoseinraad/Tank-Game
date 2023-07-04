@@ -17,6 +17,8 @@ public class ShotSoundPlay implements Runnable {
 
     private static boolean isLegendary = false;
 
+    private static boolean isBeep = false;
+
 
     private static File shot = null;
 
@@ -28,6 +30,8 @@ public class ShotSoundPlay implements Runnable {
 
     private static File shotDown = null;
 
+    private static File beep = null;
+
 
     public ShotSoundPlay() {
         shot = new File("src/main/resources/sounds/shot.mp3");
@@ -35,6 +39,7 @@ public class ShotSoundPlay implements Runnable {
         defeat = new File("src/main/resources/sounds/Lose-defeat.mp3");
         legendary = new File("src/main/resources/sounds/extra-shot-legendary.mp3");
         shotDown = new File("src/main/resources/sounds/freez-shutDown.mp3");
+        beep = new File("src/main/resources/sounds/beep.mp3");
 
     }
 
@@ -45,27 +50,39 @@ public class ShotSoundPlay implements Runnable {
                 playShotSound();
                 isFired = false;
             }
-            if (isVictory) {
-                playVictory();
-                isVictory = false;
-            }
-            if (isDefeat) {
-                playDefeat();
-                isDefeat = false;
-            }
-            if (isLegendary) {
-                playLegendary();
-                isLegendary = false;
-            }
-            if (isShotDown) {
-                playShotDown();
-                isShotDown = false;
-            }
+            checkStartAndEnd();
+            checkGift();
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private static void checkStartAndEnd() {
+        if (isVictory) {
+            playVictory();
+            isVictory = false;
+        }
+        if (isBeep) {
+            playBeep();
+            isBeep = false;
+        }
+        if (isDefeat) {
+            playDefeat();
+            isDefeat = false;
+        }
+    }
+
+    private static void checkGift() {
+        if (isLegendary) {
+            playLegendary();
+            isLegendary = false;
+        }
+        if (isShotDown) {
+            playShotDown();
+            isShotDown = false;
         }
     }
 
@@ -87,6 +104,10 @@ public class ShotSoundPlay implements Runnable {
 
     public static void setIsLegendary(boolean isLegendary) {
         ShotSoundPlay.isLegendary = isLegendary;
+    }
+
+    public static void setIsBeep(boolean isBeep) {
+        ShotSoundPlay.isBeep = isBeep;
     }
 
     public static void playShotSound() {
@@ -134,4 +155,12 @@ public class ShotSoundPlay implements Runnable {
         }
     }
 
+    public static void playBeep() {
+        try {
+            Player beepSound = new Player(new FileInputStream(beep));
+            beepSound.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
