@@ -9,6 +9,7 @@ import ir.ac.kntu.models.SceneObject;
 import ir.ac.kntu.models.gameObjects.operatorGift.GifType;
 import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.GUI.game.GameEnvironmentHelper;
+import ir.ac.kntu.services.threads.ShotSoundPlay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,8 +159,14 @@ public class GameData {
 
     public void applyGift(GifType gifType) {
         switch (gifType) {
-            case Enemy_Freezing -> enemyFreezing = true;
-            case Extra_Shot -> GlobalConstance.applyPowerPlayerShotDamage();
+            case Enemy_Freezing -> {
+                enemyFreezing = true;
+                ShotSoundPlay.setIsShotDown(true);
+            }
+            case Extra_Shot -> {
+                GlobalConstance.applyPowerPlayerShotDamage();
+                ShotSoundPlay.setIsLegendary(true);
+            }
             default -> {
                 for (Tank tank : playersTank) {
                     tank.setHealth(tank.getHealth() + 1);

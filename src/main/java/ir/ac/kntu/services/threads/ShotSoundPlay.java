@@ -13,17 +13,29 @@ public class ShotSoundPlay implements Runnable {
 
     private static boolean isDefeat = false;
 
+    private static boolean isShotDown = false;
+
+    private static boolean isLegendary = false;
+
+
     private static File shot = null;
 
     private static File victory = null;
 
     private static File defeat = null;
 
+    private static File legendary = null;
+
+    private static File shotDown = null;
+
 
     public ShotSoundPlay() {
         shot = new File("src/main/resources/sounds/shot.mp3");
         victory = new File("src/main/resources/sounds/win-victory.mp3");
         defeat = new File("src/main/resources/sounds/Lose-defeat.mp3");
+        legendary = new File("src/main/resources/sounds/extra-shot-legendary.mp3");
+        shotDown = new File("src/main/resources/sounds/freez-shutDown.mp3");
+
     }
 
     @Override
@@ -40,6 +52,14 @@ public class ShotSoundPlay implements Runnable {
             if (isDefeat) {
                 playDefeat();
                 isDefeat = false;
+            }
+            if (isLegendary) {
+                playLegendary();
+                isLegendary = false;
+            }
+            if (isShotDown) {
+                playShotDown();
+                isShotDown = false;
             }
             try {
                 Thread.sleep(1);
@@ -59,6 +79,14 @@ public class ShotSoundPlay implements Runnable {
 
     public static void setIsDefeat(boolean isDefeat) {
         ShotSoundPlay.isDefeat = isDefeat;
+    }
+
+    public static void setIsShotDown(boolean isShotDown) {
+        ShotSoundPlay.isShotDown = isShotDown;
+    }
+
+    public static void setIsLegendary(boolean isLegendary) {
+        ShotSoundPlay.isLegendary = isLegendary;
     }
 
     public static void playShotSound() {
@@ -83,6 +111,24 @@ public class ShotSoundPlay implements Runnable {
         try {
             Player defeatSound = new Player(new FileInputStream(defeat));
             defeatSound.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void playLegendary() {
+        try {
+            Player legendarySound = new Player(new FileInputStream(legendary));
+            legendarySound.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void playShotDown() {
+        try {
+            Player shotDownSound = new Player(new FileInputStream(shotDown));
+            shotDownSound.play();
         } catch (Exception e) {
             e.printStackTrace();
         }
