@@ -30,9 +30,9 @@ public class RandGenerate {
         if (result == 1) {
             return 0;
         } else if (result == 2) {
-            return mapSize / 4;
+            return mapSize / 4 +1;
         } else if (result == 3) {
-            return mapSize / 2;
+            return mapSize / 4*3;
         } else {
             return mapSize - 1;
         }

@@ -40,11 +40,15 @@ public class EnemyTankMovement extends Thread {
             Direction direction = Direction.Up;
             if (GameData.getInstance().getPlayersTank().size() != 0) {
 
-                direction = findDirection(GameData.getInstance().getPlayersTank().get(0), enemyTank);
+                if (isPlayerNear(enemyTank)) {
+                    direction = findDirection(GameData.getInstance().getPlayersTank().get(0), enemyTank);
+                } else {
+                    direction = findDirectionFlag(GameData.getInstance().getPlayersFlag(), enemyTank);
+                }
             }
-            if (!enemyTank.move(enemyTank.getScale() / 5, direction)) {
+            if (!enemyTank.move(1, direction)) {
                 direction = directions[RandGenerate.getINSTANCE().getRanBetween(0, directions.length)];
-                enemyTank.move(enemyTank.getScale() / 5, direction);
+                enemyTank.move(1, direction);
             }
             enemyTank.fire();
 
@@ -88,6 +92,18 @@ public class EnemyTankMovement extends Thread {
             }
         }
         return Direction.Right;
+    }
+
+    private boolean isPlayerNear(Tank self) {
+        Tank target = GameData.getInstance().getPlayersTank().get(0);
+        double distance1 = Math.pow(Math.abs(target.getX() - self.getX()), 2) +
+                Math.pow(Math.abs(target.getY() - self.getY()), 2);
+        Flag target2 = GameData.getInstance().getPlayersFlag();
+        double distance2 = Math.pow(Math.abs(target2.getX() - self.getX()), 2) +
+                Math.pow(Math.abs(target2.getY() - self.getY()), 2);
+
+        return distance1 < distance2;
+
     }
 
 }

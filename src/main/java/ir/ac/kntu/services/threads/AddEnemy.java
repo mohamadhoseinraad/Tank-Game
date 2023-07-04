@@ -10,6 +10,7 @@ import ir.ac.kntu.models.gameObjects.tank.Tank;
 import ir.ac.kntu.models.gameObjects.tank.TankSide;
 import ir.ac.kntu.models.gameObjects.tank.TankType;
 import ir.ac.kntu.models.gameObjects.wall.Wall;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -30,19 +31,9 @@ public class AddEnemy extends Thread {
         while (true) {
             try {
                 sleep(1000); // wait for 1 second
-                if (GameData.getInstance().getEnemyTank().size() < 4
-                        && GameData.getInstance().getEnemyNumber() > 0
-                        && GameData.getInstance().getGameStatus() == GameStatus.Running) {
-                    Point point = findEmptyPoint();
-                    TankType tankType = tankTypes[RandGenerate.getINSTANCE().getRanBetween(0, tankTypes.length)];
-                    Tank sceneObject = new Tank(tankType, TankSide.Enemy, point.x, point.y, scale);
-                    synchronized (GameData.getInstance().getSceneObjects()) {
-                        GameData.getInstance().getSceneObjects().add(sceneObject);
-                        synchronized (GameData.getInstance().getEnemyTank()) {
-                            GameData.getInstance().getEnemyTank().add(sceneObject);
-                        }
-                    }
-                    GameData.getInstance().minusEnemyNumber();
+                if (canAddEnemy()) {
+                    Tank sceneObject = createEnemy(tankTypes);
+                    addEnemyToGame(sceneObject);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -50,9 +41,45 @@ public class AddEnemy extends Thread {
         }
     }
 
+    @NotNull
+    private Tank createEnemy(TankType[] tankTypes) {
+        Point point = findEmptyPoint();
+        TankType tankType = tankTypes[RandGenerate.getINSTANCE().getRanBetween(0, tankTypes.length)];
+        Tank sceneObject = new Tank(tankType, TankSide.Enemy, point.x, point.y, scale);
+        return sceneObject;
+    }
+
+    private static void addEnemyToGame(Tank sceneObject) {
+        synchronized (GameData.getInstance().getSceneObjects()) {
+            GameData.getInstance().getSceneObjects().add(sceneObject);
+            synchronized (GameData.getInstance().getEnemyTank()) {
+                GameData.getInstance().getEnemyTank().add(sceneObject);
+            }
+        }
+        GameData.getInstance().minusEnemyNumber();
+    }
+
+    private static boolean canAddEnemy() {
+        return GameData.getInstance().getEnemyTank().size() < 4
+                && GameData.getInstance().getEnemyNumber() > 0
+                && GameData.getInstance().getGameStatus() == GameStatus.Running;
+    }
+
     private Point findEmptyPoint() {
         int[][] nowayMap = new int[mapSize][mapSize];
         List<SceneObject> copyOfSceneObjects = new ArrayList<>(GameData.getInstance().getSceneObjects());
+        updateNoWayMap(nowayMap, copyOfSceneObjects);
+        int x, y;
+        do {
+            x = RandGenerate.getINSTANCE().getRanEnemyLoc();
+            y = 0;
+        } while (nowayMap[y][x] == 1);
+        x = (int) (MAP_FIRST_X + x * scale);
+        y = (int) (MAP_FIRST_Y + y * scale);
+        return new Point(x, y);
+    }
+
+    private void updateNoWayMap(int[][] nowayMap, List<SceneObject> copyOfSceneObjects) {
         for (SceneObject sceneObject : copyOfSceneObjects) {
             if (sceneObject instanceof Wall wall) {
                 applyWall(nowayMap, wall);
@@ -64,14 +91,6 @@ public class AddEnemy extends Thread {
                 applyGift(nowayMap, gift);
             }
         }
-        int x, y;
-        do {
-            x = RandGenerate.getINSTANCE().getRanEnemyLoc();
-            y = 0;
-        } while (nowayMap[y][x] == 1);
-        x = (int) (MAP_FIRST_X + x * scale);
-        y = (int) (MAP_FIRST_Y + y * scale);
-        return new Point(x, y);
     }
 
     private static void applyGift(int[][] nowayMap, OperatorGift gift) {
