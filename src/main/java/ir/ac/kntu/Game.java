@@ -5,6 +5,7 @@ import ir.ac.kntu.GUI.start.StartMenu;
 import ir.ac.kntu.services.threads.AddEnemy;
 import ir.ac.kntu.services.threads.EnemyTankMovement;
 import ir.ac.kntu.services.threads.GiveGift;
+import ir.ac.kntu.services.threads.ShotSoundPlay;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -23,6 +24,7 @@ public class Game extends Application {
         enemyTankThread();
         giveGift();
         addEnemy();
+        soundThread();
         StartMenu.makeMenuScene(stage, PANE, SCENE);
         stage.show();
     }
@@ -46,6 +48,12 @@ public class Game extends Application {
     public static void addEnemy() {
         AddEnemy addEnemy = new AddEnemy();
         Thread addEnemyThread = new Thread(addEnemy);
+        addEnemyThread.start();
+    }
+
+    public static void soundThread() {
+        ShotSoundPlay soundPlay = new ShotSoundPlay();
+        Thread addEnemyThread = new Thread(soundPlay);
         addEnemyThread.start();
     }
 

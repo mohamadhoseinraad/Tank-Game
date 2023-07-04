@@ -4,6 +4,7 @@ import ir.ac.kntu.models.Level;
 import ir.ac.kntu.GUI.game.GamePage;
 import ir.ac.kntu.GUI.start.StartMenu;
 import ir.ac.kntu.services.GameData;
+import ir.ac.kntu.services.threads.ShotSoundPlay;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -37,12 +38,13 @@ public class EndGameScene {
     }
 
     private static void createLoseMassage(Pane pane) {
-        Text gameOver = new Text("Game Over");
+        Text gameOver = new Text("!DEFEAT!");
         gameOver.setFont(new Font(50));
         gameOver.setX(MAP_FIRST_X + (double) mapHeight / 2 - 150);
         gameOver.setY(MAP_FIRST_Y + (double) mapHeight / 2);
         gameOver.setFill(Color.RED);
         pane.getChildren().add(gameOver);
+        ShotSoundPlay.setIsDefeat(true);
     }
 
     public static void endGameWinMassage(Pane pane, Stage stage, Scene scene, int playerHealth) {
@@ -74,12 +76,13 @@ public class EndGameScene {
     }
 
     private static void createMassageWin(Pane pane) {
-        Text gameOver = new Text("Win");
+        Text gameOver = new Text("VICTORY");
         gameOver.setFont(new Font(50));
         gameOver.setX(MAP_FIRST_X + (double) mapHeight / 2);
         gameOver.setY(MAP_FIRST_Y + (double) mapHeight / 2);
         gameOver.setFill(Color.GREEN);
         pane.getChildren().add(gameOver);
+        ShotSoundPlay.setIsVictory(true);
     }
 
     private static void updateLevel() {

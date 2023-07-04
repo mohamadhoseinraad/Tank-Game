@@ -6,6 +6,7 @@ import ir.ac.kntu.models.gameObjects.Shot;
 import ir.ac.kntu.models.gameObjects.Direction;
 import ir.ac.kntu.models.GameObjectHelper;
 import ir.ac.kntu.models.SceneObject;
+import ir.ac.kntu.services.threads.ShotSoundPlay;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
@@ -96,6 +97,9 @@ public class Tank implements SceneObject {
     public void fire() {
         GameData.getInstance().getSceneObjects().add(new Shot(tankSide, x + scale / 2, y + scale / 2,
                 scale / 3, playerShotDamage, direction));
+        if (tankSide == TankSide.Player) {
+            ShotSoundPlay.setFired(true);
+        }
     }
 
     public boolean collidesWith(SceneObject object) {
